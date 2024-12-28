@@ -1,10 +1,22 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import { homePageContent, identity } from "../config";
+import { homePageContent, identity, aboutPageContent } from "../config";
 import SocialLink from "../components/SocialLink.astro";
 import Link from "../components/Link.astro";
 import { getCollection } from "astro:content";
+import { Markdown } from "@astropub/md";
+import SocialLinkBox from "../components/SocialLinkBox.astro";
+import ResumeItem from "../components/ResumeItem.astro";
+import { Icon } from "astro-icon/components";
+
+const projects = [
+  {
+    favicon: "https://life-in-skills.almostapps.eu/logo.svg",
+    title: "Life in Skills",
+    description: "Gamified habit builder and tracker.",
+  }
+];
 
 const posts = await getCollection("posts");
 posts.sort((a, b) => {
@@ -16,9 +28,7 @@ posts.splice(2)
 ---
 
 <Layout seo={homePageContent.seo}>
-  <section class="mt-10 max-w-2xl mx-auto px-6">
-    <h1 class="font-bold text-3xl mb-1">{identity.name}</h1>
-    <p class="opacity-60 mb-10">{homePageContent.role}</p>
+  <section class="mt-6 max-w-2xl mx-auto px-6">
     <div class="flex flex-col min-[520px]:flex-row gap-6 mb-8">
       <Image
         src={identity.logo}
@@ -27,50 +37,91 @@ posts.splice(2)
         height={100}
         class="rounded-full"
       />
-      <div class="group flex flex-col justify-center gap-2 w-fit">
-        {
-          homePageContent.socialLinks.map((link) => (
-            <SocialLink
-              title={link.title}
-              url={link.url}
-              icon={link.icon}
-              external={link.external}
-            />
-          ))
-        }
+      <div class="group flex flex-col justify-center w-fit">
+        <h1 class="font-bold text-3xl mb-1">{identity.name}</h1>
+        <p class="text-[rgba(255,255,255,0.6)]">Engineering Lead at <a class="hover-underline hover-underline-appwrite text-[#FD366E]" href="https://appwrite.io/" target="_blank">Appwrite</a></p>
       </div>
     </div>
-    <p class="max-w-md mb-8">
+    <p class="max-w-md mb-4">
       {homePageContent.description}
     </p>
-    <div class="flex items-center gap-4 group w-fit">
+    <Link text="About me" href="/about" external={false} />
+  </section>
+
+    <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
+    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
       {
-        homePageContent.links.map((link) => (
-          <Link text={link.title} href={link.url} external={link.external} />
+        projects.map((project) => (
+          <a
+            class="p-4 rounded-lg border border-white border-opacity-10 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
+
+            href={`/projects/ID`}
+              target="self"
+          >
+
+  <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+    <img src={project.favicon} width={30} height={30} />
+    </div>
+  <div class="w-full">
+    <div class="flex gap-2">
+      <p class="text-xl">{project.title}</p>
+      <button class="flex px-2 py-0 gap-1 items-center rounded-full bg-white bg-opacity-10">
+        <Icon name="mdi:github" size={14} />
+        <span class="text-xs">Meldiron/life-in-skills</span>
+      </button>
+    </div>
+    <p class="mt-0.5 opacity-70 text-sm">{project.description}</p>
+  </div>
+  <div class="rotate-45">
+      <Icon name="mdi:arrow-up" />
+    </div>
+
+
+
+          </a>
         ))
       }
     </div>
+    <Link text="View all projects" href="/projects" external={false} />
   </section>
-  <section class="mt-20 max-w-2xl mx-auto px-6">
-    <h2 class="mb-8">Latest Posts</h2>
-    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-10">
+
+
+    <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Tech stack</h2>
+    <div>
+      {homePageContent.techstack.map((item) =>    <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-30 w-[fit-content] flex items-center gap-2">
+        <Icon name={item.icon} width={20} height={20} />
+        <p class="text-sm">{item.name}</p>
+      </div>)}
+   
+    </div>
+
+    </section>
+    <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">My Carreer</h2>
+    <div>
+      <div class="mb-6">
+        <Markdown of={aboutPageContent.work.description} />
+      </div>
+      <div class="grid grid-cols-1 group">
+        {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
+      </div>
+       <div class="mt-4"><Link text="Download my CV" href="/about" external={false} /></div>
+    </div>
+  </section>
+  <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Latest Posts</h2>
+    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
       {
         posts.map((post) => (
           <a
             href={`/blog/${post.slug}`}
-            class=" sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 post"
           >
-            <Image
-              src={post.data.image.url}
-              alt={post.data.image.url}
-              width={100}
-              height={100}
-              class={"rounded-lg w-[100px] h-[100px] object-cover"}
-            />
-            <div class="mt-4 sm:my-auto">
-              <p class="opacity-60 mb-2">
-                {post.data.pubDate.toLocaleDateString()}
+            <p class="opacity-60 mb-2 text-xs">
+                {post.data.pubDate.getDate()}.{post.data.pubDate.getMonth() + 1}.{post.data.pubDate.getFullYear()}
               </p>
+            <div>
               <h3 class="font-medium hover-underline">{post.data.title}</h3>
               <p class="text-sm opacity-60 mt-2 mb-3">{post.data.description}</p>
             </div>
@@ -78,12 +129,21 @@ posts.splice(2)
         ))
       }
     </div>
-    <div class="text-center">
-      <a
-        href="/blog"
-        class="underline underline-offset-4 opacity-60 hover:opacity-100 transition-opacity"
-        >View all</a
-      >
+    <Link text="View all articles" href="/blog" external={false} />
+  </section>
+  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's Connect</h2>
+    <div>
+      <div class="mb-6">
+        <Markdown of={aboutPageContent.work.description} />
+      </div>
+      <div class="grid grid-cols-2 gap-2 group">
+        {
+          aboutPageContent.connect.links.map((item) => (
+            <SocialLinkBox {...item} />
+          ))
+        }
+      </div>
     </div>
   </section>
 </Layout>

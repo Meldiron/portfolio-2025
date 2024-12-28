@@ -25,14 +25,14 @@ export type SEOInfo = {
 
 export type HomePageContent = {
   seo: SEOInfo;
+  techstack: TechStackItem[];
   role: string;
   description: string;
-  socialLinks: SocialLink[];
-  links: {
-    title: string;
-    url: string;
-    external?: boolean;
-  }[];
+};
+
+export type TechStackItem = {
+  icon: string;
+  name: string;
 };
 
 export type ResumeItem = {

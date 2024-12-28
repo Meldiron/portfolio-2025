@@ -64,71 +64,24 @@ const { seo } = Astro.props;
       <div
         class="px-6 py-6 max-w-2xl mx-auto flex items-center justify-between"
       >
-        <a href="/">
-          <Image
-            src={identity.logo}
-            alt={"Logo"}
-            width={50}
-            height={50}
-            class="w-[50px] h-[50px] object-cover"
-          />
-        </a>
-        <nav class="ml-auto mr-6 sm:m-0">
-          <ul class="hidden sm:flex sm:items-center sm:gap-2">
+        <nav>
+          <ul>
             {
               navBarLinks.map((link) => (
-                <li>
+                <li class="inline pr-3">
                   <a
-                    class="group px-4 py-2 rounded-lg hover:bg-gray-bg opacity-60 hover:opacity-100 transition-all"
+                    class="opacity-60 hover:opacity-100 hover-underline transition-all"
                     href={link.url}
                     target={link.external ? "_blank" : "_self"}
-                  >
-                    {link.title}
-                  </a>
+                  >{link.title}</a>
                 </li>
               ))
             }
           </ul>
-          <div class="relative sm:hidden">
-            <button
-              id="link-menu-button"
-              class="relative font-medium opacity-60 p-4"
-              >Menu <span id="open-indicator">+</span></button
-            >
-            <div
-              id="link-menu"
-              class="absolute p-2 right-0 bg-gray-bg rounded-lg w-44 transition-opacity ease-in-out duration-300 opacity-0 z-40"
-            >
-              <ul>
-                {
-                  navBarLinks.map((link) => (
-                    <li>
-                      <a
-                        class="block pl-4 py-3"
-                        href={link.url}
-                        target={link.external ? "_blank" : "_self"}
-                      >
-                        {link.title}
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          </div>
         </nav>
-        <div>
-          <a
-            href=`mailto:${identity.email}`
-            class="block p-2 opacity-60 hover:opacity-100 transition-opacity"
-            aria-label="Email"
-          >
-            <Icon name="mdi:email" width={20} height={20} />
-          </a>
-        </div>
       </div>
     </header>
-    <main class="mb-32">
+    <main class="mb-20 space-y-14">
       <slot />
     </main>
     <footer></footer>
@@ -140,7 +93,7 @@ const { seo } = Astro.props;
 
   html {
     font-family: "Inter", sans-serif;
-    background: #000000;
+    background: #19191D;
   }
 
   * {
@@ -148,7 +101,7 @@ const { seo } = Astro.props;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    color: white;
+    color: #EDEDF0;
   }
 
   code {
@@ -169,7 +122,11 @@ const { seo } = Astro.props;
     transition: text-decoration-color 300ms;
   }
 
-  .post:hover .hover-underline {
+  .hover-underline:hover {
     text-decoration-color: rgba(255, 255, 255, 1);
+  }
+
+  .hover-underline-appwrite:hover {
+    text-decoration-color: #FD366E !important;
   }
 </style>

@@ -9,7 +9,7 @@ import type {
 } from "./types/config";
 
 export const identity: Identity = {
-  name: "Tim Witzdam",
+  name: "Matej Bačo",
   logo: "/logo.webp",
   email: "tim@witzdam.com",
 };
@@ -49,26 +49,29 @@ export const socialLinks: SocialLink[] = [
 
 // Home (/)
 export const homePageContent: HomePageContent = {
+  techstack: [
+    {
+      icon: "devicon:java",
+      name: "Java"
+    },
+    {
+      icon: "devicon:java",
+      name: "Java"
+    },
+    {
+      icon: "devicon:java",
+      name: "Java"
+    }
+  ],
   seo: {
-    title: "Tim Witzdam",
+    title: "Matej Bačo",
     description:
       "Full time student from Germany who loves building cool things using code.",
     image: identity.logo,
   },
-  role: "Student & Software Developer",
+  role: "Engineering Lead",
   description:
     "I'm Tim Witzdam, a full time student from Germany who also loves building cool things using code.",
-  socialLinks: socialLinks,
-  links: [
-    {
-      title: "My Projects",
-      url: "/projects",
-    },
-    {
-      title: "About Me",
-      url: "/about",
-    },
-  ],
 };
 
 // About (/about)
