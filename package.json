@@ -8,13 +8,12 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "eslint .",
+    "check": "eslint . --ignore-pattern dist/ --ignore-pattern .astro/",
     "format": "prettier --write ."
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
     "@astrojs/tailwind": "^5.1.0",
-    "@astrojs/vercel": "^8.0.1",
     "@astropub/md": "^0.4.0",
     "astro": "^4.15.4",
     "astro-icon": "^1.1.0",

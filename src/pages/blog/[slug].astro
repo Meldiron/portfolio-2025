@@ -1,6 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { getEntry } from "astro:content";
+import { getEntry, getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import { identity } from "../../config";
 
@@ -12,6 +12,17 @@ if (!entry) {
 }
 
 const { Content, remarkPluginFrontmatter } = await entry.render();
+
+const posts = await getCollection("posts");
+export async function getStaticPaths() {
+  return posts.map((post) => {
+    return {
+      params: {
+        slug: post.slug,
+      },
+    };
+  });
+}
 ---
 
 <Layout
