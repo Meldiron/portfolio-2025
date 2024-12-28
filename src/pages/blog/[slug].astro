@@ -13,8 +13,8 @@ if (!entry) {
 
 const { Content, remarkPluginFrontmatter } = await entry.render();
 
-const posts = await getCollection("posts");
 export async function getStaticPaths() {
+  const posts = await getCollection("posts");
   return posts.map((post) => {
     return {
       params: {
