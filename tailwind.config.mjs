@@ -1,4 +1,4 @@
-import * as tailwindTypograpgy from "@tailwindcss/typography"
+import * as tailwindTypograpgy from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,8 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "black": "#19191D",
-        "white": "#EDEDF0",
+        black: "#19191D",
+        white: "#EDEDF0",
       },
     },
   },

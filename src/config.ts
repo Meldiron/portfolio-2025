@@ -52,16 +52,16 @@ export const homePageContent: HomePageContent = {
   techstack: [
     {
       icon: "devicon:java",
-      name: "Java"
+      name: "Java",
     },
     {
       icon: "devicon:java",
-      name: "Java"
+      name: "Java",
     },
     {
       icon: "devicon:java",
-      name: "Java"
-    }
+      name: "Java",
+    },
   ],
   seo: {
     title: "Matej Bačo",

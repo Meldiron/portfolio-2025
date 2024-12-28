@@ -13,11 +13,11 @@ const { seo } = Astro.props;
 
 <script>
   const linkMenuButton = document.getElementById(
-    "link-menu-button"
+    "link-menu-button",
   ) as HTMLButtonElement;
   const linkMenu = document.getElementById("link-menu") as HTMLDivElement;
   const openIndicator = document.getElementById(
-    "open-indicator"
+    "open-indicator",
   ) as HTMLSpanElement;
 
   linkMenuButton.addEventListener("click", () => {
@@ -73,7 +73,9 @@ const { seo } = Astro.props;
                     class="opacity-60 hover:opacity-100 hover-underline transition-all"
                     href={link.url}
                     target={link.external ? "_blank" : "_self"}
-                  >{link.title}</a>
+                  >
+                    {link.title}
+                  </a>
                 </li>
               ))
             }
@@ -93,7 +95,7 @@ const { seo } = Astro.props;
 
   html {
     font-family: "Inter", sans-serif;
-    background: #19191D;
+    background: #19191d;
   }
 
   * {
@@ -101,7 +103,7 @@ const { seo } = Astro.props;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    color: #EDEDF0;
+    color: #ededf0;
   }
 
   code {
@@ -127,6 +129,6 @@ const { seo } = Astro.props;
   }
 
   .hover-underline-appwrite:hover {
-    text-decoration-color: #FD366E !important;
+    text-decoration-color: #fd366e !important;
   }
 </style>

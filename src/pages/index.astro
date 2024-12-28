@@ -15,7 +15,7 @@ const projects = [
     favicon: "https://life-in-skills.almostapps.eu/logo.svg",
     title: "Life in Skills",
     description: "Gamified habit builder and tracker.",
-  }
+  },
 ];
 
 const posts = await getCollection("posts");
@@ -24,7 +24,7 @@ posts.sort((a, b) => {
   const dateB = new Date(b.data.pubDate).getTime();
   return dateB - dateA;
 });
-posts.splice(2)
+posts.splice(2);
 ---
 
 <Layout seo={homePageContent.seo}>
@@ -39,7 +39,12 @@ posts.splice(2)
       />
       <div class="group flex flex-col justify-center w-fit">
         <h1 class="font-bold text-3xl mb-1">{identity.name}</h1>
-        <p class="text-[rgba(255,255,255,0.6)]">Engineering Lead at <a class="hover-underline hover-underline-appwrite text-[#FD366E]" href="https://appwrite.io/" target="_blank">Appwrite</a></p>
+        <p class="text-[rgba(255,255,255,0.6)]">
+          Engineering Lead at <a
+            class="hover-underline hover-underline-appwrite text-[#FD366E]"
+            href="https://appwrite.io/"
+            target="_blank">Appwrite</a>
+        </p>
       </div>
     </div>
     <p class="max-w-md mb-4">
@@ -48,37 +53,32 @@ posts.splice(2)
     <Link text="About me" href="/about" external={false} />
   </section>
 
-    <section class="max-w-2xl mx-auto px-6">
+  <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
     <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
       {
         projects.map((project) => (
           <a
             class="p-4 rounded-lg border border-white border-opacity-10 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
-
             href={`/projects/ID`}
-              target="self"
+            target="self"
           >
-
-  <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
-    <img src={project.favicon} width={30} height={30} />
-    </div>
-  <div class="w-full">
-    <div class="flex gap-2">
-      <p class="text-xl">{project.title}</p>
-      <button class="flex px-2 py-0 gap-1 items-center rounded-full bg-white bg-opacity-10">
-        <Icon name="mdi:github" size={14} />
-        <span class="text-xs">Meldiron/life-in-skills</span>
-      </button>
-    </div>
-    <p class="mt-0.5 opacity-70 text-sm">{project.description}</p>
-  </div>
-  <div class="rotate-45">
-      <Icon name="mdi:arrow-up" />
-    </div>
-
-
-
+            <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+              <img src={project.favicon} width={30} height={30} />
+            </div>
+            <div class="w-full">
+              <div class="flex gap-2">
+                <p class="text-xl">{project.title}</p>
+                <button class="flex px-2 py-0 gap-1 items-center rounded-full bg-white bg-opacity-10">
+                  <Icon name="mdi:github" size={14} />
+                  <span class="text-xs">Meldiron/life-in-skills</span>
+                </button>
+              </div>
+              <p class="mt-0.5 opacity-70 text-sm">{project.description}</p>
+            </div>
+            <div class="rotate-45">
+              <Icon name="mdi:arrow-up" />
+            </div>
           </a>
         ))
       }
@@ -86,19 +86,20 @@ posts.splice(2)
     <Link text="View all projects" href="/projects" external={false} />
   </section>
 
-
-    <section class="max-w-2xl mx-auto px-6">
+  <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech stack</h2>
     <div>
-      {homePageContent.techstack.map((item) =>    <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-30 w-[fit-content] flex items-center gap-2">
-        <Icon name={item.icon} width={20} height={20} />
-        <p class="text-sm">{item.name}</p>
-      </div>)}
-   
+      {
+        homePageContent.techstack.map((item) => (
+          <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-30 w-[fit-content] flex items-center gap-2">
+            <Icon name={item.icon} width={20} height={20} />
+            <p class="text-sm">{item.name}</p>
+          </div>
+        ))
+      }
     </div>
-
-    </section>
-    <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+  </section>
+  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
     <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">My Carreer</h2>
     <div>
       <div class="mb-6">
@@ -107,7 +108,9 @@ posts.splice(2)
       <div class="grid grid-cols-1 group">
         {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
       </div>
-       <div class="mt-4"><Link text="Download my CV" href="/about" external={false} /></div>
+      <div class="mt-4">
+        <Link text="Download my CV" href="/about" external={false} />
+      </div>
     </div>
   </section>
   <section class="max-w-2xl mx-auto px-6">
@@ -115,15 +118,16 @@ posts.splice(2)
     <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
       {
         posts.map((post) => (
-          <a
-            href={`/blog/${post.slug}`}
-          >
+          <a href={`/blog/${post.slug}`}>
             <p class="opacity-60 mb-2 text-xs">
-                {post.data.pubDate.getDate()}.{post.data.pubDate.getMonth() + 1}.{post.data.pubDate.getFullYear()}
-              </p>
+              {post.data.pubDate.getDate()}.{post.data.pubDate.getMonth() + 1}.
+              {post.data.pubDate.getFullYear()}
+            </p>
             <div>
               <h3 class="font-medium hover-underline">{post.data.title}</h3>
-              <p class="text-sm opacity-60 mt-2 mb-3">{post.data.description}</p>
+              <p class="text-sm opacity-60 mt-2 mb-3">
+                {post.data.description}
+              </p>
             </div>
           </a>
         ))
