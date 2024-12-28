@@ -1,3 +1,6 @@
+# Deployment
+.vercel
+
 # build output
 dist/
 

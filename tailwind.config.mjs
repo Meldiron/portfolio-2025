@@ -1,4 +1,4 @@
-import * as tailwindTypograpgy from "@tailwindcss/typography";
+import tailwindTypograpgy from "@tailwindcss/typography";
 
 /** @type {import('tailwindcss').Config} */
 export default {
