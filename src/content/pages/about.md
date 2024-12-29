@@ -50,7 +50,13 @@ It didn't take long before I started contributing with to community, and later t
 
 ## Welcome to Open source
 
-...
+Appwrite was the opportunity of my life. My [GitHub graph](https://github.com/Meldiron?tab=overview&from=2024-12-01&to=2024-12-29) never looked cleaner, and I built dozens of free applications. I learned to work with every major runtime (Bun, C++, Dart, .NET, Go, Java, Kotlin, Node.js, PHP, Pythno, Ruby, Swift) and every major framework (Angular, Analog, Flutter, Next.js, Nuxt, Remix, SvelteKit). I also had opportunity to work on Appwrite Cloud and learn architecture management with [Terraform](https://www.terraform.io/), and Docker cluster orchestration with [Docker Swarm](https://docs.docker.com/engine/swarm/).
+
+The biggest achievement by-far was a 0-downtime migration when I migrated hunderds of thousands projects across couple of databases with millions and millions of records into new databases, changing data structure in the process. The transfer was done while still serving tens of millions request, and the migration was a success with only 0.015% failure rate that were migrated manually afterwards.
+
+Im proud of 0-downtime migration because it allowed me to learn how to develop critical parts of applications safely. Before launching the feature it was heavily tested, benchmarked, and simulated. I included validation scripts for every step with ability to retry, rollback, or recover. With this experience I have confidence into critical thinking when it comes to preventing downtime.
+
+![0-downtime migration](/zdt.jpg)
 
 ## Leadership future
 
