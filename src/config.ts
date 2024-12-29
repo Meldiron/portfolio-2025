@@ -87,7 +87,7 @@ export const homePageContent: HomePageContent = {
 // About (/about)
 export const aboutPageContent: AboutPageContent = {
   seo: {
-    title: "About | Tim Witzdam",
+    title: "About | Matej Bačo",
     description:
       "Full time student from Germany who loves building cool things using code.",
     image: identity.logo,
@@ -95,7 +95,7 @@ export const aboutPageContent: AboutPageContent = {
   subtitle: "Some information about myself",
   about: {
     description: `
-I'm Tim Witzdam, a full time student from Germany who also loves building cool things using code.
+I'm Matej Bačo, a full time student from Germany who also loves building cool things using code.
 <br/><br/>
 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque placeat est architecto tempora voluptatem sit suscipit aspernatur? <br/><br/>
 Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium consectetur nemo vero officia itaque.`, // Markdown is supported
@@ -109,7 +109,8 @@ Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium conse
     },
   },
   work: {
-    description: "Since the day one I worked remotely, which made me disciplined, open-minded, and time-flexible individual.",
+    description:
+      "Since the day one I worked remotely, which made me disciplined, open-minded, and time-flexible individual.",
     items: [
       {
         title: "Software lead",
@@ -134,7 +135,7 @@ Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium conse
         company: {
           name: "Freelance",
           image: "/logo.webp",
-          url: "https://github.com/TimWitzdam",
+          url: "https://github.com/meldiron",
         },
         date: "Jun 2020 - Aug 2021",
       },
@@ -149,7 +150,7 @@ Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium conse
 // Projects (/projects)
 export const projectsPageContent: ProjectPageContent = {
   seo: {
-    title: "Projects | Tim Witzdam",
+    title: "Projects | Matej Bačo",
     description: "Check out what I've been working on.",
     image: identity.logo,
   },
@@ -160,21 +161,21 @@ export const projectsPageContent: ProjectPageContent = {
       description: "Project 1 Description",
       image: "/demo-2.jpg",
       year: "2024",
-      url: "https://github.com/TimWitzdam",
+      url: "https://github.com/meldiron",
     },
     {
       title: "Project 1",
       description: "Project 1 Description",
       image: "/demo-2.jpg",
       year: "2024",
-      url: "https://github.com/TimWitzdam",
+      url: "https://github.com/meldiron",
     },
     {
       title: "Project 1",
       description: "Project 1 Description",
       image: "/demo-2.jpg",
       year: "2024",
-      url: "https://github.com/TimWitzdam",
+      url: "https://github.com/meldiron",
     },
   ],
 };
@@ -182,9 +183,9 @@ export const projectsPageContent: ProjectPageContent = {
 // Blog (/blog)
 export const blogPageContent: BlogPageContent = {
   seo: {
-    title: "Blog | Tim Witzdam",
-    description: "Thoughts, stories and ideas.",
+    title: "Blog | Matej Bačo",
+    description: "Articles I write in free time, and for employers.",
     image: identity.logo,
   },
-  subtitle: "Thoughts, stories and ideas.",
+  subtitle: "Articles I write in free time, and for employers.",
 };

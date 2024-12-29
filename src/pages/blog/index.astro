@@ -25,8 +25,9 @@ for (const post of posts) {
       {
         posts.map((post) => (
           <a
-            href={`/blog/${post.slug}`}
-            class=" sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 post"
+            href={post.data.external ? post.data.external : `/blog/${post.slug}`}
+            target={post.data.external ? "_blank" : "_self"}
+            class={`relative sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 post border border-white rounded-xl p-3 ${post.data.highlight ? 'border-opacity-10' : 'border-opacity-0'}`}
           >
             <Image
               src={post.data.image.url}
@@ -36,9 +37,12 @@ for (const post of posts) {
               class={"rounded-lg w-[100px] h-[100px] object-cover"}
             />
             <div class="mt-4 sm:my-auto">
-              <p class="opacity-60 mb-2">
-                {post.data.pubDate.toLocaleDateString()} ·{" "}
-                {post.data.readingTime}
+              {post.data.highlight && (
+                <p class="mb-2 w-[fit-content] text-black bg-[#ffffff] rounded-md text-sm py-0.5 px-2">Popular</p>
+              )}
+              <p class="text-[rgba(255,255,255,0.6)] mb-2">
+                {post.data.pubDate.getDate() + '.' + (post.data.pubDate.getMonth() + 1) + '.' + post.data.pubDate.getFullYear()} ·{" "}
+                {post.data.external ? "External" : post.data.readingTime}
               </p>
               <h3 class="font-medium hover-underline">{post.data.title}</h3>
               <p class="text-sm opacity-60 mt-2 mb-3">

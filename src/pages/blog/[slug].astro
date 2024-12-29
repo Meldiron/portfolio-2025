@@ -48,7 +48,7 @@ export async function getStaticPaths() {
       <div>
         <p class="font-medium">{identity.name}</p>
         <p class="opacity-60">
-          {entry.data.pubDate.toLocaleDateString()} · {
+          {entry.data.pubDate.getDate() + '.' + (entry.data.pubDate.getMonth() + 1) + '.' + entry.data.pubDate.getFullYear()} · {
             remarkPluginFrontmatter.minutesRead
           }
         </p>
