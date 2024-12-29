@@ -2,7 +2,6 @@
 title: "Why Discord is a must-have for OSS"
 pubDate: 2022-05-03 #Y-M-D
 description: "Setting up Discord server is low effort high value improvement."
-author: "Matej Bačo"
 image: { url: "/posts/discord.webp", alt: "Discord" }
 ---
 

@@ -2,18 +2,18 @@
 title: "Speed-up your web with Blurhash"
 pubDate: 2021-08-01 #Y-M-D
 description: "Optimize website performance with visual image placeholders."
-author: "Matej Bačo"
 image: { url: "/posts/blurhash.png", alt: "Slide" }
 ---
 
 > Alongside this article, I wrote a demo project made with Angular, TailwindCSS and Blurhash. You can check it out on [Github](https://github.com/Meldiron/blurhash-angular-demo).
 
 ## Table Of Contents
-  * [Introduction](#introduction)
-  * [What is Blurhash?](#what-is-blurhash)
-  * [Preparing a project](#preparing-a-project)
-  * [Encoding an image](#encoding-an-image)
-  * [Decoding an image](#decoding-an-image)
+
+- [Introduction](#introduction)
+- [What is Blurhash?](#what-is-blurhash)
+- [Preparing a project](#preparing-a-project)
+- [Encoding an image](#encoding-an-image)
+- [Decoding an image](#decoding-an-image)
 
 ---
 
@@ -26,7 +26,7 @@ I started by adding **loading animations**, but seeing the same rolling animatio
 ![CleanShot 2021-07-28 at 10.03.18](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/cdcjfwip87ge2eqrc9q8.gif)
 
 Then I found out you can use **skeleton loaders** to fill empty spaces with nice-looking elements that represent actual data but are blank at the moment. You can see this approach on dev.to:
- 
+
 ![CleanShot 2021-07-28 at 10.04.27](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/g2yo0fmdtqoy0elwety6.gif)
 
 This is all you need for most websites, but sadly, this wasn't enough for me. There was still a few seconds of loading time between when my data was loaded and when the images were rendered. I could already see the name and price of a product, but I didn't have pictures loaded yet. Due to this, whenever a new image got loaded, the content jumped. I tried to solve this by defining the size of an image and showing white space while the image was loading, but that made the website feel really boring.
@@ -50,20 +50,20 @@ First, I defined my array of images. This simulated data that I would receive fr
 ```typescript
 images = [
   {
-    name: 'Fastest car ever 💪',
-    url: 'https://images.unsplash.com/photo-1627392689954-0a4d150687a7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80',
+    name: "Fastest car ever 💪",
+    url: "https://images.unsplash.com/photo-1627392689954-0a4d150687a7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80",
   },
   {
     name: "Let's eat 🍉",
-    url: 'https://images.unsplash.com/photo-1627308595127-d9acf19107ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80',
+    url: "https://images.unsplash.com/photo-1627308595127-d9acf19107ce?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=675&q=80",
   },
   {
     name: "Who doesn't love dogs 🐶",
-    url: 'https://images.unsplash.com/photo-1627366247844-b4b5df8854d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    url: "https://images.unsplash.com/photo-1627366247844-b4b5df8854d8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
   },
   {
-    name: 'We love cats too 😻',
-    url: 'https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
+    name: "We love cats too 😻",
+    url: "https://images.unsplash.com/photo-1543852786-1cf6624b9987?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
   },
 ];
 ```
@@ -79,11 +79,11 @@ To confirm what Blurhash can do in numbers, I decided to write a tiny script tha
 for (const image of this.images) {
   const fileSize = await new Promise<number>((resolve, _reject) => {
     var http = new XMLHttpRequest();
-    http.open('HEAD', image.url, true);
+    http.open("HEAD", image.url, true);
     http.onreadystatechange = function () {
       if (this.readyState == this.DONE) {
         if (this.status === 200) {
-          const fileSize = this.getResponseHeader('content-length');
+          const fileSize = this.getResponseHeader("content-length");
           resolve(fileSize ? +fileSize : 0);
         }
       }
@@ -92,7 +92,7 @@ for (const image of this.images) {
   });
   image.originalSize = fileSize;
 }
-``` 
+```
 
 ![CleanShot 2021-07-31 at 20.45.32](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/1nfwp273d7626wnsaqmm.png)
 
@@ -161,6 +161,7 @@ Hmm, that wasn't too bad. Few lines of code and the hashing function is ready �
 Once I had the hash of an image, I needed to do the exact opposite. I needed to convert our string input into image output.
 
 I started with a simple `decode` function provided by Blurhash library. Alongside the image hash, I provided the expected width and height of hashed image:
+
 ```typescript
 const blurhashPixels = decode(image.hash, image.width, image.height);
 ```
@@ -173,7 +174,7 @@ Although our 2D array od pixels is pretty useless to us, the canvas can easily c
 const blurhashCanvas: HTMLCanvasElement = <HTMLCanvasElement>(
   document.getElementById(`blurhash_canvas_${imageLoopIndex}`)
 );
-const ctx = blurhashCanvas?.getContext('2d');
+const ctx = blurhashCanvas?.getContext("2d");
 const imageData = ctx?.createImageData(image.width, image.height);
 imageData.data.set(blurhashPixels);
 ctx?.putImageData(imageData, 0, 0);
@@ -184,7 +185,7 @@ Finally, I put everything together, hook it to an HTML template and add some del
 ![CleanShot 2021-07-28 at 10.29.33](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ph6dec7woaudfbesh80j.gif)
 
 If you are lost and unsure how some parts work together, please check out my [Github project](https://github.com/Meldiron/blurhash-angular-demo) that contains the whole application I built alongside this article. Snippets in the article were taken from the project to quickly showcase the specific logic of Blurhash.
- 
+
 ---
 
 That's it, for now ✨ If you are interested in cool new technologies, feel free to follow me, and you will be notified whenever a new post is published.

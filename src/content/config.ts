@@ -7,7 +7,6 @@ const postsCollection = defineCollection({
     title: z.string(),
     pubDate: z.date(),
     description: z.string(),
-    author: z.string(),
     external: z.string().optional(),
     highlight: z.boolean().optional(),
     image: z.object({
@@ -17,7 +16,34 @@ const postsCollection = defineCollection({
     readingTime: z.number().optional(),
   }),
 });
+
+const projectsCollection = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string(),
+    github: z.string(),
+    demo: z.string().optional(),
+    pubDate: z.date(),
+    description: z.string(),
+    cover: z
+      .object({
+        url: z.string(),
+        alt: z.string(),
+      })
+      .optional(),
+    image: z.object({
+      url: z.string(),
+      alt: z.string(),
+    }),
+  }),
+});
+
 // Export a single `collections` object to register your collection(s)
 export const collections = {
   posts: postsCollection,
+  projects: projectsCollection,
+  pages: defineCollection({
+    type: "content",
+    schema: z.object({}),
+  }),
 };

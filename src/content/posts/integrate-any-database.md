@@ -1,8 +1,7 @@
 ---
 title: "Integrate any database into your Appwrite project"
 pubDate: 2024-05-24 #Y-M-D
-description: "With databases it's always \"it depends\", but we got the answers."
-author: "Matej Bačo"
+description: 'With databases it''s always "it depends", but we got the answers.'
 image: { url: "/posts/databases.png", alt: "Databases" }
 external: "https://appwrite.io/blog/post/integrate-sql-nosql-vector-graph-or-any-database-into-your-appwrite-project"
 highlight: true

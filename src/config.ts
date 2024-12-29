@@ -1,18 +1,10 @@
 import type {
   NavBarLink,
-  SocialLink,
-  Identity,
   AboutPageContent,
   ProjectPageContent,
   BlogPageContent,
   HomePageContent,
 } from "./types/config";
-
-export const identity: Identity = {
-  name: "Matej Bačo",
-  logo: "/logo.webp",
-  email: "tim@witzdam.com",
-};
 
 export const navBarLinks: NavBarLink[] = [
   {
@@ -33,84 +25,228 @@ export const navBarLinks: NavBarLink[] = [
   },
 ];
 
-export const socialLinks: SocialLink[] = [
-  {
-    title: "Discord",
-    url: "https://discord.com/channels/@me/287294735054274560/",
-    icon: "mdi:discord",
-    external: true,
-  },
-  {
-    title: "GitHub",
-    url: "https://github.com/meldiron",
-    icon: "mdi:github",
-    external: true,
-  },
-  {
-    title: "LinkedIn",
-    url: "https://www.linkedin.com/in/matejbaco/",
-    icon: "mdi:linkedin",
-    external: true,
-  },
-  {
-    title: "Mail",
-    url: "mailto:matejbaco2000@gmail.com",
-    icon: "mdi:email",
-  },
-];
-
 // Home (/)
 export const homePageContent: HomePageContent = {
   techstack: [
+    // Web
     {
-      icon: "devicon:java",
-      name: "Java",
+      icon: "devicon:appwrite",
+      name: "Appwrite",
+    },
+    {
+      icon: "devicon:javascript",
+      name: "JavaScript",
+    },
+    {
+      icon: "devicon:typescript",
+      name: "TypeScript",
+    },
+    {
+      icon: "devicon:tailwindcss",
+      name: "TailwindCSS",
+    },
+    {
+      icon: "devicon:bootstrap",
+      name: "Bootstrap",
+    },
+    {
+      icon: "devicon:sass",
+      name: "Sass",
+    },
+    {
+      icon: "devicon:css3",
+      name: "CSS",
+    },
+    {
+      icon: "devicon:html5",
+      name: "HTML",
+    },
+    {
+      icon: "devicon:mysql",
+      name: "SQL",
+    },
+    {
+      icon: "devicon:redis",
+      name: "Redis",
+    },
+    {
+      icon: "devicon:mongodb",
+      name: "MongoDB",
+    },
+    {
+      icon: "devicon:git",
+      name: "Git",
+    },
+    {
+      icon: "devicon:docker",
+      name: "Docker",
+    },
+    {
+      icon: "devicon:traefikproxy",
+      name: "Traefik",
+    },
+    {
+      icon: "devicon:linux",
+      name: "Linux",
+    },
+    {
+      icon: "devicon:k6",
+      name: "k6",
+    },
+    {
+      icon: "devicon:angular",
+      name: "Angular",
+    },
+    {
+      icon: "devicon:alpinejs",
+      name: "Alpine.js",
+    },
+    {
+      icon: "devicon:unity",
+      name: "Unity",
+    },
+    {
+      icon: "devicon:flutter",
+      name: "Flutter",
+    },
+    {
+      icon: "devicon:ionic",
+      name: "Ionic",
+    },
+    {
+      icon: "devicon:vuejs",
+      name: "Vue",
+    },
+    {
+      icon: "devicon:nuxtjs",
+      name: "Nuxt",
+    },
+    {
+      icon: "devicon:svelte",
+      name: "Svelte",
+    },
+    {
+      icon: "devicon:astro",
+      name: "Astro",
+    },
+    {
+      icon: "devicon:react",
+      name: "React",
+    },
+    {
+      icon: "devicon:arduino",
+      name: "Arduino",
+    },
+    {
+      icon: "devicon:capacitor",
+      name: "Capacitor",
+    },
+    {
+      icon: "devicon:jenkins",
+      name: "Jenkins",
+    },
+
+    {
+      icon: "devicon:openapi",
+      name: "OpenAPI",
+    },
+    {
+      icon: "devicon:jquery",
+      name: "jQuery",
+    },
+    {
+      icon: "devicon:qwik",
+      name: "qwik",
+    },
+    {
+      icon: "devicon:travis",
+      name: "Travis",
+    },
+    {
+      icon: "devicon:solidjs",
+      name: "SolidJS",
+    },
+    {
+      icon: "devicon:figma",
+      name: "Figma",
+    },
+    {
+      icon: "devicon:cplusplus",
+      name: "C++",
+    },
+    {
+      icon: "devicon:dot-net",
+      name: ".NET",
+    },
+    {
+      icon: "devicon:kotlin",
+      name: "Kotlin",
+    },
+    {
+      icon: "devicon:nodejs",
+      name: "Node",
+    },
+    {
+      icon: "devicon:bun",
+      name: "Bun",
+    },
+    {
+      icon: "devicon:csharp",
+      name: "C#",
+    },
+    {
+      icon: "devicon:go",
+      name: "Go",
+    },
+    {
+      icon: "devicon:php",
+      name: "PHP",
+    },
+    {
+      icon: "devicon:python",
+      name: "Python",
+    },
+    {
+      icon: "devicon:ruby",
+      name: "Ruby",
+    },
+    {
+      icon: "devicon:swift",
+      name: "Swift",
     },
     {
       icon: "devicon:java",
       name: "Java",
     },
     {
-      icon: "devicon:java",
-      name: "Java",
+      icon: "devicon:dart",
+      name: "Dart",
+    },
+    {
+      icon: "devicon:wasm",
+      name: "WebAssembly",
+    },
+    {
+      icon: "devicon:swagger",
+      name: "Swagger",
     },
   ],
   seo: {
     title: "Matej Bačo",
     description:
-      "Full time student from Germany who loves building cool things using code.",
-    image: identity.logo,
+      "I am impact-driven platform engineer from Czech Republic in love with everything open source.",
+    image: "/logo.webp",
   },
-  role: "Engineering Lead",
 };
 
 // About (/about)
 export const aboutPageContent: AboutPageContent = {
   seo: {
     title: "About | Matej Bačo",
-    description:
-      "Full time student from Germany who loves building cool things using code.",
-    image: identity.logo,
-  },
-  subtitle: "Some information about myself",
-  about: {
-    description: `
-I'm Matej Bačo, a full time student from Germany who also loves building cool things using code.
-<br/><br/>
-Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eaque placeat est architecto tempora voluptatem sit suscipit aspernatur? <br/><br/>
-Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium consectetur nemo vero officia itaque.`, // Markdown is supported
-    image_l: {
-      url: "/demo-1.jpg",
-      alt: "Left Picture",
-    },
-    image_r: {
-      url: "/demo-1.jpg",
-      alt: "Right Picture",
-    },
+    description: "How I grew into who I am today.",
+    image: "/logo.webp",
   },
   work: {
-    description:
-      "Since the day one I worked remotely, which made me disciplined, open-minded, and time-flexible individual.",
     items: [
       {
         title: "Software lead",
@@ -142,8 +278,31 @@ Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium conse
     ],
   },
   connect: {
-    description: `I'm always interested in meeting new people and learning new things. Feel free to connect with me on any of the following platforms.`, // Markdown is supported
-    links: socialLinks,
+    links: [
+      {
+        title: "Discord",
+        url: "https://discord.com/channels/@me/287294735054274560/",
+        icon: "logos:discord-icon",
+        external: true,
+      },
+      {
+        title: "GitHub",
+        url: "https://github.com/meldiron",
+        icon: "mdi:github",
+        external: true,
+      },
+      {
+        title: "LinkedIn",
+        url: "https://www.linkedin.com/in/matejbaco/",
+        icon: "logos:linkedin-icon",
+        external: true,
+      },
+      {
+        title: "Mail",
+        url: "mailto:matejbaco2000@gmail.com",
+        icon: "logos:google-gmail",
+      },
+    ],
   },
 };
 
@@ -152,32 +311,8 @@ export const projectsPageContent: ProjectPageContent = {
   seo: {
     title: "Projects | Matej Bačo",
     description: "Check out what I've been working on.",
-    image: identity.logo,
+    image: "/logo.webp",
   },
-  subtitle: "Check out what I've been working on.",
-  projects: [
-    {
-      title: "Project 1",
-      description: "Project 1 Description",
-      image: "/demo-2.jpg",
-      year: "2024",
-      url: "https://github.com/meldiron",
-    },
-    {
-      title: "Project 1",
-      description: "Project 1 Description",
-      image: "/demo-2.jpg",
-      year: "2024",
-      url: "https://github.com/meldiron",
-    },
-    {
-      title: "Project 1",
-      description: "Project 1 Description",
-      image: "/demo-2.jpg",
-      year: "2024",
-      url: "https://github.com/meldiron",
-    },
-  ],
 };
 
 // Blog (/blog)
@@ -185,7 +320,6 @@ export const blogPageContent: BlogPageContent = {
   seo: {
     title: "Blog | Matej Bačo",
     description: "Articles I write in free time, and for employers.",
-    image: identity.logo,
+    image: "/logo.webp",
   },
-  subtitle: "Articles I write in free time, and for employers.",
 };

@@ -1,25 +1,24 @@
 ---
 import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
-import { homePageContent, identity, aboutPageContent } from "../config";
+import { homePageContent, aboutPageContent } from "../config";
 import Link from "../components/Link.astro";
 import SocialLinkBox from "../components/SocialLinkBox.astro";
 import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
-import { Markdown } from "@astropub/md";
 import { getCollection } from "astro:content";
 
-const totalArticles = (await getCollection("posts")).length;
-
-const projects = [
-  {
-    favicon: "https://life-in-skills.almostapps.eu/logo.svg",
-    title: "Life in Skills",
-    description: "Gamified habit builder and tracker.",
-  },
-];
+const projects = await getCollection("projects");
+const totalProjects = projects.length;
+projects.sort((a, b) => {
+  const dateA = new Date(a.data.pubDate).getTime();
+  const dateB = new Date(b.data.pubDate).getTime();
+  return dateB - dateA;
+});
+projects.splice(2);
 
 const posts = await getCollection("posts");
+const totalArticles = posts.length;
 posts.sort((a, b) => {
   const dateA = new Date(a.data.pubDate).getTime();
   const dateB = new Date(b.data.pubDate).getTime();
@@ -32,14 +31,14 @@ posts.splice(2);
   <section class="mt-6 max-w-2xl mx-auto px-6">
     <div class="flex flex-col min-[520px]:flex-row gap-6 mb-8">
       <Image
-        src={identity.logo}
-        alt={identity.name}
+        src="/logo.webp"
+        alt="Face"
         width={100}
         height={100}
         class="rounded-full"
       />
       <div class="group flex flex-col justify-center w-fit">
-        <h1 class="font-bold text-3xl mb-1">{identity.name}</h1>
+        <h1 class="font-bold text-3xl mb-1">Matej Bačo</h1>
         <p class="text-[rgba(255,255,255,0.6)]">
           Engineering lead at <a
             class="hover-underline hover-underline-appwrite text-[#FD366E]"
@@ -58,26 +57,29 @@ posts.splice(2);
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
-    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
+    <div class="grid grid-cols-1 gap-10 sm:gap-4 mb-4">
       {
         projects.map((project) => (
           <a
             class="p-4 rounded-lg border border-white border-opacity-10 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
-            href={`/projects/ID`}
+            href={`/projects/${project.slug}`}
             target="self"
           >
             <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
-              <img src={project.favicon} width={30} height={30} />
+              <img
+                src={project.data.image.url}
+                alt={project.data.image.alt}
+                width={30}
+                height={30}
+              />
             </div>
             <div class="w-full">
               <div class="flex gap-2">
-                <p class="text-xl">{project.title}</p>
-                <button class="flex px-2 py-0 gap-1 items-center rounded-full bg-white bg-opacity-10">
-                  <Icon name="mdi:github" size={14} />
-                  <span class="text-xs">Meldiron/life-in-skills</span>
-                </button>
+                <p class="text-xl">{project.data.title}</p>
               </div>
-              <p class="mt-0.5 opacity-70 text-sm">{project.description}</p>
+              <p class="mt-0.5 opacity-70 text-sm">
+                {project.data.description}
+              </p>
             </div>
             <div class="rotate-45">
               <Icon name="mdi:arrow-up" />
@@ -86,27 +88,38 @@ posts.splice(2);
         ))
       }
     </div>
-    <Link text="View all projects" href="/projects" external={false} />
+    <Link
+      text={`View all  ${totalProjects} projects`}
+      href="/projects"
+      external={false}
+    />
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech stack</h2>
     <div>
       {
-        homePageContent.techstack.map((item) => (
-          <button class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-10 hover:border-opacity-30 w-[fit-content] flex items-center gap-2">
-            <Icon name={item.icon} width={20} height={20} />
-            <p class="text-sm">{item.name}</p>
-          </button>
-        ))
+        homePageContent.techstack
+          .sort((item, item2) =>
+            item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
+          )
+          .map((item) => (
+            <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-10 w-[fit-content] flex items-center gap-2">
+              <Icon name={item.icon} width={20} height={20} />
+              <p class="text-sm">{item.name}</p>
+            </div>
+          ))
       }
     </div>
   </section>
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">My Carreer</h2>
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">My carreer</h2>
     <div>
       <div class="mb-6">
-        <p>{aboutPageContent.work.description}</p>
+        <p>
+          Since the day one I worked remotely, which made me disciplined,
+          open-minded, and time-flexible individual.
+        </p>
       </div>
       <div class="grid grid-cols-1 group">
         {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
@@ -117,16 +130,23 @@ posts.splice(2);
     </div>
   </section>
   <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Latest Posts</h2>
+    <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
     <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
       {
         posts.map((post) => (
-          <a             href={post.data.external ? post.data.external : `/blog/${post.slug}`}
+          <a
+            href={
+              post.data.external ? post.data.external : `/blog/${post.slug}`
+            }
             target={post.data.external ? "_blank" : "_self"}
-             >
+          >
             <p class="text-[rgba(255,255,255,0.6)] mb-2 text-xs">
-              {post.data.pubDate.getDate() + '.' + (post.data.pubDate.getMonth() + 1) + '.' + post.data.pubDate.getFullYear()}{" "}·{" "}
-
+              {post.data.pubDate.getDate() +
+                "." +
+                (post.data.pubDate.getMonth() + 1) +
+                "." +
+                post.data.pubDate.getFullYear()}{" "}
+              ·{" "}
               {post.data.external && (
                 <span class="text-[#ffffff]">Appwrite</span>
               )}
@@ -141,13 +161,18 @@ posts.splice(2);
         ))
       }
     </div>
-    <Link text={`View all ${totalArticles} articles`} href="/blog" external={false} />
+    <Link
+      text={`View all ${totalArticles} articles`}
+      href="/blog"
+      external={false}
+    />
   </section>
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's Connect</h2>
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's connect</h2>
     <div>
       <div class="mb-6">
-        <Markdown of={aboutPageContent.work.description} />
+        Reach out to me to collaborate on a fun project, build an integration,
+        write an article, or just to say hi.
       </div>
       <div class="grid grid-cols-2 gap-2 group">
         {

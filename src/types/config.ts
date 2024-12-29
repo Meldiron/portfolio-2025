@@ -11,12 +11,6 @@ export type SocialLink = {
   external?: boolean;
 };
 
-export type Identity = {
-  name: string;
-  logo: string;
-  email: string;
-};
-
 export type SEOInfo = {
   title: string;
   description: string;
@@ -26,7 +20,6 @@ export type SEOInfo = {
 export type HomePageContent = {
   seo: SEOInfo;
   techstack: TechStackItem[];
-  role: string;
 };
 
 export type TechStackItem = {
@@ -46,24 +39,10 @@ export type ResumeItem = {
 
 export type AboutPageContent = {
   seo: SEOInfo;
-  subtitle: string;
-  about: {
-    description: string;
-    image_l: {
-      url: string;
-      alt: string;
-    };
-    image_r: {
-      url: string;
-      alt: string;
-    };
-  };
   work: {
-    description: string;
     items: ResumeItem[];
   };
   connect: {
-    description: string;
     links: SocialLink[];
   };
 };
@@ -78,11 +57,8 @@ export type Project = {
 
 export type ProjectPageContent = {
   seo: SEOInfo;
-  subtitle: string;
-  projects: Project[];
 };
 
 export type BlogPageContent = {
   seo: SEOInfo;
-  subtitle: string;
 };

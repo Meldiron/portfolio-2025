@@ -1,32 +1,22 @@
 ---
-import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import { aboutPageContent } from "../config";
-import { Markdown } from "@astropub/md";
+
+import { getEntry } from "astro:content";
+
+const entry = await getEntry("pages", "about");
+const { Content } = await entry.render();
 ---
 
 <Layout seo={aboutPageContent.seo}>
   <section class="mt-10 max-w-2xl mx-auto px-6">
-    <h1 class="font-bold text-3xl mb-1">About</h1>
-    <p class="opacity-60 mb-10">{aboutPageContent.subtitle}</p>
-    <div class="mb-14">
-      <Markdown of="Coming soon" />
-    </div>
-    <div class="flex flex-col min-[410px]:flex-row">
-      <Image
-        src={aboutPageContent.about.image_l.url}
-        alt={aboutPageContent.about.image_l.alt}
-        width={350}
-        height={250}
-        class="w-[350px] h-[250px] object-cover rounded-xl -rotate-6"
-      />
-      <Image
-        src={aboutPageContent.about.image_r.url}
-        alt={aboutPageContent.about.image_r.alt}
-        width={150}
-        height={250}
-        class="w-[150px] h-[250px] object-cover rounded-xl rotate-6 mx-auto sm:ml-auto"
-      />
-    </div>
+    <h1 class="font-bold text-3xl mb-1">About me</h1>
+    <p class="opacity-60 mb-10">How I grew into who I am today.</p>
+
+    <article
+      class="prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-[#b3b3b3]"
+    >
+      <Content />
+    </article>
   </section>
 </Layout>

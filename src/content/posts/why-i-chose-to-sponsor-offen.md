@@ -2,7 +2,6 @@
 title: "Why I chose to sponsor Offen"
 pubDate: 2022-09-17 #Y-M-D
 description: "I fell in love with open source opt-in web analytics."
-author: "Matej Bačo"
 image: { url: "/posts/offen.avif", alt: "Offen and Appwrite" }
 ---
 
