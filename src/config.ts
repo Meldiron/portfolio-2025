@@ -35,14 +35,26 @@ export const navBarLinks: NavBarLink[] = [
 
 export const socialLinks: SocialLink[] = [
   {
+    title: "Discord",
+    url: "https://discord.com/channels/@me/287294735054274560/",
+    icon: "mdi:discord",
+    external: true,
+  },
+  {
     title: "GitHub",
-    url: "https://github.com/TimWitzdam",
+    url: "https://github.com/meldiron",
     icon: "mdi:github",
     external: true,
   },
   {
+    title: "LinkedIn",
+    url: "https://www.linkedin.com/in/matejbaco/",
+    icon: "mdi:linkedin",
+    external: true,
+  },
+  {
     title: "Mail",
-    url: "mailto:tim@witzdam.com",
+    url: "mailto:matejbaco2000@gmail.com",
     icon: "mdi:email",
   },
 ];
@@ -70,8 +82,6 @@ export const homePageContent: HomePageContent = {
     image: identity.logo,
   },
   role: "Engineering Lead",
-  description:
-    "I'm Tim Witzdam, a full time student from Germany who also loves building cool things using code.",
 };
 
 // About (/about)
@@ -99,25 +109,34 @@ Facere quibusdam reiciendis, distinctio sunt praesentium error accusantium conse
     },
   },
   work: {
-    description: `I've worked with a variety of technologies and tools to build cool things. Here are some of the projects I've worked on.`, // Markdown is supported
+    description: "Since the day one I worked remotely, which made me disciplined, open-minded, and time-flexible individual.",
     items: [
       {
-        title: "Software Developer",
+        title: "Software lead",
         company: {
-          name: "Freelance",
-          image: "/logo.webp",
-          url: "https://github.com/TimWitzdam",
+          name: "Appwrite",
+          image: "/appwrite.svg",
+          url: "https://appwrite.io/",
         },
-        date: "2021 - Present",
+        date: "Oct 2024 - Present",
       },
       {
-        title: "Software Developer",
+        title: "Software engineer",
+        company: {
+          name: "Appwrite",
+          image: "/appwrite.svg",
+          url: "https://appwrite.io/",
+        },
+        date: "Aug 2021 - Oct 2024",
+      },
+      {
+        title: "Fullstack developer",
         company: {
           name: "Freelance",
           image: "/logo.webp",
           url: "https://github.com/TimWitzdam",
         },
-        date: "2019 - 2021",
+        date: "Jun 2020 - Aug 2021",
       },
     ],
   },

@@ -27,7 +27,6 @@ export type HomePageContent = {
   seo: SEOInfo;
   techstack: TechStackItem[];
   role: string;
-  description: string;
 };
 
 export type TechStackItem = {

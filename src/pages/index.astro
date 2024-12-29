@@ -8,6 +8,7 @@ import { Markdown } from "@astropub/md";
 import SocialLinkBox from "../components/SocialLinkBox.astro";
 import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
+import { Markdown } from "@astropub/md";
 
 const projects = [
   {
@@ -39,7 +40,7 @@ posts.splice(2);
       <div class="group flex flex-col justify-center w-fit">
         <h1 class="font-bold text-3xl mb-1">{identity.name}</h1>
         <p class="text-[rgba(255,255,255,0.6)]">
-          Engineering Lead at <a
+          Engineering lead at <a
             class="hover-underline hover-underline-appwrite text-[#FD366E]"
             href="https://appwrite.io/"
             target="_blank">Appwrite</a>
@@ -47,9 +48,9 @@ posts.splice(2);
       </div>
     </div>
     <p class="max-w-md mb-4">
-      {homePageContent.description}
+      I am impact-driven software engineer from Czech Republic in love with everything open source.
     </p>
-    <Link text="About me" href="/about" external={false} />
+    <Link text="Read my story" href="/about" external={false} />
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
@@ -90,10 +91,10 @@ posts.splice(2);
     <div>
       {
         homePageContent.techstack.map((item) => (
-          <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-30 w-[fit-content] flex items-center gap-2">
+          <button class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-10 hover:border-opacity-30 w-[fit-content] flex items-center gap-2">
             <Icon name={item.icon} width={20} height={20} />
             <p class="text-sm">{item.name}</p>
-          </div>
+          </button>
         ))
       }
     </div>
@@ -102,7 +103,7 @@ posts.splice(2);
     <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">My Carreer</h2>
     <div>
       <div class="mb-6">
-        <Markdown of={aboutPageContent.work.description} />
+        <p>{aboutPageContent.work.description}</p>
       </div>
       <div class="grid grid-cols-1 group">
         {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
