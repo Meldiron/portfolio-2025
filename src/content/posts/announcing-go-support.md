@@ -1,5 +1,5 @@
 ---
-title: "Introducing Go, high-performance Functions runtime and SDK"
+title: "Go, high-performance runtime and SDK"
 pubDate: 2024-08-22 #Y-M-D
 description: "Go runtime is now supported, and we released a Go SDK."
 author: "Matej Bačo"

@@ -4,6 +4,7 @@ pubDate: 2024-03-09 #Y-M-D
 description: "Authenticate users with their what they are."
 author: "Matej Bačo"
 image: { url: "/posts/passkey.png", alt: "Lock" }
+highlight: true
 ---
 
 Password-based authentication is the most common form of authentication, but it is not the most secure. Ideally, everyone is using a password manager to have a unique and strong password on every website, and everyone protects their account with multi-factor authentication. That's not a reality, sadly. While the website can enforce some best practices for password security, password reusing - a leading problem of internet security - not all can be prevented by developers.

@@ -50,7 +50,7 @@ posts.splice(2);
       </div>
     </div>
     <p class="max-w-md mb-4">
-      I am impact-driven software engineer from Czech Republic in love with
+      I am impact-driven platform engineer from Czech Republic in love with
       everything open source.
     </p>
     <Link text="Read my story" href="/about" external={false} />
@@ -112,7 +112,7 @@ posts.splice(2);
         {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
       </div>
       <div class="mt-4">
-        <Link text="Download my CV" href="/about" external={false} />
+        <Link text="Download my CV" href="/CV_Matej_Baco.pdf" external={true} />
       </div>
     </div>
   </section>
@@ -128,7 +128,7 @@ posts.splice(2);
               {post.data.pubDate.getDate() + '.' + (post.data.pubDate.getMonth() + 1) + '.' + post.data.pubDate.getFullYear()}{" "}·{" "}
 
               {post.data.external && (
-                <span class="text-[#ffffff]">External</span>
+                <span class="text-[#ffffff]">Appwrite</span>
               )}
             </p>
             <div>
