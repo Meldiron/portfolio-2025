@@ -63,7 +63,7 @@ posts.splice(2);
           <a
             class="p-4 rounded-lg border border-white border-opacity-10 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
             href={`/projects/${project.slug}`}
-            target="self"
+            target="_self"
           >
             <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
               <img
@@ -97,16 +97,18 @@ posts.splice(2);
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech stack</h2>
-    <div>
+    <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
       {
         homePageContent.techstack
           .sort((item, item2) =>
             item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
           )
           .map((item) => (
-            <div class="mb-2 inline-flex mr-2 p-1.5 px-3 rounded-md border border-white border-opacity-10 w-[fit-content] flex items-center gap-2">
-              <Icon name={item.icon} width={20} height={20} />
-              <p class="text-sm">{item.name}</p>
+            <div class="relative col-span-1 justify-center p-1.5 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-x-hidden">
+              <div class="absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]"></div>
+
+              <Icon class="flex-shrink-0" name={item.icon} width={20} height={20} />
+              <p class="text-sm line-clamp-1">{item.name}</p>
             </div>
           ))
       }

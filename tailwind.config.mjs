@@ -4,10 +4,15 @@ import tailwindTypograpgy from "@tailwindcss/typography";
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
+   
     extend: {
+      screens: {
+        'xs': '540px',
+        'xxs': '380px',
+      },
       colors: {
-        black: "#19191D",
-        white: "#EDEDF0",
+        black: "#000",
+        white: "#FFF",
       },
     },
   },

@@ -21,7 +21,7 @@ projects.sort((a, b) => {
     <div class="grid grid-cols-1 gap-10 sm:gap-4">
       {
         projects.map((project) => (
-          <div class="p-4 rounded-lg border border-white border-opacity-10 transition-opacity">
+          <div class="p-4 rounded-lg border border-white border-opacity-20 transition-opacity">
             <div class="mb-2">
               <a
                 href={"https://github.com/" + project.data.github}
@@ -70,13 +70,16 @@ projects.sort((a, b) => {
               </div>
 
               {project.data.cover && (
-                <Image
+               <div class="relative">
+               <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]"></div>
+ <Image
                   src={project.data.cover.url}
                   alt={project.data.cover.alt}
                   width={250}
                   height={150}
-                  class="mt-4 w-full h-[150px] object-cover object-top rounded-md"
+                  class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
                 />
+               </div>
               )}
             </a>
           </div>
