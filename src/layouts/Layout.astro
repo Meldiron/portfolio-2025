@@ -1,6 +1,7 @@
 ---
 import { navBarLinks } from "../config";
 import type { SEOInfo } from "../types/config";
+import { ViewTransitions } from "astro:transitions";
 
 interface Props {
   seo: SEOInfo;
@@ -56,6 +57,7 @@ const { seo } = Astro.props;
     <meta property="og:title" content={seo.title} />
     <meta property="og:description" content={seo.description} />
     <meta property="og:image" content={seo.image} />
+    <ViewTransitions />
   </head>
   <body>
     <header>
@@ -128,5 +130,19 @@ const { seo } = Astro.props;
 
   .hover-underline-appwrite:hover {
     text-decoration-color: #fd366e !important;
+  }
+
+  .project-article h1, .project-article h2, .project-article p, .project-article ul, .project-article hr {
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .project-article p:has(img) {
+    max-width: 56rem !important;
+  }
+
+  .project-article img {
+    cursor: pointer;
   }
 </style>

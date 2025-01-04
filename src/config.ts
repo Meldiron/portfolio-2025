@@ -156,7 +156,7 @@ export const homePageContent: HomePageContent = {
     },
     {
       icon: "devicon:qwik",
-      name: "qwik",
+      name: "Qwik",
     },
     {
       icon: "devicon:travis",
