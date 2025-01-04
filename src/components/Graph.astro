@@ -103,7 +103,7 @@
    * Run fetch from above
    */
   const { data } = await getContributions(
-    import.meta.env.PUBLIC_GITHUB_TOKEN, // token in .env file
+    import.meta.env.PRIVATE_GITHUB_TOKEN, // token in .env file
     "Meldiron", // your GitHub account name
   );
   console.log("data", data);
