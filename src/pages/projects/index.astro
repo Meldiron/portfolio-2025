@@ -16,72 +16,88 @@ projects.sort((a, b) => {
 <Layout seo={projectsPageContent.seo}>
   <section class="mt-10 max-w-2xl mx-auto px-6">
     <h1 class="font-bold text-3xl mb-1">Projects</h1>
-    <p class="opacity-60 mb-14">Apps and tools made in free time.</p>
+    <p class="opacity-60 mb-4">Apps and tools made in free time.</p>
 
     <div class="grid grid-cols-1 gap-10 sm:gap-4">
       {
-        projects.map((project) => (
-          <div class="p-4 rounded-lg border border-white border-opacity-20 transition-opacity">
-            <div class="mb-2">
-              <a
-                href={"https://github.com/" + project.data.github}
-                target="_blank"
-                class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
-              >
-                {" "}
-                <Icon name="mdi:github" size={14} /> {project.data.github}
-              </a>
-
-              {project.data.demo && (
+        projects.map((project, index) => (
+          <div>
+            {((projects[index - 1] &&
+              new Date(project.data.pubDate).getFullYear() !=
+                new Date(projects[index - 1].data.pubDate).getFullYear()) ||
+              index === 0) && (
+              <div class="flex items-center w-full text-start text-6xl font-light opacity-90 text-white mb-12 mt-6 gap-6">
+                <p class="flex-shrink-0">{project.data.pubDate.getFullYear()}</p>
+                <div class="h-1 bg-gradient-to-r from-[rgba(255,255,255,0.9)] to-transparent w-full roudned-full"></div>
+              </div>
+            )}
+            <div class="p-4 rounded-lg border border-white border-opacity-20 transition-opacity">
+              <div class="mb-2">
                 <a
-                  href={"https://" + project.data.demo}
+                  href={"https://github.com/" + project.data.github}
                   target="_blank"
-                  class=" inline-flex  mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+                  class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
                 >
                   {" "}
-                  <Icon name="mdi:link-variant" size={14} /> {project.data.demo}
+                  <Icon name="mdi:github" size={14} /> {project.data.github}
                 </a>
-              )}
-            </div>
 
-            <a class="group" href={`/projects/${project.slug}`} target="_self">
-              <div class=" flex items-center gap-3">
-                <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
-                  <img
-                    src={project.data.image.url}
-                    alt={project.data.image.alt}
-                    width={30}
-                    height={30}
-                  />
-                </div>
-                <div class="w-full">
-                  <div class="flex gap-2">
-                    <p class="text-xl group-hover:underline">
-                      {project.data.title}
-                    </p>
-                  </div>
-                  <p class="mt-0.5 opacity-70 text-sm">
-                    {project.data.description}
-                  </p>
-                </div>
-                <div class="rotate-45">
-                  <Icon name="mdi:arrow-up" />
-                </div>
+                {project.data.demo && (
+                  <a
+                    href={"https://" + project.data.demo}
+                    target="_blank"
+                    class=" inline-flex  mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+                  >
+                    {" "}
+                    <Icon name="mdi:link-variant" size={14} />{" "}
+                    {project.data.demo}
+                  </a>
+                )}
               </div>
 
-              {project.data.cover && (
-                <div class="relative">
-                  <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]" />
-                  <Image
-                    src={project.data.cover.url}
-                    alt={project.data.cover.alt}
-                    width={250}
-                    height={150}
-                    class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
-                  />
+              <a
+                class="group"
+                href={`/projects/${project.slug}`}
+                target="_self"
+              >
+                <div class=" flex items-center gap-3">
+                  <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+                    <img
+                      src={project.data.image.url}
+                      alt={project.data.image.alt}
+                      width={30}
+                      height={30}
+                    />
+                  </div>
+                  <div class="w-full">
+                    <div class="flex gap-2">
+                      <p class="text-xl group-hover:underline">
+                        {project.data.title}
+                      </p>
+                    </div>
+                    <p class="mt-0.5 opacity-70 text-sm">
+                      {project.data.description}
+                    </p>
+                  </div>
+                  <div class="rotate-45">
+                    <Icon name="mdi:arrow-up" />
+                  </div>
                 </div>
-              )}
-            </a>
+
+                {project.data.cover && (
+                  <div class="relative">
+                    <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]" />
+                    <Image
+                      src={project.data.cover.url}
+                      alt={project.data.cover.alt}
+                      width={250}
+                      height={150}
+                      class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
+                    />
+                  </div>
+                )}
+              </a>
+            </div>
           </div>
         ))
       }

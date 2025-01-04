@@ -34,6 +34,15 @@ export const homePageContent: HomePageContent = {
       name: "Appwrite",
     },
     {
+      icon: "devicon:vercel",
+      name: "Vercel",
+      invert: true
+    },
+    {
+      icon: "devicon:digitalocean",
+      name: "DigitalOcean"
+    },
+    {
       icon: "devicon:javascript",
       name: "JavaScript",
     },
@@ -127,6 +136,7 @@ export const homePageContent: HomePageContent = {
     },
     {
       icon: "devicon:astro",
+      invert: true,
       name: "Astro",
     },
     {
