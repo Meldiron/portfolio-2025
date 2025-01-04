@@ -57,7 +57,6 @@ posts.splice(2);
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
-
     <h2 class="mb-8 text-2xl text-[white]">Open source activity</h2>
     <Graph />
   </section>
@@ -116,14 +115,14 @@ posts.splice(2);
             <div class="group relative col-span-1 justify-center p-1.5 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-x-hidden">
               <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]" />
 
-<div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
-<Icon
-                class={`${item.invert ? 'invert' : ''}`}
-                name={item.icon}
-                width={20}
-                height={20}
-              />
-</div>
+              <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
+                <Icon
+                  class={`${item.invert ? "invert" : ""}`}
+                  name={item.icon}
+                  width={20}
+                  height={20}
+                />
+              </div>
               <p class="text-sm line-clamp-1">{item.name}</p>
             </div>
           ))

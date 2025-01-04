@@ -36,11 +36,11 @@ export const homePageContent: HomePageContent = {
     {
       icon: "devicon:vercel",
       name: "Vercel",
-      invert: true
+      invert: true,
     },
     {
       icon: "devicon:digitalocean",
-      name: "DigitalOcean"
+      name: "DigitalOcean",
     },
     {
       icon: "devicon:javascript",

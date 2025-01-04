@@ -27,8 +27,10 @@ projects.sort((a, b) => {
                 new Date(projects[index - 1].data.pubDate).getFullYear()) ||
               index === 0) && (
               <div class="flex items-center w-full text-start text-6xl font-light opacity-90 text-white mb-12 mt-6 gap-6">
-                <p class="flex-shrink-0">{project.data.pubDate.getFullYear()}</p>
-                <div class="h-1 bg-gradient-to-r from-[rgba(255,255,255,0.9)] to-transparent w-full roudned-full"></div>
+                <p class="flex-shrink-0">
+                  {project.data.pubDate.getFullYear()}
+                </p>
+                <div class="h-1 bg-gradient-to-r from-[rgba(255,255,255,0.9)] to-transparent w-full roudned-full" />
               </div>
             )}
             <div class="p-4 rounded-lg border border-white border-opacity-20 transition-opacity">

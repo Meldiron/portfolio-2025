@@ -1,6 +1,27 @@
 ---
 import Link from "./Link.astro";
 
+type ContributionDay = {
+  color: string;
+  contributionCount: number;
+  date: string;
+  weekday: number;
+};
+type Week = {
+  contributionDays: ContributionDay[];
+  firstDay: string;
+};
+type Weeks = Week[];
+type GraphQLRes = {
+  user: {
+    contributionsCollection: {
+      contributionCalendar: {
+        weeks: Weeks;
+      };
+    };
+  };
+};
+
 async function getContributions(token: string, username: string) {
   const headers = {
     Authorization: `bearer ${token}`,
@@ -36,12 +57,10 @@ async function getContributions(token: string, username: string) {
   return data;
 }
 
-const graphData = (await getContributions(
-  import.meta.env.PRIVATE_GITHUB_TOKEN,
-  "Meldiron",
-)).data;
-const colorData = {};
-
+const graphData = (
+  await getContributions(import.meta.env.PRIVATE_GITHUB_TOKEN, "Meldiron")
+).data;
+const colorData: any = {};
 
 const {
   user: {
@@ -49,10 +68,10 @@ const {
       contributionCalendar: { weeks },
     },
   },
-} = graphData;
+}: GraphQLRes = graphData;
 
 weeks.forEach(({ contributionDays }, i) => {
-  contributionDays.forEach(({ color, date, contributionCount }, j) => {
+  contributionDays.forEach(({ contributionCount }, j) => {
     let contributionsColor = "rgba(255, 255, 255, 0.1)";
 
     if (contributionCount >= 15) {
@@ -72,8 +91,6 @@ weeks.forEach(({ contributionDays }, i) => {
     colorData[`week-${i}-day-${j}`] = contributionsColor;
   });
 });
-
-
 ---
 
 <section>
@@ -84,12 +101,12 @@ weeks.forEach(({ contributionDays }, i) => {
         <div class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#000]" />
 
         <div id="contributions" class="flex gap-1">
-          {Array.apply(null, Array(53)).map((week, i) => {
+          {Array.apply(null, Array(53)).map((_week, i) => {
             return (
               <div
                 class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
               >
-                {Array.apply(null, Array(7)).map((day, j) => {
+                {Array.apply(null, Array(7)).map((_day, j) => {
                   return (
                     <div
                       class="h-1.5 w-1.5 md:h-2 md:w-2 lg:h-3 lg:w-3 rounded-sm"
@@ -106,7 +123,7 @@ weeks.forEach(({ contributionDays }, i) => {
   }
 
   <div class="mt-4">
- <Link
+    <Link
       text={`Visit on GitHub`}
       href={`https://github.com/Meldiron`}
       external={true}
