@@ -10,42 +10,6 @@ interface Props {
 const { seo } = Astro.props;
 ---
 
-<script>
-  const linkMenuButton = document.getElementById(
-    "link-menu-button",
-  ) as HTMLButtonElement;
-  const linkMenu = document.getElementById("link-menu") as HTMLDivElement;
-  const openIndicator = document.getElementById(
-    "open-indicator",
-  ) as HTMLSpanElement;
-
-  linkMenuButton.addEventListener("click", () => {
-    if (linkMenu.classList.contains("opacity-0")) {
-      linkMenu.classList.remove("pointer-events-none");
-      linkMenu.classList.remove("opacity-0");
-      openIndicator.innerText = "-";
-    } else {
-      linkMenu.classList.add("pointer-events-none");
-      linkMenu.classList.add("opacity-0");
-      openIndicator.innerText = "+";
-    }
-  });
-
-  document.addEventListener("click", (event) => {
-    const isLinkMenuButtonClicked =
-      event.target === linkMenuButton ||
-      linkMenuButton.contains(event.target as Node);
-    const isLinkMenuClicked =
-      event.target === linkMenu || linkMenu.contains(event.target as Node);
-
-    if (!isLinkMenuButtonClicked && !isLinkMenuClicked) {
-      linkMenu.classList.add("pointer-events-none");
-      linkMenu.classList.add("opacity-0");
-      openIndicator.innerText = "+";
-    }
-  });
-</script>
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />

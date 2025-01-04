@@ -111,10 +111,6 @@ export async function getStaticPaths() {
       itemData.h = +(e.dataset["pswpHeight"] ?? 0);
     }
 
-    console.log(itemData.w);
-    console.log(itemData.h);
-    console.log(itemData.src);
-
     return itemData;
   });
 
