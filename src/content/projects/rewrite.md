@@ -4,8 +4,8 @@ pubDate: 2024-05-11 #Y-M-D
 description: "Practice typing by rewriting books as you read them."
 github: "meldiron/rewrite"
 demo: "rewrite.almostapps.eu"
-image: { url: "/projects/rewrite.png", alt: "Graphs" }
-cover: { url: "/projects/rewrite-game.png", alt: "Game" }
+image: { url: "/projects/rewrite.png", alt: "Logo" }
+cover: { url: "/projects/rewrite-thumbnail.png", alt: "Thumbnail" }
 ---
 
 ## Vision
