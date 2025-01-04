@@ -28,219 +28,285 @@ export const navBarLinks: NavBarLink[] = [
 // Home (/)
 export const homePageContent: HomePageContent = {
   techstack: [
-    // Web
     {
-      icon: "devicon:appwrite",
-      name: "Appwrite",
-    },
-    {
-      icon: "devicon:vercel",
-      name: "Vercel",
-      invert: true,
-    },
-    {
-      icon: "devicon:digitalocean",
-      name: "DigitalOcean",
-    },
-    {
-      icon: "devicon:javascript",
-      name: "JavaScript",
-    },
-    {
-      icon: "devicon:typescript",
-      name: "TypeScript",
-    },
-    {
-      icon: "devicon:tailwindcss",
-      name: "TailwindCSS",
-    },
-    {
-      icon: "devicon:bootstrap",
-      name: "Bootstrap",
-    },
-    {
-      icon: "devicon:sass",
-      name: "Sass",
-    },
-    {
-      icon: "devicon:css3",
-      name: "CSS",
-    },
-    {
-      icon: "devicon:html5",
-      name: "HTML",
-    },
-    {
-      icon: "devicon:mysql",
-      name: "SQL",
-    },
-    {
-      icon: "devicon:redis",
-      name: "Redis",
-    },
-    {
-      icon: "devicon:mongodb",
-      name: "MongoDB",
-    },
-    {
-      icon: "devicon:git",
-      name: "Git",
-    },
-    {
-      icon: "devicon:docker",
-      name: "Docker",
-    },
-    {
-      icon: "devicon:traefikproxy",
-      name: "Traefik",
-    },
-    {
-      icon: "devicon:linux",
-      name: "Linux",
-    },
-    {
-      icon: "devicon:k6",
-      name: "k6",
-    },
-    {
-      icon: "devicon:angular",
-      name: "Angular",
-    },
-    {
-      icon: "devicon:alpinejs",
-      name: "Alpine.js",
-    },
-    {
-      icon: "devicon:unity",
-      name: "Unity",
-    },
-    {
-      icon: "devicon:flutter",
-      name: "Flutter",
-    },
-    {
-      icon: "devicon:ionic",
-      name: "Ionic",
-    },
-    {
-      icon: "devicon:vuejs",
-      name: "Vue",
-    },
-    {
-      icon: "devicon:nuxtjs",
-      name: "Nuxt",
-    },
-    {
-      icon: "devicon:svelte",
-      name: "Svelte",
-    },
-    {
-      icon: "devicon:astro",
-      invert: true,
-      name: "Astro",
-    },
-    {
-      icon: "devicon:react",
-      name: "React",
-    },
-    {
-      icon: "devicon:arduino",
-      name: "Arduino",
-    },
-    {
-      icon: "devicon:capacitor",
-      name: "Capacitor",
-    },
-    {
-      icon: "devicon:jenkins",
-      name: "Jenkins",
-    },
+      name: "Frameworks",
+      items: [
+        {
+          icon: "devicon:capacitor",
+          name: "Capacitor",
+        },
+        {
+          icon: "devicon:processing",
+          name: "Processing",
+        },
+        {
+          icon: "devicon:qwik",
+          name: "Qwik",
+        },
 
-    {
-      icon: "devicon:openapi",
-      name: "OpenAPI",
+        {
+          icon: "devicon:solidjs",
+          name: "SolidJS",
+        },
+        {
+          icon: "devicon:angular",
+          name: "Angular",
+        },
+        {
+          icon: "devicon:alpinejs",
+          name: "Alpine.js",
+        },
+
+        {
+          icon: "devicon:unity",
+          name: "Unity",
+        },
+        {
+          icon: "devicon:flutter",
+          name: "Flutter",
+        },
+        {
+          icon: "devicon:ionic",
+          name: "Ionic",
+        },
+        {
+          icon: "devicon:vuejs",
+          name: "Vue",
+        },
+        {
+          icon: "devicon:nuxtjs",
+          name: "Nuxt",
+        },
+        {
+          icon: "devicon:svelte",
+          name: "Svelte",
+        },
+        {
+          icon: "devicon:astro",
+          invert: true,
+          name: "Astro",
+        },
+        {
+          icon: "devicon:react",
+          name: "React",
+        },
+      ],
     },
     {
-      icon: "devicon:jquery",
-      name: "jQuery",
+      name: "Technologies",
+      items: [
+        {
+          icon: "devicon:javascript",
+          name: "JavaScript",
+        },
+        {
+          icon: "devicon:typescript",
+          name: "TypeScript",
+        },
+        {
+          icon: "devicon:sass",
+          name: "Sass",
+        },
+        {
+          icon: "devicon:css3",
+          name: "CSS",
+        },
+        {
+          icon: "devicon:html5",
+          name: "HTML",
+        },
+
+        {
+          icon: "devicon:bash",
+          name: "Bash",
+          invert: true,
+        },
+        {
+          icon: "devicon:openapi",
+          name: "OpenAPI",
+        },
+        {
+          icon: "devicon:git",
+          name: "Git",
+        },
+        {
+          icon: "devicon:docker",
+          name: "Docker",
+        },
+        {
+          icon: "devicon:k6",
+          name: "k6",
+        },
+      ],
     },
     {
-      icon: "devicon:qwik",
-      name: "Qwik",
+      name: "Libraries",
+      items: [
+        {
+          icon: "devicon:jquery",
+          name: "jQuery",
+        },
+        {
+          icon: "devicon:socketio",
+          name: "Socket.IO",
+          invert: true,
+        },
+
+        {
+          icon: "devicon:bootstrap",
+          name: "Bootstrap",
+        },
+
+        {
+          icon: "devicon:knexjs",
+          name: "Knex.js",
+        },
+        {
+          icon: "devicon:tailwindcss",
+          name: "TailwindCSS",
+        },
+      ],
     },
     {
-      icon: "devicon:travis",
-      name: "Travis",
+      name: "Servers",
+      items: [
+        {
+          icon: "devicon:linux",
+          name: "Linux",
+        },
+        {
+          icon: "devicon:mysql",
+          name: "SQL",
+        },
+        {
+          icon: "devicon:redis",
+          name: "Redis",
+        },
+        {
+          icon: "devicon:mongodb",
+          name: "MongoDB",
+        },
+        {
+          icon: "devicon:traefikproxy",
+          name: "Traefik",
+        },
+      ],
     },
     {
-      icon: "devicon:solidjs",
-      name: "SolidJS",
+      name: "Runtimes",
+      items: [
+        {
+          icon: "devicon:arduino",
+          name: "Arduino",
+        },
+        {
+          icon: "devicon:nodejs",
+          name: "Node",
+        },
+        {
+          icon: "devicon:denojs",
+          name: "Deno",
+          invert: true,
+        },
+        {
+          icon: "devicon:bun",
+          name: "Bun",
+        },
+        {
+          icon: "devicon:php",
+          name: "PHP",
+        },
+        {
+          icon: "devicon:csharp",
+          name: "C#",
+        },
+        {
+          icon: "devicon:go",
+          name: "Go",
+        },
+        {
+          icon: "devicon:python",
+          name: "Python",
+        },
+        {
+          icon: "devicon:ruby",
+          name: "Ruby",
+        },
+        {
+          icon: "devicon:swift",
+          name: "Swift",
+        },
+        {
+          icon: "devicon:java",
+          name: "Java",
+        },
+        {
+          icon: "devicon:dart",
+          name: "Dart",
+        },
+        {
+          icon: "devicon:cplusplus",
+          name: "C++",
+        },
+        {
+          icon: "devicon:dot-net",
+          name: ".NET",
+        },
+        {
+          icon: "devicon:kotlin",
+          name: "Kotlin",
+        },
+      ],
     },
     {
-      icon: "devicon:figma",
-      name: "Figma",
-    },
-    {
-      icon: "devicon:cplusplus",
-      name: "C++",
-    },
-    {
-      icon: "devicon:dot-net",
-      name: ".NET",
-    },
-    {
-      icon: "devicon:kotlin",
-      name: "Kotlin",
-    },
-    {
-      icon: "devicon:nodejs",
-      name: "Node",
-    },
-    {
-      icon: "devicon:bun",
-      name: "Bun",
-    },
-    {
-      icon: "devicon:csharp",
-      name: "C#",
-    },
-    {
-      icon: "devicon:go",
-      name: "Go",
-    },
-    {
-      icon: "devicon:php",
-      name: "PHP",
-    },
-    {
-      icon: "devicon:python",
-      name: "Python",
-    },
-    {
-      icon: "devicon:ruby",
-      name: "Ruby",
-    },
-    {
-      icon: "devicon:swift",
-      name: "Swift",
-    },
-    {
-      icon: "devicon:java",
-      name: "Java",
-    },
-    {
-      icon: "devicon:dart",
-      name: "Dart",
-    },
-    {
-      icon: "devicon:wasm",
-      name: "WebAssembly",
-    },
-    {
-      icon: "devicon:swagger",
-      name: "Swagger",
+      name: "Cloud",
+      items: [
+        {
+          icon: "devicon:figma",
+          name: "Figma",
+        },
+        {
+          icon: "devicon:appwrite",
+          name: "Appwrite",
+        },
+        {
+          icon: "devicon:jenkins",
+          name: "Jenkins",
+        },
+        {
+          icon: "devicon:travis",
+          name: "Travis",
+        },
+        {
+          icon: "devicon:vercel",
+          name: "Vercel",
+          invert: true,
+        },
+        {
+          icon: "devicon:digitalocean",
+          name: "DigitalOcean",
+        },
+        {
+          icon: "devicon:cloudflare",
+          name: "Cloudflare",
+        },
+        {
+          icon: "devicon:netlify",
+          name: "Netlify",
+        },
+        {
+          icon: "devicon:railway",
+          name: "Railway",
+        },
+
+        {
+          icon: "devicon:sentry",
+          name: "Sentry",
+        },
+      ],
     },
   ],
+
   seo: {
     title: "Matej Bačo",
     description:

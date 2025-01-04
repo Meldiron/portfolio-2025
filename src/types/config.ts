@@ -23,9 +23,12 @@ export type HomePageContent = {
 };
 
 export type TechStackItem = {
-  icon: string;
   name: string;
-  invert?: boolean;
+  items: {
+    icon: string;
+    name: string;
+    invert?: boolean;
+  }[];
 };
 
 export type ResumeItem = {

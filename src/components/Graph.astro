@@ -103,13 +103,11 @@ weeks.forEach(({ contributionDays }, i) => {
         <div id="contributions" class="flex gap-1">
           {Array.apply(null, Array(53)).map((_week, i) => {
             return (
-              <div
-                class={`flex-col gap-1 ${i < 20 ? "hidden md:flex" : "flex"}`}
-              >
+              <div class={`flex-col gap-1 flex`}>
                 {Array.apply(null, Array(7)).map((_day, j) => {
                   return (
                     <div
-                      class="h-1.5 w-1.5 md:h-2 md:w-2 lg:h-3 lg:w-3 rounded-sm"
+                      class="h-2 w-2 lg:h-3 lg:w-3 rounded-[1px] sm:rounded-sm"
                       style={`background-color: ${colorData[`week-${i}-day-${j}`]}`}
                     />
                   );

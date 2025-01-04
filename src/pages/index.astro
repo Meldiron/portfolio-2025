@@ -61,9 +61,27 @@ posts.splice(2);
     <Graph />
   </section>
 
+  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Career path</h2>
+    <div>
+      <div class="mb-6">
+        <p>
+          Since the day one I worked remotely, which made me disciplined,
+          open-minded, and time-flexible individual.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 group">
+        {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
+      </div>
+      <div class="mt-4">
+        <Link text="Download my CV" href="/CV_Matej_Baco.pdf" external={true} />
+      </div>
+    </div>
+  </section>
+
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
-    <div class="grid grid-cols-1 gap-10 sm:gap-4 mb-4">
+    <div class="grid grid-cols-1 gap-4 mb-4">
       {
         projects.map((project) => (
           <a
@@ -103,52 +121,44 @@ posts.splice(2);
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech experience</h2>
-    <div
-      class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2"
-    >
+    <div class="space-y-8">
       {
-        homePageContent.techstack
-          .sort((item, item2) =>
-            item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
-          )
-          .map((item) => (
-            <div class="group relative col-span-1 justify-center p-1.5 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-x-hidden">
-              <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]" />
+        homePageContent.techstack.map((item) => (
+          <div>
+            <h3 class="mb-3 text-xl text-[rgba(255,255,255,0.7)]">
+              {item.name}
+            </h3>
 
-              <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
-                <Icon
-                  class={`${item.invert ? "invert" : ""}`}
-                  name={item.icon}
-                  width={20}
-                  height={20}
-                />
-              </div>
-              <p class="text-sm line-clamp-1">{item.name}</p>
+            <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
+              {item.items
+                .sort((item, item2) =>
+                  item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
+                )
+                .map((item) => (
+                  <div class="group relative col-span-1 justify-center p-1.5 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-x-hidden">
+                    <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]" />
+
+                    <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
+                      <Icon
+                        class={`${item.invert ? "invert" : ""}`}
+                        name={item.icon}
+                        width={20}
+                        height={20}
+                      />
+                    </div>
+                    <p class="text-sm line-clamp-1">{item.name}</p>
+                  </div>
+                ))}
             </div>
-          ))
+          </div>
+        ))
       }
     </div>
   </section>
-  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Career path</h2>
-    <div>
-      <div class="mb-6">
-        <p>
-          Since the day one I worked remotely, which made me disciplined,
-          open-minded, and time-flexible individual.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 group">
-        {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
-      </div>
-      <div class="mt-4">
-        <Link text="Download my CV" href="/CV_Matej_Baco.pdf" external={true} />
-      </div>
-    </div>
-  </section>
+
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
-    <div class="grid grid-cols-1 gap-10 sm:gap-6 mb-4">
+    <div class="grid grid-cols-1 gap-4 mb-4">
       {
         posts.map((post) => (
           <a
