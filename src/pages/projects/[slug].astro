@@ -103,12 +103,12 @@ export async function getStaticPaths() {
     gallery: ".project-article",
   });
 
-  lightbox.addFilter('domItemData', (itemData, element, linkEl) => {
+  lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
     const e = element ?? linkEl;
     if (e) {
-      itemData.src = e.dataset['pswpSrc'];
-      itemData.w = e.dataset['pswpWidth'];
-      itemData.h = e.dataset['pswpHeight'];
+      itemData.src = e.dataset["pswpSrc"];
+      itemData.w = +(e.dataset["pswpWidth"] ?? 0);
+      itemData.h = +(e.dataset["pswpHeight"] ?? 0);
     }
 
     console.log(itemData.w);
@@ -122,9 +122,13 @@ export async function getStaticPaths() {
     "astro:page-load",
     () => {
       document.querySelectorAll(".project-article img").forEach((img) => {
-        img.setAttribute("data-pswp-width", img.naturalWidth);
+        if (!(img instanceof HTMLImageElement)) {
+          return;
+        }
+
         img.setAttribute("data-pswp-src", img.src);
-        img.setAttribute("data-pswp-height", img.naturalHeight);
+        img.setAttribute("data-pswp-width", img.naturalWidth + "");
+        img.setAttribute("data-pswp-height", img.naturalHeight + "");
       });
       if (lightbox) lightbox.init();
     },

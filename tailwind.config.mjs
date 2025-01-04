@@ -4,11 +4,10 @@ import tailwindTypograpgy from "@tailwindcss/typography";
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
-   
     extend: {
       screens: {
-        'xs': '540px',
-        'xxs': '380px',
+        xs: "540px",
+        xxs: "380px",
       },
       colors: {
         black: "#000",

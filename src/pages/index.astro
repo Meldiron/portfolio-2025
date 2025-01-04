@@ -97,7 +97,9 @@ posts.splice(2);
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech stack</h2>
-    <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
+    <div
+      class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2"
+    >
       {
         homePageContent.techstack
           .sort((item, item2) =>
@@ -105,9 +107,14 @@ posts.splice(2);
           )
           .map((item) => (
             <div class="relative col-span-1 justify-center p-1.5 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-x-hidden">
-              <div class="absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]"></div>
+              <div class="absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#000] via-[#000]" />
 
-              <Icon class="flex-shrink-0" name={item.icon} width={20} height={20} />
+              <Icon
+                class="flex-shrink-0"
+                name={item.icon}
+                width={20}
+                height={20}
+              />
               <p class="text-sm line-clamp-1">{item.name}</p>
             </div>
           ))

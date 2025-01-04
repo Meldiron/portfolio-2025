@@ -70,16 +70,16 @@ projects.sort((a, b) => {
               </div>
 
               {project.data.cover && (
-               <div class="relative">
-               <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]"></div>
- <Image
-                  src={project.data.cover.url}
-                  alt={project.data.cover.alt}
-                  width={250}
-                  height={150}
-                  class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
-                />
-               </div>
+                <div class="relative">
+                  <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]" />
+                  <Image
+                    src={project.data.cover.url}
+                    alt={project.data.cover.alt}
+                    width={250}
+                    height={150}
+                    class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
+                  />
+                </div>
               )}
             </a>
           </div>
