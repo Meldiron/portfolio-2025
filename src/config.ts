@@ -310,7 +310,7 @@ export const homePageContent: HomePageContent = {
   seo: {
     title: "Matej Bačo",
     description:
-      "I am impact-driven platform engineer from Czech Republic in love with everything open source.",
+      "I am impact-driven software engineer from Czech Republic in love with everything open source.",
     image: "/logo.webp",
   },
 };
