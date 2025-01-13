@@ -8,6 +8,7 @@ import SocialLinkBox from "../components/SocialLinkBox.astro";
 import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
+import Vandalism from "../components/Vandalism.svelte";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -29,32 +30,9 @@ posts.splice(2);
 ---
 
 <Layout seo={homePageContent.seo}>
-  <section class="mt-6 max-w-2xl mx-auto px-6">
-    <div class="flex flex-col min-[520px]:flex-row gap-6 mb-8">
-      <Image
-        src="/logo.webp"
-        alt="Face"
-        width={100}
-        height={100}
-        class="rounded-full"
-      />
-      <div class="group flex flex-col justify-center w-fit">
-        <h1 class="font-bold text-3xl mb-1">Matej Bačo</h1>
-        <p class="text-[rgba(255,255,255,0.6)]">
-          Engineering lead at <a
-            class="hover-underline hover-underline-appwrite text-[#FD366E]"
-            href="https://appwrite.io/"
-            target="_blank">Appwrite</a
-          >
-        </p>
-      </div>
-    </div>
-    <p class="max-w-md mb-4">
-      I am impact-driven platform engineer from Czech Republic in love with
-      everything open source.
-    </p>
+  <Vandalism client:load>
     <Link text="Read my story" href="/about" external={false} />
-  </section>
+  </Vandalism>
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Open source activity</h2>
