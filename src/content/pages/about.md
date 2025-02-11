@@ -58,6 +58,6 @@ Im proud of 0-downtime migration because it allowed me to learn how to develop c
 
 ![0-downtime migration](/zdt.jpg)
 
-## Leadership future
+## Project and people leadership 
 
-...
+Thanks to my career path, I am currently able to gain experience in leading dedicated projects, and lead team of engineers. I am excited to become great leader and grow my skills even further.

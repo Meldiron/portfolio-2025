@@ -10,8 +10,8 @@ export default {
         xxs: "380px",
       },
       colors: {
-        black: "#000",
-        white: "#FFF",
+        black: "#121212",
+        white: "#eeeeee",
       },
     },
   },

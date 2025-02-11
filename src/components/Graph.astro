@@ -97,8 +97,8 @@ weeks.forEach(({ contributionDays }, i) => {
   {
     graphData && (
       <div class="flex flex-col items-center justify-center overflow-hidden relative">
-        <div class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#000]" />
-        <div class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#000]" />
+        <div class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#121212]" />
+        <div class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#121212]" />
 
         <div id="contributions" class="flex gap-1">
           {Array.apply(null, Array(53)).map((_week, i) => {
@@ -122,7 +122,7 @@ weeks.forEach(({ contributionDays }, i) => {
 
   <div class="mt-4">
     <Link
-      text={`Visit on GitHub`}
+      text={`View on GitHub`}
       href={`https://github.com/Meldiron`}
       external={true}
     />

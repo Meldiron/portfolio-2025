@@ -12,16 +12,16 @@ export const navBarLinks: NavBarLink[] = [
     url: "/",
   },
   {
-    title: "About",
-    url: "/about",
-  },
-  {
     title: "Projects",
     url: "/projects",
   },
   {
     title: "Blog",
     url: "/blog",
+  },
+  {
+    title: "About",
+    url: "/about",
   },
 ];
 

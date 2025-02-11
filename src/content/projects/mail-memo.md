@@ -5,7 +5,7 @@ description: "Email reminders so you never miss an important ​date again."
 github: "armanNik/MailMemo"
 demo: "mailmemo.site"
 image: { url: "/projects/mail-memo.png", alt: "M letter" }
-cover: { url: "/projects/mail-memo-inbox.png", alt: "Inbox" }
+cover: { url: "/projects/mail-memo-thumbnail.png", alt: "Thumbnail" }
 ---
 
 More detail coming soon...
