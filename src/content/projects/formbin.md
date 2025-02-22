@@ -19,7 +19,7 @@ While this idea was in my mind for over a year, I decided to work on this during
 ## Technologies
 
 - Svelte and SvelteKit
-- TailwindCSS
+- TailwindCSS (shadcn-svelte)
 - Appwrite OAuth (GitHub)
 - Appwrite Databases
 - Discord webhooks
