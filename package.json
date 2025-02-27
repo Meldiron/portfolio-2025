@@ -12,9 +12,13 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@astrojs/alpinejs": "^0.4.3",
     "@astrojs/check": "^0.5.10",
     "@astrojs/tailwind": "^5.1.0",
     "@astropub/md": "^0.4.0",
+    "@types/alpinejs": "^3.13.11",
+    "alpinejs": "^3.14.8",
+    "appwrite": "^17.0.0",
     "astro": "^4.15.4",
     "astro-icon": "^1.1.0",
     "mdast-util-to-string": "^4.0.0",

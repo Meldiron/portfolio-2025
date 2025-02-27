@@ -22,6 +22,8 @@ const { seo } = Astro.props;
     <meta property="og:description" content={seo.description} />
     <meta property="og:image" content={seo.image} />
     <ViewTransitions />
+    <script is:inline src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
+    ></script>
   </head>
   <body>
     <header>
