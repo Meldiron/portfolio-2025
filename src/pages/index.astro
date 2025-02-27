@@ -37,7 +37,7 @@ const databases = new Databases(client);
 const scores = await databases.listDocuments("main", "scores", [
   Query.limit(100), // This deserves pagination if I ever know that many
 ]);
-const scoreMap = {};
+const scoreMap: any = {};
 for (const document of scores.documents) {
   scoreMap[document.name] = document.score;
 }
