@@ -21,6 +21,10 @@ export default (Alpine) => {
       }
     },
 
+    selectTool(tool) {
+      this.tool = tool;
+    },
+
     toVerbose(score) {
       return score > 0 ? `+${score}` : `${score}`;
     },

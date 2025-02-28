@@ -143,6 +143,45 @@ const toolsString = JSON.stringify(tools);
     />
   </section>
 
+  <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
+    <div class="grid grid-cols-1 gap-4 mb-4">
+      {
+        posts.map((post) => (
+          <a
+            href={
+              post.data.external ? post.data.external : `/blog/${post.slug}`
+            }
+            target={post.data.external ? "_blank" : "_self"}
+          >
+            <p class="text-[rgba(255,255,255,0.6)] mb-2 text-xs">
+              {post.data.pubDate.getDate() +
+                "." +
+                (post.data.pubDate.getMonth() + 1) +
+                "." +
+                post.data.pubDate.getFullYear()}{" "}
+              ·{" "}
+              {post.data.external && (
+                <span class="text-[#ffffff]">Appwrite</span>
+              )}
+            </p>
+            <div>
+              <h3 class="font-medium hover-underline">{post.data.title}</h3>
+              <p class="text-sm opacity-60 mt-2 mb-3">
+                {post.data.description}
+              </p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+    <Link
+      text={`View all ${totalArticles} articles`}
+      href="/blog"
+      external={false}
+    />
+  </section>
+
   <section
     class="max-w-2xl mx-auto px-6"
     x-data={`minigame({ tools: ${toolsString}, scores: ${scoreMapString} })`}
@@ -163,14 +202,17 @@ const toolsString = JSON.stringify(tools);
                   item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
                 )
                 .map((item) => (
-                  <div class="group relative col-span-1 overflow-hidden">
+                  <button
+                    @click={`selectTool('${item.name}')`}
+                    class="group relative col-span-1 overflow-hidden"
+                  >
                     <div
                       x-show={`scores['${item.name}']`}
-                      x-bind:class={`'group-hover:opacity-0 transition-all duration-500 z-[10] absolute right-0 top-0 rounded-bl-md p-0.5  text-xs px-1.5  bg-opacity-15 text-opacity-50 ' + ((scores['${item.name}'] ?? 0) > 0 ? 'text-green-500 bg-green-900' : 'text-red-500 bg-red-900')`}
+                      x-bind:class={`'group-hover:opacity-0 transition-opacity duration-500 z-[10] absolute right-0 top-0 rounded-bl-md p-0.5  text-xs px-1.5  bg-opacity-15 text-opacity-50 ' + ((scores['${item.name}'] ?? 0) > 0 ? 'text-green-500 bg-green-900' : 'text-red-500 bg-red-900')`}
                       x-text={`toVerbose(scores['${item.name}'])`}
-                    ></div>
+                    />
 
-                    <div class=" relative justify-center p-2 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-hidden">
+                    <div class="relative justify-center p-3 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-hidden">
                       <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#121212] via-[#121212]" />
 
                       <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
@@ -183,7 +225,7 @@ const toolsString = JSON.stringify(tools);
                       </div>
                       <p class="text-sm line-clamp-1">{item.name}</p>
                     </div>
-                  </div>
+                  </button>
                 ))}
             </div>
           </div>
@@ -229,47 +271,16 @@ const toolsString = JSON.stringify(tools);
           >I don't know</button
         >
       </div>
+
+      <p
+        class="mx-auto max-w-[300px] mt-4 text-center text-sm text-opacity-75 text-neutral-500 mb-2"
+      >
+        You can vote for specific tool by clicking on it, then coming to this
+        minigame.
+      </p>
     </div>
   </section>
 
-  <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
-    <div class="grid grid-cols-1 gap-4 mb-4">
-      {
-        posts.map((post) => (
-          <a
-            href={
-              post.data.external ? post.data.external : `/blog/${post.slug}`
-            }
-            target={post.data.external ? "_blank" : "_self"}
-          >
-            <p class="text-[rgba(255,255,255,0.6)] mb-2 text-xs">
-              {post.data.pubDate.getDate() +
-                "." +
-                (post.data.pubDate.getMonth() + 1) +
-                "." +
-                post.data.pubDate.getFullYear()}{" "}
-              ·{" "}
-              {post.data.external && (
-                <span class="text-[#ffffff]">Appwrite</span>
-              )}
-            </p>
-            <div>
-              <h3 class="font-medium hover-underline">{post.data.title}</h3>
-              <p class="text-sm opacity-60 mt-2 mb-3">
-                {post.data.description}
-              </p>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-    <Link
-      text={`View all ${totalArticles} articles`}
-      href="/blog"
-      external={false}
-    />
-  </section>
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
     <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's connect</h2>
     <div>
