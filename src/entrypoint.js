@@ -8,6 +8,21 @@ export default (Alpine) => {
     init() {
       this.randomizeTool();
       this.updateScores();
+
+      const { client } = this.getAppwrite();
+
+      client.subscribe(
+        "databases.main.collections.scores.documents",
+        (response) => {
+          if (
+            response?.payload &&
+            response.payload?.$collectionId === "scores" &&
+            response.payload?.$databaseId === "main"
+          ) {
+            this.scores[response.payload.name] = response.payload.score;
+          }
+        },
+      );
     },
 
     getAppwrite() {
@@ -18,7 +33,7 @@ export default (Alpine) => {
       const functions = new Appwrite.Functions(client);
       const databases = new Appwrite.Databases(client);
 
-      return { functions, databases };
+      return { functions, databases, client };
     },
 
     async updateScores() {
