@@ -24,7 +24,7 @@ type AppwriteScoreList struct {
 type AppwriteScore struct {
 	*models.Document
 	Name  string `json:"name"`
-	Value int    `json:"value"`
+	Score int    `json:"score"`
 }
 
 func Main(Context openruntimes.Context) openruntimes.Response {
@@ -72,7 +72,7 @@ func Main(Context openruntimes.Context) openruntimes.Response {
 		}
 	} else {
 		scoreId := listScores.Documents[0].Id
-		scoreValue := listScores.Documents[0].Value
+		scoreValue := listScores.Documents[0].Score
 
 		_, err = databases.UpdateDocument("main", "scores", scoreId, databases.WithUpdateDocumentData(map[string]interface{}{
 			"score": scoreValue + body.Value,

@@ -7,6 +7,30 @@ export default (Alpine) => {
 
     init() {
       this.randomizeTool();
+      this.updateScores();
+    },
+
+    getAppwrite() {
+      const client = new Appwrite.Client();
+      client
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("67c0eaa1002e13cf7a9e");
+      const functions = new Appwrite.Functions(client);
+      const databases = new Appwrite.Databases(client);
+
+      return { functions, databases };
+    },
+
+    async updateScores() {
+      const { databases } = this.getAppwrite();
+      const scores = await databases.listDocuments("main", "scores", [
+        Appwrite.Query.limit(100), // This deserves pagination if I ever know that many
+      ]);
+      const newScores = {};
+      for (const document of scores.documents) {
+        newScores[document.name] = document.score;
+      }
+      this.scores = newScores;
     },
 
     randomizeTool(attempt = 0) {
@@ -48,13 +72,8 @@ export default (Alpine) => {
     },
 
     async saveToAppwrite(tool, value) {
-      const client = new Appwrite.Client();
-      client
-        .setEndpoint("https://cloud.appwrite.io/v1")
-        .setProject("67c0eaa1002e13cf7a9e");
-      const functions = new Appwrite.Functions(client);
-
       try {
+        const { functions } = this.getAppwrite();
         const execution = await functions.createExecution(
           "voteInMinigame",
           JSON.stringify({
