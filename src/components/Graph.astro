@@ -72,7 +72,7 @@ const {
 
 weeks.forEach(({ contributionDays }, i) => {
   contributionDays.forEach(({ contributionCount }, j) => {
-    let contributionsColor = "rgba(255, 255, 255, 0.1)";
+    let contributionsColor = "rgba(255, 255, 255, 0.05)";
 
     if (contributionCount >= 15) {
       contributionsColor = "#39d353";
@@ -85,7 +85,7 @@ weeks.forEach(({ contributionDays }, i) => {
     }
 
     if (contributionsColor === "#ebedf0") {
-      contributionsColor = "rgba(255, 255, 255, 0.1)";
+      contributionsColor = "rgba(255, 255, 255, 0.05)";
     }
 
     colorData[`week-${i}-day-${j}`] = contributionsColor;
