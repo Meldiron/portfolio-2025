@@ -10,9 +10,9 @@ cover: { url: "/projects/rewrite-thumbnail.png", alt: "Thumbnail" }
 
 ## Vision
 
-A website [TypeLit](https://www.typelit.io/), which I used for couple of weeks, required a paid subscription to add custom books. I upgraded, but soon realised the website is missing many features such as accent configuration, book's page screenshot, gamification, and more.
+The website [TypeLit](https://www.typelit.io/), which I used for a couple of weeks, required a paid subscription to add custom books. I upgraded, but soon realized the website was missing many features such as accent configuration, book page screenshots, gamification, and more.
 
-When on train, after finishing a page, TypeLit couldn't save my progress due to unstable internet connection, and there was no local backup. Instead of rewriting the page again, I decided to build my own application for it - Rewrite.
+When on a train, after finishing a page, TypeLit couldn't save my progress due to unstable internet connection, and there was no local backup. Instead of rewriting the page again, I decided to build my own application for it - Rewrite.
 
 ## Technologies
 
@@ -26,13 +26,13 @@ When on train, after finishing a page, TypeLit couldn't save my progress due to 
 
 ## Screens
 
-A simple homepage inviting visitors to sign in before using the platform. To allow quick-play, users are welcome to create anonymous (guest) accounts with 1 click.
+A simple homepage invites visitors to sign in before using the platform. To allow quick-play, users are welcome to create anonymous (guest) accounts with 1 click.
 
 ![Homepage](/projects/rewrite/homepage.png)
 
 <br />
 
-Authentication flows powered by [Auth UI](/projects/auth-ui), supporting many different authentication methods such as magic URL, phone OTP, email&password, OAuth, and more.
+Authentication flows powered by [Auth UI](/projects/auth-ui), supporting many different authentication methods such as magic URL, phone OTP, email & password, OAuth, and more.
 
 ![Auth](/projects/rewrite/auth.png)
 
@@ -44,23 +44,23 @@ Logged-in users can visit a library containing books. They can pick from many pr
 
 <br />
 
-Once user picks a book, they can select whih page they want to rewrite. Table smartly filters-out already finished pages, and sorts the rest in ascending order.
+Once a user picks a book, they can select which page they want to rewrite. The table smartly filters out already finished pages, and sorts the rest in ascending order.
 
 ![Book](/projects/rewrite/book.png)
 
 <br />
 
-Rewriting a page of a book is the main view of this application. User is given input and book's text. The goal is to rewrite the page without making mistakes - mistakes must be corrected.
+Rewriting a page of a book is the main view of this application. The user is given input and book's text. The goal is to rewrite the page without making mistakes - mistakes must be corrected.
 
 ![Game](/projects/rewrite/game.png)
 
-If books include illustrations, user can also toggle page-view and see the book's page original design.
+If books include illustrations, users can also toggle page-view and see the book's original page design.
 
 ![Game 2-view](/projects/rewrite/game2.png)
 
 <br />
 
-Completing a page grants user experiences, and invites them to continue to the next book's page.
+Completing a page grants users experience points, and invites them to continue to the next book's page.
 
 ![Finish](/projects/rewrite/finish.png)
 
@@ -72,13 +72,13 @@ Current level progress and experience remaining can also be found in a level mod
 
 <br />
 
-Alongside leveling-up the account, users can also maintain their streaks, and see how long they can go without missing a day of rewriting a page.
+Alongside leveling up the account, users can also maintain their streaks, and see how long they can go without missing a day of rewriting a page.
 
 ![streak](/projects/rewrite/streak.png)
 
 <br />
 
-You may have noticed golden words in page, those were words needed to finish a quest. Doing quests grants coins that can be used for cool abilities.
+You may have noticed golden words in the page; those were words needed to finish a quest. Doing quests grants coins that can be used for cool abilities.
 
 ![quests](/projects/rewrite/quests.png)
 
