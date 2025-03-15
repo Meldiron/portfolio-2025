@@ -25,7 +25,7 @@ export async function getStaticPaths() {
   });
 }
 
-const readingTimes = {};
+const readingTimes: any = {};
 for (let i = 0; i < headings.length; i++) {
   const heading = headings[i];
   const nextHeading = headings[i + 1];
