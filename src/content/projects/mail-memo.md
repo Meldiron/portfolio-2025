@@ -10,20 +10,20 @@ cover: { url: "/projects/mail-memo-thumbnail.png", alt: "Thumbnail" }
 
 ## Vision
 
-(content missing)
+(will write on some weekend)
 
 ## Technologies
 
-(content missing)
+(will write on some weekend)
 
 ## Screens
 
-(content missing)
+(will write on some weekend)
 
 ## Retrospective
 
-(content missing)
+(will write on some weekend)
 
 ## Future plans
 
-(content missing)
+(will write on some weekend)

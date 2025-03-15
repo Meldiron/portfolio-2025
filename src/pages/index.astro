@@ -295,6 +295,79 @@ const toolsString = JSON.stringify(tools);
           ))
         }
       </div>
+      <div class="mt-6">
+        You can also leave me a message and I'll get in touch with you. Let's do
+        something amazing together!
+      </div>
+      <div>
+        <form
+          class="bg-neutral-900 mt-4 p-3 rounded-lg border border-neutral-700 flex flex-col gap-3"
+          action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <div
+            id="contact-success"
+            style="display: none;"
+            class="bg-green-950 rounded-lg p-3 border border-green-800"
+          >
+            <p class="text-green-200 font-semibold text-center">
+              Thanks for your message!
+            </p>
+          </div>
+
+          <div>
+            <p class="opacity-60 text-sm mb-2">Contact details:</p>
+            <input
+              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              name="sender"
+              placeholder="E-mail, Phone, Discord, LinkedIn, ..."
+            />
+          </div>
+
+          <div>
+            <p class="opacity-60 text-sm mb-2">Message:</p>
+            <textarea
+              rows="4"
+              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              name="message"
+              placeholder="Enter your text..."></textarea>
+          </div>
+          <button
+            type="submit"
+            class="bg-neutral-800 py-2 rounded-lg text-white">Send</button
+          >
+        </form>
+        <p class="mt-3 text-sm mb-2 text-center">
+          <span class="opacity-60 inline-block">Powered by</span>
+          <a href="https://formbin.almostapps.eu/" target="_blank">
+            <img
+              src="/formbin.svg"
+              class="inline-block ml-1 mr-1 transform translate-y-[-2px]"
+              width="12"
+            /><span class="inline-block text-[#F06225]">FormBin</span></a
+          >
+          <span class="-ml-1 opacity-60 inline-block"
+            >, one of my side projects.</span>
+        </p>
+      </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  let hash = window.location.hash;
+  hash = hash.substring(1); // Remove #
+
+  if (hash === "contact-success") {
+    const el = document.querySelector("#contact-success") as any;
+
+    el.style.display = "block";
+    el.scrollIntoView();
+    history.pushState(
+      "",
+      document.title,
+      window.location.pathname + window.location.search,
+    );
+  }
+</script>

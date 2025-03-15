@@ -17,7 +17,7 @@ When on a train, after finishing a page, TypeLit couldn't save my progress due t
 ## Technologies
 
 - Svelte and SvelteKit
-- TailwindCSS
+- daisyUI with TailwindCSS
 - Appwrite Databases
 - Appwrite Functions using Node.JS
 - Auth UI
@@ -90,8 +90,19 @@ Users can also look at their profile statistics and complete set of achievements
 
 ## Retrospective
 
-(content missing)
+The project gave me the confidence to develop further apps with daisyUI to support dark theme and theming out of the box. I also experienced the implementation of many gamification features, which can serve as a stepping stone to making a proper gamified self-improvement platform in the future.
+
+While working on this project wasn't much of a learning experience, it became an amazing free alternative to its paid competitors, providing all the features that they do. Since I used it myself, I was able to improve and maintain it for over a year.
+
+One of the most interesting problems I faced was creating a self-explanatory interface while books were being processed, so users wouldn't be left hanging, not knowing what to do next.
 
 ## Future plans
 
-(content missing)
+Since the app serves exact purpose it was meant to, I don't plan to update it in near future. With that said, following are some features what I can see as an improvement:
+
+- Dependency-free e-book parser
+- Streak calendar
+- Rewards for levels
+- Sharable public profile
+- 0 Trust server validation
+- Community events and goals
