@@ -3,6 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import { getEntry, getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
+import getReadingTime from "reading-time";
 
 const { slug } = Astro.params;
 const entry = await getEntry("projects", slug as string);
@@ -11,7 +12,7 @@ if (!entry) {
   return Astro.redirect("/projects");
 }
 
-const { Content } = await entry.render();
+const { Content, headings } = await entry.render();
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -22,6 +23,24 @@ export async function getStaticPaths() {
       },
     };
   });
+}
+
+const readingTimes = {};
+for (let i = 0; i < headings.length; i++) {
+  const heading = headings[i];
+  const nextHeading = headings[i + 1];
+
+  let part = entry.body.split("## " + heading.text)[1] ?? "";
+  if (nextHeading) {
+    part = part.split("## " + nextHeading.text)[0] ?? "";
+  }
+
+  let seconds = Math.round(getReadingTime(part).time / 1000);
+
+  const extraSeconds = part.split(".png)").length * 10;
+  seconds += extraSeconds;
+
+  readingTimes[heading.slug] = Math.ceil(seconds / 60) + " min";
 }
 ---
 
@@ -81,6 +100,26 @@ export async function getStaticPaths() {
         />
       )
     }
+  </section>
+
+  <section class="px-6 mx-auto max-w-3xl w-full">
+    <div
+      class="bg-gradient-to-r from-neutral-900 to-transparent rounded-md px-6 py-6 w-full"
+    >
+      <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
+      <div class="flex flex-col gap-1">
+        {
+          headings.map((heading, index) => (
+            <a href={`#${heading.slug}`} class="text-neutral-100">
+              <span class="hover-underline">{heading.text}</span>
+              <span class="ml-1 text-sm text-neutral-500">
+                {readingTimes[heading.slug] ?? ""}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
   </section>
 
   <section class="px-6 mx-auto max-w-4xl w-full">
