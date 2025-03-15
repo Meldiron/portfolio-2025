@@ -89,3 +89,22 @@ Once integrated successfully, all new submissions will be sent to the Discord ch
 Last but not least, an account page shows ability to logout from the account.
 
 ![Logout](/projects/formbin/logout.png)
+
+## Retrospective
+
+The biggest learning point for me was focusing on **onboarding flow**. From the first moment I ensured to guide visitor through flows that feel simple and intuitive. Great example of this is demo contact form with registration CTA afterwards. Simplicity of creation also goes long way, by hiding more advanced settings to later step of configuring the form. Last but not least, I recieved amazing feedback about onboarding screen itself, and the validation given by checking for first successful submission. Having the flow guide dedicated user is amazing, but ability to skip it is equally necessary for those who just want to click through the app and see what features it offers.
+
+Building my first production application using **shadcn** gave me confidence with this UI library, and strengthened my understanding of UI/UX design. While I don't feel like using it on every project from now on, I am glad it's in my "toolbox" and I can execute with it whenever needed.
+
+"Thanks to" laziness I was tempted to skip **landing page** due to time constrains of weekend hackathon. While I did manage to set it up at the very end, it provided me great perspective. I used to setup landing page first, to make sure the design is impressive enough to attract users. Doing it at the very end was less focused on design, and more on it's features. While usually I force copy on homepage to fill spots, doing it last makes copy-writing insanely easy and serves as great validation that the product is exactly what I wanted it to be. I will surely continue in this spirit, building homepage at the very end.
+
+## Future plans
+
+Thanks to community feedback, I plan to add following features in the future:
+
+- File and folder drag&drop support in the form submittion
+- Captcha support by multiple providers to prevent spam
+- SMTP integration for sending emails
+- Improved submittion design and ability for export
+- Starters with popular frameworks
+- Written documentation and video content

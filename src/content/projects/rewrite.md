@@ -87,3 +87,11 @@ You may have noticed golden words in page, those were words needed to finish a q
 Users can also look at their profile statistics and complete set of achievements.
 
 ![stats](/projects/rewrite/stats.png)
+
+## Retrospective
+
+(content missing)
+
+## Future plans
+
+(content missing)

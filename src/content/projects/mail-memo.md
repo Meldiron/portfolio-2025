@@ -8,4 +8,22 @@ image: { url: "/projects/mail-memo.png", alt: "M letter" }
 cover: { url: "/projects/mail-memo-thumbnail.png", alt: "Thumbnail" }
 ---
 
-More detail coming soon...
+## Vision
+
+(content missing)
+
+## Technologies
+
+(content missing)
+
+## Screens
+
+(content missing)
+
+## Retrospective
+
+(content missing)
+
+## Future plans
+
+(content missing)
