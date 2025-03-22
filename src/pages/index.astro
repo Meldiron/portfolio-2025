@@ -317,11 +317,13 @@ const toolsString = JSON.stringify(tools);
           </div>
 
           <div>
-            <p class="opacity-60 text-sm mb-2">Contact details:</p>
+            <p class="opacity-60 text-sm mb-2">E-mail address:</p>
             <input
+              required
+              type="email"
               class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
               name="sender"
-              placeholder="E-mail, Phone, Discord, LinkedIn, ..."
+              placeholder="you@example.com"
             />
           </div>
 
@@ -329,6 +331,7 @@ const toolsString = JSON.stringify(tools);
             <p class="opacity-60 text-sm mb-2">Message:</p>
             <textarea
               rows="4"
+              required
               class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
               name="message"
               placeholder="Enter your text..."></textarea>
@@ -348,7 +351,8 @@ const toolsString = JSON.stringify(tools);
             /><span class="inline-block text-[#F06225]">FormBin</span></a
           >
           <span class="-ml-1 opacity-60 inline-block"
-            >, one of my side projects.</span>
+            >, one of my side projects.</span
+          >
         </p>
       </div>
     </div>
