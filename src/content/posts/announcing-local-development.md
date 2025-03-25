@@ -1,5 +1,5 @@
 ---
-title: "Measuring Appwrite's Go runtime performance"
+title: "Faster and safer Functions development in your local environment"
 pubDate: 2024-08-19 #Y-M-D
 description: "You can now develop and test functions on your local machine."
 image: { url: "/posts/cli.png", alt: "CLI" }
