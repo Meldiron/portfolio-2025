@@ -6,11 +6,6 @@ image: { url: "/posts/cms.png", alt: "CMS list" }
 highlight: false
 ---
 
-TODO: Ask AI to fix grammer
-TODO: Add as Draft to dev.to, and share with PagesCMS for review
-TODO: Add screenshots to "Why pages CMS"
-TODO: Publish on my portfolio, add Canonical URL to Dev.To
-
 As freelancer, I always looked for ways to create admin panels for my clients. It gives them control, and makes me money. It was impossible to find something simple, free, and privacy-friendly. After a fair share of experience with dozens of systems, I finally found one that aligns with my expectations. 
 
 ## Finding the Perfect CMS
@@ -65,17 +60,37 @@ Standard examples I show are [Payload](https://payloadcms.com/), a CMS powered b
 
 > **Free**. Don't limit amount of projects, clients, or features. Don't relay on paid users keep the product alive
 
-TODO
+Limits and free tiers are foundation stones of every commercial platform. It may remain open sourced, or a version 2.0 may be released with cloud-only support. It could remain free for unlimited proejcts, or it could change the limit to 3 projects over weekend. It's also matter of trust weather a Cloud doesnt change pricing from $5 per month to $15.
+
+When picking preffered CMS for simple sites, it should not limit amount of projects, collaborators, fields or rows. Allowing pricing to affect you eventuelly create expenses, which lower your income from long-term clients.
+
+[Sanity](https://www.sanity.io/), [Contentful](https://www.contentful.com/), and [Hygraph](https://hygraph.com/) are a few examples. Very often CMS has a pricing page, but is also open-source, and have docs on how to self-host it for free. Great example of that is [Directus](https://directus.io/), and there is no need to avoid those CMS.
 
 ### Authentication, a Bait for Headless CMS
 
 > **Self-hostable**. Don't require Cloud for authentication. Don't vendor lock-in access to CMS.
 
-TODO
+Git-based CMS often provide Cloud authentication to simplify process of setting it up. This is perfect for development, and initial integration to ensure everything works well together. As soon as application goes to production, it's a great risk to keep using the Cloud offering.
+
+Primary problem is the fact you are authorizing someone's else GitHub application, not yours. This means maintainers of the Cloud offering of the CMS can see contents of your repository, do changes, and possibly even more. This creates potential for security risks, makes app less likely to comply with strict privacy regulations, and can create helpless situation during authentication gateway downtimes. Such Cloud authentication can also sunset at any moment.
+
+## Honorable Mention: Outstatic
+
+Until now, my favourite was [Outstatic](https://outstatic.com/), a CMS for Next.js applications. It's fully open source project that can be self-hosted, and focuses on keeping your data inside your git repository. It's simple-looking interface is amazing for any small CMS, and AI integration for text generation can be a great plus for some projects.
+
+Downsides of Outstatic are limited collaboration features, since it doesn't come with database, so only authentication method is GitHub OAuth. This can be limiting, as explaining to clients what is GitHub and why they need the account can be hard. Additionally, it's SDKs tightly couple you to use Next.js if you want to use this CMS.
 
 ## Why Pages CMS is the Best CMS
 
-TODO
+Considering all of the above...
+
+The best CMS is [Pages CMS](https://pagescms.org/). A modern Git-based CMS with focus on static sites. It allows you to manage your content and it's media files through responsive UI, while supporting all collaboration features you or your client might need.
+
+Pages CMS keeps all your contents inside your repository, and only requires single configuration file to be set up. What's even more, it's framework agnostic and can be used with Astro, Next.js, SvelteKit, or any other framework. Because of Nature of Pages CMS, it doesn't integrate with framework, and only looks at files holding your data such as JSON, YAML, Markdown, or TOML.
+
+It supports 9 file formats and 13 built-in field types. While this is more than enough, Pages CMS can be forked, self-hosted, and extended with custom components. Doing this requires basic understanding of React, but detailed documentation and existing field types serve as great starting points.
+
+Entirity of Pages CMS is free and open sourced, including it's Cloud platform. Cloud offering has no limits on amount of collaborators, projects, or content. Developers of Pages CMS even announced `Free forever` as part of their [1.0 release notes](https://github.com/pages-cms/pages-cms/discussions/128).
 
 ## Let's Integrate with Pages CMS
 
@@ -187,4 +202,6 @@ If you use Pages CMS in production, and successfully self-hosted the application
 
 ## Conclusion
 
-TODO
+I am finally at peace. Pages CMS is my go-to CMS if I ever need one for sites I build. It creates nice-looking and simple interface that's quick and easy to setup. It's free, open-source, self-hostable, framework-agnostic, and doesn't lack collaboration features. What more to ask for.
+
+If you don't share my passion for Pages CMS, take inspiration from my criterias for perfect CMS. Many of them make sense in every situation, and help you with find a solution that is long-term, and sustainable. If it wasn't clear already, every static site deserves a CMS.
