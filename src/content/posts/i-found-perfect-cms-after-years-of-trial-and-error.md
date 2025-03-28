@@ -119,6 +119,6 @@ Because clients often delelte thins by mistake, cool feature history. I see what
 
 ![Pages CMS history](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/m15umo1vfmre6wi5ebbz.png)
 
-Link to my version of the page.
+Link to my version of the page. if they want to try pages cms out, make profile picture configurable with custom URL. if they want challange, use it's media feature to have simple drag&drop
 
 ## Conclusion
