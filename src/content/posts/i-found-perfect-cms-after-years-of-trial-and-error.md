@@ -32,7 +32,7 @@ Simple websites don't benefit from API-based CMS, and get all the downsides. One
 
 Git-based CMS solves all the pain points above. All data is stored in a file defined by you, whether it's JSON, YAML, TOML, or Markdown. Data is always accessible during the build step, so importing it directly gives you access with code auto-completion, and no delays when rendering the website. Data is stored directly as part of your source code, and doesn't create any direct link with the CMS that is used to edit them.
 
-A significant downside of using Git-based CMS is the speed at which changes are reflected. Since a re-build is required after each change, it can take a couple of seconds (or up to a few minutes, depending on which framework you use) to apply changes on production. This can be a bit frustrating, but a typical freelancer's client doesn't care. If one would honestly need changes instantly reflected on a website, they are at size when they benefit from API-based CMS anyway.
+A significant downside of using Git-based CMS is the speed at which changes are reflected. Since a re-build is required after each change, it can take a couple of seconds (or up to a few minutes, depending on which framework you use) to apply changes on production. This can be a bit frustrating, but a typical freelancer's client doesn't mind. If one would honestly need changes instantly reflected on a website, they are at size when they benefit from API-based CMS anyway.
 
 Thankfully, there are many Git-based CMS such as [Decap CMS](https://decapcms.org/), [TinaCMS](https://tina.io/), or [Crafter CMS](https://craftercms.com/).
 
