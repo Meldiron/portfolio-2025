@@ -24,7 +24,10 @@ const { seo } = Astro.props;
     <ViewTransitions />
     <script is:inline src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
     ></script>
-    <script defer src="https://cloud.umami.is/script.js" data-website-id="9cd0e69d-273d-4bbb-88eb-4f10a5019bcd"></script>
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="9cd0e69d-273d-4bbb-88eb-4f10a5019bcd"></script>
   </head>
   <body>
     <header>
@@ -54,13 +57,13 @@ const { seo } = Astro.props;
       <slot />
     </main>
     <footer></footer>
-    
+
     <script is:inline src="/cap.min.js"></script>
   </body>
 </html>
 
 <style is:global>
-    @import url(https://fonts.bunny.net/css?family=abhaya-libre:400,500|inter:200,200i,400,400i,600,600i,800,800i);
+  @import url(https://fonts.bunny.net/css?family=abhaya-libre:400,500|inter:200,200i,400,400i,600,600i,800,800i);
 
   html {
     font-family: "Inter", sans-serif;
@@ -118,14 +121,16 @@ const { seo } = Astro.props;
   .project-article img {
     cursor: pointer;
   }
-  
+
   cap-widget {
-      --cap-background: #262626;
-      --cap-border-color: #404040;
-      --cap-checkbox-background: #171717;
-      --cap-checkbox-border: 1px solid #404040;
-      --cap-color: white;
-      --cap-spinner-color: #d4d4d4;
-      --cap-spinner-background-color: #404040;
+    --cap-background: #262626;
+    --cap-border-color: #404040;
+    --cap-checkbox-background: #171717;
+    --cap-checkbox-border: 1px solid #404040;
+    --cap-color: white;
+    --cap-spinner-color: #d4d4d4;
+    --cap-spinner-background-color: #404040;
+    --cap-credits-font-size: 0px;
+    --cap-active-scale: 1;
   }
 </style>

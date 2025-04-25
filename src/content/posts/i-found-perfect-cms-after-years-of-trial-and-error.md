@@ -6,7 +6,7 @@ image: { url: "/posts/cms.png", alt: "CMS list" }
 highlight: false
 ---
 
-As a freelancer, I always looked for ways to create admin panels for my clients. It gives them control, and makes me money. It was impossible to find something simple, free, and privacy-friendly. After a fair share of experience with dozens of systems, I finally found one that aligns with my expectations. 
+As a freelancer, I always looked for ways to create admin panels for my clients. It gives them control, and makes me money. It was impossible to find something simple, free, and privacy-friendly. After a fair share of experience with dozens of systems, I finally found one that aligns with my expectations.
 
 ## Finding the Perfect CMS
 
@@ -104,7 +104,7 @@ Initial observation shows Astrolink already sources all of the page data from a 
 
 ![User.json file](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/gl526m25zw06djw8k340.png)
 
-Getting Astrolink live was matter of a few very simple steps: 
+Getting Astrolink live was matter of a few very simple steps:
 
 1. Fork GitHub repository
 2. Deploy website to Cloud ([Vercel](https://vercel.app/), [Netlify](https://www.netlify.com/), or others)
@@ -148,16 +148,16 @@ content:
         type: object
         list: true
         fields:
-         - name: title
-           type: string
-         - name: description
-           type: string
-         - name: icon
-           description: Icon names can be found at www.remixicon.com
-           type: string
-         - name: url
-           type: string
-           pattern: ^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$
+          - name: title
+            type: string
+          - name: description
+            type: string
+          - name: icon
+            description: Icon names can be found at www.remixicon.com
+            type: string
+          - name: url
+            type: string
+            pattern: ^(https?:\/\/)?(www\.)?[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/[^\s]*)?$
 ```
 
 As I saved the configuration file, new options appeared in the left side menu. Inside, I found my schema applied in a simple interface of inputs and buttons. What's even more interesting, all data was already loaded, indicating the connection to data stored in `src/data/user.json` was successful.
