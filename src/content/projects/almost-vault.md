@@ -97,3 +97,5 @@ While the application is responsive, mobile integration can be improved by addin
 As the app grows, proper accounts (not just guests) can be implemented to see all secrets that were created and better manage them - delete, increase reads, or extend time-to-live.
 
 If the app becomes used by organizations and agencies, teams and team sharing can be added to simplify working across teams.
+
+And finally, to allow even more users to use Almost Vault, integrations are very important; Starting with CLI tool, REST API docs, GitHub action templates, and more.
