@@ -8,7 +8,7 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "check": "eslint . --ignore-pattern dist/ --ignore-pattern .astro/",
+    "check": "eslint . --ignore-pattern dist/ --ignore-pattern public/ --ignore-pattern .astro/",
     "format": "prettier --write ."
   },
   "dependencies": {

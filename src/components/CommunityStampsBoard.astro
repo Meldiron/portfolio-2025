@@ -1,6 +1,6 @@
 <div class="space-y-4 relative" x-data={`minigame()`}>
   <!-- Board -->
-  <div 
+  <div
     @click="handleBoardClick($event)"
     data-board
     class="relative w-full h-80 bg-gradient-to-tr from-neutral-950 via-black to-neutral-950 rounded-xl border border-neutral-700 overflow-hidden shadow-lg cursor-pointer"
@@ -9,20 +9,35 @@
     <div class="absolute inset-0 opacity-10 pointer-events-none">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="white" stroke-width="0.5"/>
+          <pattern
+            id="grid"
+            width="20"
+            height="20"
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d="M 20 0 L 0 0 0 20"
+              fill="none"
+              stroke="white"
+              stroke-width="0.5"></path>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)" />
+        <rect width="100%" height="100%" fill="url(#grid)"></rect>
       </svg>
     </div>
-    
+
     <!-- Cork board texture -->
-    <div class="absolute inset-0 bg-gradient-to-br from-neutral-800/5 to-neutral-800/5 pointer-events-none"></div>
-    
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-neutral-800/5 to-neutral-800/5 pointer-events-none"
+    >
+    </div>
+
     <!-- Subtle shadow overlay -->
-    <div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
-    
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"
+    >
+    </div>
+
     <!-- Rendered Emojis -->
     <template x-for="emoji in emojis" :key="emoji.id">
       <div
@@ -34,9 +49,9 @@
       </div>
     </template>
   </div>
-  
+
   <!-- Wheel Selector (outside board to avoid clipping) -->
-  <div 
+  <div
     x-show="wheelVisible"
     x-transition:enter="transition ease-out duration-200"
     x-transition:enter-start="opacity-0 scale-75"
@@ -50,7 +65,9 @@
   >
     <div class="flex flex-col items-center gap-3">
       <!-- Size Configuration -->
-      <div class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl">
+      <div
+        class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl"
+      >
         <div class="flex items-center gap-1">
           <template x-for="(size, index) in sizes" :key="size">
             <button
@@ -64,38 +81,50 @@
           </template>
         </div>
       </div>
-      
+
       <!-- Emoji Wheel -->
       <div class="relative w-32 h-32">
         <!-- Wheel background -->
-        <div class="absolute inset-0 bg-neutral-800/90 backdrop-blur-sm rounded-full border border-neutral-600 shadow-xl"></div>
-        
+        <div
+          class="absolute inset-0 bg-neutral-800/90 backdrop-blur-sm rounded-full border border-neutral-600 shadow-xl"
+        >
+        </div>
+
         <!-- Wheel options -->
         <template x-for="(option, index) in options" :key="index">
           <button
             :disabled="isLoading"
             @click.stop="!isLoading && selectOption(option)"
             :style="`transform: rotate(${index * 60}deg) translateY(-40px) rotate(-${index * 60}deg) translateX(48px) translateY(48px);`"
-            class="absolute left-0 top-0 w-8 h-8  bg-neutral-700/80 hover:bg-neutral-600/80 disabled:opacity-50 border border-neutral-500 rounded-full flex items-center justify-center text-lg transition-colors duration-200 cursor-pointer"
+            class="absolute left-0 top-0 w-8 h-8 bg-neutral-700/80 hover:bg-neutral-600/80 disabled:opacity-50 border border-neutral-500 rounded-full flex items-center justify-center text-lg transition-colors duration-200 cursor-pointer"
             x-text="option"
           >
           </button>
         </template>
-        
+
         <!-- Loading spinner -->
-        <div 
+        <div
           x-show="isLoading"
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4"
         >
-          <div class="w-full h-full border-2 border-neutral-600 border-t-white bg-neutral-950 rounded-full animate-spin"></div>
+          <div
+            class="w-full h-full border-2 border-neutral-600 border-t-white bg-neutral-950 rounded-full animate-spin"
+          >
+          </div>
         </div>
-        
+
         <!-- Center dot -->
-        <div x-show="!isLoading" class="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-neutral-950 border-neutral-600 border rounded-full"></div>
+        <div
+          x-show="!isLoading"
+          class="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-neutral-950 border-neutral-600 border rounded-full"
+        >
+        </div>
       </div>
-      
+
       <!-- Rotation Configuration -->
-      <div class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl">
+      <div
+        class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl"
+      >
         <div class="flex items-center gap-1">
           <template x-for="rotation in rotations" :key="rotation">
             <button

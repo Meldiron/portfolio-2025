@@ -36,8 +36,7 @@ export const homePageContent: HomePageContent = {
           name: "Svelte",
         },
         {
-          icon: "devicon:astro",
-          invert: true,
+          icon: "__ASTRO__",
           name: "Astro",
         },
         {
@@ -47,7 +46,7 @@ export const homePageContent: HomePageContent = {
         {
           icon: "devicon:remix",
           name: "Remix",
-          invert: true
+          invert: true,
         },
         {
           icon: "devicon:nuxtjs",
@@ -69,7 +68,7 @@ export const homePageContent: HomePageContent = {
           icon: "devicon:tailwindcss",
           name: "TailwindCSS",
         },
-      ]
+      ],
     },
     {
       name: "Backend",
@@ -93,7 +92,7 @@ export const homePageContent: HomePageContent = {
         {
           icon: "devicon:python",
           name: "Python",
-        }
+        },
       ],
     },
     {
@@ -115,7 +114,7 @@ export const homePageContent: HomePageContent = {
           icon: "devicon:appwrite",
           name: "Appwrite",
         },
-      ]
+      ],
     },
     {
       name: "Platform",
@@ -160,9 +159,9 @@ export const homePageContent: HomePageContent = {
         {
           icon: "devicon:arduino",
           name: "Arduino",
-        }
+        },
       ],
-    }
+    },
     /*
     
     ,
