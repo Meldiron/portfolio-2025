@@ -8,7 +8,7 @@ export default (Alpine) => {
     options: ['⭐', '👏', '💎', '🔥', '💯', '❓'],
     emojis: [],
     sizes: ['text-lg', 'text-2xl', 'text-4xl'], // small, medium, large
-    rotations: [-22, 0, 22],
+    rotations: [-15, 0, 15],
     selectedSize: 'text-2xl', // default to medium
     selectedRotation: 0, // default to no rotation
     client: null,
