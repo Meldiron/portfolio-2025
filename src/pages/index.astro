@@ -8,7 +8,7 @@ import SocialLinkBox from "../components/SocialLinkBox.astro";
 import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
-import { Client, Databases, Query } from "appwrite";
+import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -28,28 +28,12 @@ posts.sort((a, b) => {
 });
 posts.splice(2);
 
-// Interactive votes
-const client = new Client()
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("67c0eaa1002e13cf7a9e");
-const databases = new Databases(client);
-
-const scores = await databases.listDocuments("main", "scores", [
-  Query.limit(100), // This deserves pagination if I ever know that many
-]);
-const scoreMap: any = {};
-for (const document of scores.documents) {
-  scoreMap[document.name] = document.score;
-}
-const scoreMapString = JSON.stringify(scoreMap);
-
 const tools = [];
 for (const category of homePageContent.techstack) {
   for (const tool of category.items) {
     tools.push(tool.name);
   }
 }
-const toolsString = JSON.stringify(tools);
 ---
 
 <Layout seo={homePageContent.seo}>
@@ -65,8 +49,8 @@ const toolsString = JSON.stringify(tools);
       <div class="group flex flex-col justify-center w-fit">
         <h1 class="font-bold text-3xl mb-1">Matej Bačo</h1>
         <p class="text-[rgba(255,255,255,0.6)]">
-          Engineering lead at <a
-            class="hover-underline hover-underline-appwrite text-[#FD366E]"
+          Engineering lead at <img src="https://appwrite.io/assets/logomark/logo.svg" alt="Appwrite logo" class="inline-block ml-1 mr-0.5 transform translate-y-[-2px] h-4" /> <a
+            class="hover-underline hover-underline-appwrite text-white"
             href="https://appwrite.io/"
             target="_blank">Appwrite</a
           >
@@ -80,9 +64,22 @@ const toolsString = JSON.stringify(tools);
     <Link text="Read my story" href="/about" external={false} />
   </section>
 
-  <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Open source activity</h2>
-    <Graph />
+  <section class="mx-auto w-full">
+    <div class="max-w-2xl mx-auto px-6">
+      <h2 class="mb-8 text-2xl text-[white]">Open source activity</h2>
+    </div>
+    <div class="relative w-full flex items-center justify-center overflow-hidden">
+        <div class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#121212]" />
+        <div class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#121212]" />
+      <Graph />
+    </div>
+    <div class="mt-4 max-w-2xl mx-auto px-6">
+      <Link
+        text={`View on GitHub`}
+        href={`https://github.com/Meldiron`}
+        external={true}
+      />
+    </div>
   </section>
 
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
@@ -184,7 +181,6 @@ const toolsString = JSON.stringify(tools);
 
   <section
     class="max-w-2xl mx-auto px-6"
-    x-data={`minigame({ tools: ${toolsString}, scores: ${scoreMapString} })`}
   >
     <h2 class="mb-8 text-2xl text-[white]">Tech experience</h2>
 
@@ -198,20 +194,10 @@ const toolsString = JSON.stringify(tools);
 
             <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
               {item.items
-                .sort((item, item2) =>
-                  item.name.toLowerCase() < item2.name.toLowerCase() ? -1 : 1,
-                )
                 .map((item) => (
                   <button
-                    @click={`selectTool('${item.name}')`}
                     class="group relative col-span-1 overflow-hidden"
                   >
-                    <div
-                      x-show={`scores['${item.name}']`}
-                      x-bind:class={`'group-hover:opacity-0 transition-opacity duration-500 z-[10] absolute right-0 top-0 rounded-bl-md p-0.5  text-xs px-1.5  bg-opacity-15 text-opacity-50 ' + ((scores['${item.name}'] ?? 0) > 0 ? 'text-green-500 bg-green-900' : 'text-red-500 bg-red-900')`}
-                      x-text={`toVerbose(scores['${item.name}'])`}
-                    />
-
                     <div class="relative justify-center p-3 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-hidden">
                       <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#121212] via-[#121212]" />
 
@@ -232,52 +218,12 @@ const toolsString = JSON.stringify(tools);
         ))
       }
     </div>
+  </section>
 
-    <div
-      class="bg-neutral-900 px-3 py-8 mt-6 rounded-lg border border-neutral-700"
-    >
-      <div class="text-center">
-        <p
-          class="text-xs uppercase font-light text-opacity-75 text-neutral-500 mb-2"
-        >
-          Minigame
-        </p>
-        <p class="text-neutral-300 max-w-xs mx-auto">
-          Make permanent impact on my portfolio by voting for the best
-          technology.
-        </p>
-
-        <h3 class="text-neutral-300 mt-3 text-2xl font-semibold" x-text="tool">
-        </h3>
-      </div>
-      <div class="flex justify-center gap-2 mt-4">
-        <button
-          @click="votePlus"
-          class="hover:bg-opacity-20 bg-green-500 bg-opacity-10 border-green-800 rounded-md border text-white px-4 py-1"
-          >Love it</button
-        >
-
-        <button
-          @click="voteMinus"
-          class="hover:bg-opacity-20 bg-red-500 bg-opacity-10 border-red-800 rounded-md border text-white px-4 py-1"
-          >Hate it</button
-        >
-      </div>
-
-      <div class="flex justify-center mt-2">
-        <button
-          @click="voteNone"
-          class="hover:bg-opacity-20 bg-neutral-500 bg-opacity-10 border-neutral-700 rounded-md border text-white px-4 py-1"
-          >I don't know</button
-        >
-      </div>
-
-      <p
-        class="mx-auto max-w-[300px] mt-4 text-center text-sm text-opacity-75 text-neutral-500 mb-2"
-      >
-        You can vote for specific tool by clicking on it, then coming to this
-        minigame.
-      </p>
+  <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Community stamps</h2>
+    <div class="mb-4">
+      <CommunityStampsBoard />
     </div>
   </section>
 

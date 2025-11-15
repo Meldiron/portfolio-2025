@@ -1,5 +1,7 @@
 ---
-import Link from "./Link.astro";
+interface Props {
+  year?: number;
+}
 
 type ContributionDay = {
   color: string;
@@ -12,25 +14,28 @@ type Week = {
   firstDay: string;
 };
 type Weeks = Week[];
-type GraphQLRes = {
-  user: {
-    contributionsCollection: {
-      contributionCalendar: {
-        weeks: Weeks;
-      };
-    };
-  };
-};
 
-async function getContributions(token: string, username: string) {
+async function getContributions(
+  token: string,
+  username: string,
+  year: number | null = null,
+) {
   const headers = {
     Authorization: `bearer ${token}`,
   };
+  const fromDate = `${year}-01-01T00:00:00Z`;
+  const toDate = `${year}-12-31T23:59:59Z`;
+
+  let query = `contributionsCollection() {`;
+  if (year) {
+    query = `contributionsCollection(from: "${fromDate}", to: "${toDate}") {`;
+  }
+
   const body = {
     query: `query {
               user(login: "${username}") {
                 name
-                contributionsCollection {
+                ${query}
                   contributionCalendar {
                     colors
                     totalContributions
@@ -57,21 +62,66 @@ async function getContributions(token: string, username: string) {
   return data;
 }
 
-const graphData = (
-  await getContributions(import.meta.env.PRIVATE_GITHUB_TOKEN, "Meldiron")
-).data;
+const currentYear = new Date().getFullYear();
+
+const weeks: Weeks[] = [];
+
+weeks.push(
+  ...(
+    await getContributions(
+      import.meta.env.PRIVATE_GITHUB_TOKEN,
+      "Meldiron",
+      currentYear - 4,
+    )
+  ).data.user.contributionsCollection.contributionCalendar.weeks,
+);
+
+weeks.push(
+  ...(
+    await getContributions(
+      import.meta.env.PRIVATE_GITHUB_TOKEN,
+      "Meldiron",
+      currentYear - 3,
+    )
+  ).data.user.contributionsCollection.contributionCalendar.weeks,
+);
+
+weeks.push(
+  ...(
+    await getContributions(
+      import.meta.env.PRIVATE_GITHUB_TOKEN,
+      "Meldiron",
+      currentYear - 2,
+    )
+  ).data.user.contributionsCollection.contributionCalendar.weeks,
+);
+
+weeks.push(
+  ...(
+    await getContributions(
+      import.meta.env.PRIVATE_GITHUB_TOKEN,
+      "Meldiron",
+      currentYear - 1,
+    )
+  ).data.user.contributionsCollection.contributionCalendar.weeks,
+);
+
+weeks.push(
+  ...(
+    await getContributions(
+      import.meta.env.PRIVATE_GITHUB_TOKEN,
+      "Meldiron",
+      currentYear,
+    )
+  ).data.user.contributionsCollection.contributionCalendar.weeks,
+);
+
 const colorData: any = {};
 
-const {
-  user: {
-    contributionsCollection: {
-      contributionCalendar: { weeks },
-    },
-  },
-}: GraphQLRes = graphData;
-
-weeks.forEach(({ contributionDays }, i) => {
-  contributionDays.forEach(({ contributionCount }, j) => {
+let week = 0;
+let day = 0;
+weeks.forEach(({ contributionDays }: any) => {
+  contributionDays.forEach(({ contributionCount }: any) => {
     let contributionsColor = "rgba(255, 255, 255, 0.05)";
 
     if (contributionCount >= 15) {
@@ -87,44 +137,42 @@ weeks.forEach(({ contributionDays }, i) => {
     if (contributionsColor === "#ebedf0") {
       contributionsColor = "rgba(255, 255, 255, 0.05)";
     }
+    
+    let daySlot = day+1;
+    if(day === 6) {
+      daySlot = 0;
+    }
 
-    colorData[`week-${i}-day-${j}`] = contributionsColor;
+    colorData[`week-${week}-day-${daySlot}`] = contributionsColor;
+
+    day++;
+    if (day === 7) {
+      day = 0;
+      week++;
+    }
   });
 });
 ---
 
 <section>
   {
-    graphData && (
-      <div class="flex flex-col items-center justify-center overflow-hidden relative">
-        <div class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#121212]" />
-        <div class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#121212]" />
-
-        <div id="contributions" class="flex gap-1">
-          {Array.apply(null, Array(53)).map((_week, i) => {
-            return (
-              <div class={`flex-col gap-1 flex`}>
-                {Array.apply(null, Array(7)).map((_day, j) => {
-                  return (
-                    <div
-                      class="h-2 w-2 lg:h-3 lg:w-3 rounded-[1px] sm:rounded-sm"
-                      style={`background-color: ${colorData[`week-${i}-day-${j}`]}`}
-                    />
-                  );
-                })}
-              </div>
-            );
-          })}
-        </div>
+    weeks.length > 0 && (
+      <div id="contributions" class="flex gap-1">
+        {Array.apply(null, Array(53 * 5)).map((_week, i) => {
+          return (
+            <div class={`flex-col gap-1 flex`}>
+              {Array.apply(null, Array(7)).map((_day, j) => {
+                return (
+                  <div
+                    class="h-2 w-2 lg:h-3 lg:w-3 rounded-[1px] sm:rounded-sm"
+                    style={`background-color: ${colorData[`week-${i}-day-${j}`]}`}
+                  />
+                );
+              })}
+            </div>
+          );
+        })}
       </div>
     )
   }
-
-  <div class="mt-4">
-    <Link
-      text={`View on GitHub`}
-      href={`https://github.com/Meldiron`}
-      external={true}
-    />
-  </div>
 </section>

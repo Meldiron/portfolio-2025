@@ -1,118 +1,120 @@
 export default (Alpine) => {
-  Alpine.data("minigame", (initState) => ({
-    tools: initState.tools ?? [],
-    scores: initState.scores ?? {},
-
-    tool: "",
-
+  Alpine.data("minigame", () => ({
+    wheelVisible: false,
+    wheelX: 0,
+    wheelY: 0,
+    relativeX: 0,
+    relativeY: 0,
+    options: ['⭐', '👏', '💎', '🔥', '💯', '❓'],
+    emojis: [],
+    sizes: ['text-lg', 'text-2xl', 'text-4xl'], // small, medium, large
+    rotations: [-22, 0, 22],
+    selectedSize: 'text-2xl', // default to medium
+    selectedRotation: 0, // default to no rotation
+    client: null,
+    databases: null,
+    isLoading: false,
+    
     init() {
-      this.randomizeTool();
-      this.updateScores();
-
-      const { client } = this.getAppwrite();
-
-      client.subscribe(
-        "databases.main.collections.scores.documents",
+      // Initialize Appwrite
+      this.client = new window.Appwrite.Client();
+      this.client
+        .setEndpoint("https://cloud.appwrite.io/v1")
+        .setProject("67c0eaa1002e13cf7a9e");
+      this.databases = new window.Appwrite.Databases(this.client);
+      
+      // Subscribe to real-time database events
+      this.client.subscribe(
+        "databases.main.collections.stamps.documents",
         (response) => {
           if (
             response?.payload &&
-            response.payload?.$collectionId === "scores" &&
+            response.payload?.$collectionId === "stamps" &&
             response.payload?.$databaseId === "main"
           ) {
-            this.scores[response.payload.name] = response.payload.score;
+            if (response.events.includes("databases.*.collections.*.documents.*.create")) {
+              // Add new emoji from database
+              const data = response.payload;
+              const newEmoji = {
+                emoji: data.emoji,
+                x: data.x,
+                y: data.y,
+                size: data.size,
+                rotation: data.rotation,
+                id: data.$id
+              };
+              this.emojis.push(newEmoji);
+            }
           }
-        },
+        }
       );
+      
+      // Load existing emojis from database
+      this.loadEmojis();
+      
+      // Close wheel when clicking outside
+      this.$nextTick(() => {
+        document.addEventListener('click', (e) => {
+          if (this.wheelVisible && !e.target.closest('[data-wheel]') && !e.target.closest('[data-board]')) {
+            this.closeWheel();
+          }
+        });
+      });
     },
-
-    getAppwrite() {
-      const client = new Appwrite.Client();
-      client
-        .setEndpoint("https://cloud.appwrite.io/v1")
-        .setProject("67c0eaa1002e13cf7a9e");
-      const functions = new Appwrite.Functions(client);
-      const databases = new Appwrite.Databases(client);
-
-      return { functions, databases, client };
-    },
-
-    async updateScores() {
-      const { databases } = this.getAppwrite();
-      const scores = await databases.listDocuments("main", "scores", [
-        Appwrite.Query.limit(100), // This deserves pagination if I ever know that many
-      ]);
-      const newScores = {};
-      for (const document of scores.documents) {
-        newScores[document.name] = document.score;
+    
+    handleBoardClick(event) {
+      event.stopPropagation();
+      
+      if(this.wheelVisible) {
+        this.closeWheel();
+        return;
       }
-      this.scores = newScores;
+      
+      const rect = event.currentTarget.getBoundingClientRect();
+      this.relativeX = event.clientX - rect.left;
+      this.relativeY = event.clientY - rect.top;
+      this.wheelX = event.clientX;
+      this.wheelY = event.clientY;
+      this.wheelVisible = true;
     },
-
-    randomizeTool(attempt = 0) {
-      if (attempt > 10) return;
-
-      let originalTool = this.tool;
-      const randomIndex = Math.floor(Math.random() * this.tools.length);
-      this.tool = this.tools[randomIndex] ?? "";
-
-      if (originalTool !== this.tool) {
-        this.randomizeTool(attempt + 1);
-      }
-    },
-
-    selectTool(tool) {
-      this.tool = tool;
-    },
-
-    toVerbose(score) {
-      return score > 0 ? `+${score}` : `${score}`;
-    },
-
-    voteNone() {
-      this.randomizeTool();
-    },
-
-    votePlus() {
-      this.vote(1);
-    },
-
-    voteMinus() {
-      this.vote(-1);
-    },
-
-    vote(value) {
-      this.saveToAppwrite(this.tool, value);
-      this.scores[this.tool] = (this.scores[this.tool] ?? 0) + value;
-      this.randomizeTool();
-    },
-
-    async saveToAppwrite(tool, value) {
+    
+    async selectOption(option) {
+      this.isLoading = true;
+      
+      const emojiData = {
+        emoji: option,
+        x: Math.floor(this.relativeX),
+        y: Math.floor(this.relativeY),
+        size: this.selectedSize,
+        rotation: this.selectedRotation + ""
+      };
+      
       try {
-        const { functions } = this.getAppwrite();
-        const execution = await functions.createExecution(
-          "voteInMinigame",
-          JSON.stringify({
-            value,
-            tool,
-          }),
-          false,
-          "/",
-          "GET",
-          {
-            "content-type": "application/json",
-          },
-        );
-
-        if (execution.responseStatusCode !== 204) {
-          throw new Error(execution.responseBody ?? "Unknown error");
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Minigame is out of service at the moment.");
-        if (this.tools[tool] !== null && this.tools[tool] !== undefined) {
-          this.tools[tool] -= value;
-        }
+        await this.databases.createDocument('main', 'stamps', window.Appwrite.ID.unique(), emojiData);
+      } catch (error) {
+        console.error('Failed to save emoji:', error);
+      } finally {
+        this.isLoading = false;
+        this.closeWheel();
       }
     },
-  }));
+    
+    async loadEmojis() {
+      const response = await this.databases.listDocuments('main', 'stamps', [
+        window.Appwrite.Query.limit(1000)
+      ]);
+      this.emojis = response.documents.map(doc => ({
+        emoji: doc.emoji,
+        x: doc.x,
+        y: doc.y,
+        size: doc.size,
+        rotation: doc.rotation,
+        id: doc.$id
+      }));
+    },
+    
+    closeWheel() {
+      this.wheelVisible = false;
+    }
+  }))
 };
