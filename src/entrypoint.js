@@ -27,28 +27,24 @@ export default (Alpine) => {
       this.client.subscribe(
         "databases.main.collections.stamps.documents",
         (response) => {
-          if (
-            response?.payload &&
-            response.payload?.$collectionId === "stamps" &&
-            response.payload?.$databaseId === "main"
+          if (response.events.includes("databases.*.tables.*.rows.*.create")) {
+            // Add new emoji from database
+            const data = response.payload;
+            const newEmoji = {
+              emoji: data.emoji,
+              x: data.x,
+              y: data.y,
+              size: data.size,
+              rotation: data.rotation,
+              id: data.$id,
+            };
+            this.emojis.push(newEmoji);
+          } else if (
+            response.events.includes("databases.*.tables.*.rows.*.delete")
           ) {
-            if (
-              response.events.includes(
-                "databases.*.collections.*.documents.*.create",
-              )
-            ) {
-              // Add new emoji from database
-              const data = response.payload;
-              const newEmoji = {
-                emoji: data.emoji,
-                x: data.x,
-                y: data.y,
-                size: data.size,
-                rotation: data.rotation,
-                id: data.$id,
-              };
-              this.emojis.push(newEmoji);
-            }
+            // Remove deleted emoji from database
+            const deletedId = response.payload.$id;
+            this.emojis = this.emojis.filter((emoji) => emoji.id !== deletedId);
           }
         },
       );
