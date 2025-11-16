@@ -9,6 +9,7 @@ import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
+import AIDropdownButton from "../components/AIDropdownButton.astro";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -66,7 +67,10 @@ for (const category of homePageContent.techstack) {
       I am impact-driven software engineer from Czech Republic in love with
       everything open source.
     </p>
-    <Link text="Read my story" href="/about" external={false} />
+    <div class="flex flex-wrap gap-4">
+      <Link text="Read my story" href="/about" external={false} />
+      <AIDropdownButton />
+    </div>
   </section>
 
   <section class="mx-auto w-full">
@@ -279,7 +283,7 @@ for (const category of homePageContent.techstack) {
           /><span class="inline-block text-[#FD366E]">Appwrite</span></a
         >
         <span class="-ml-1 opacity-60 inline-block"
-          >, a Cloud backend I helped to develop.</span
+          >, Cloud backend I helped to develop.</span
         >
       </p>
     </div>

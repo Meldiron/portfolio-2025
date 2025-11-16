@@ -258,6 +258,8 @@ export default (Alpine) => {
         );
         if (response.documents.length > 0) {
           cursor = response.documents[response.documents.length - 1].$id;
+        } else {
+          cursor = null;
         }
         await new Promise((resolve) => setTimeout(resolve, 100));
       } while (cursor !== null);
