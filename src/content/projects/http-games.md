@@ -11,37 +11,37 @@ cover:
 
 ## Vision
 
-Last couple of years I have been interested in game development on-and-off. So far, the biggest challenge I faced was creating the sprites, animation, music, sound effects... I built a few games with [PICO-8](https://www.lexaloffle.com/pico-8.php) due to it's limiting nature when it comes to those challenges, but games I built still didn't feel as professional as I would like.
+Over the last couple of years, I have been interested in game development on-and-off. So far, the biggest challenge I faced was creating the sprites, animation, music, sound effects... I built a few games with [PICO-8](https://www.lexaloffle.com/pico-8.php) due to its limiting nature when it comes to those challenges, but games I built still didn't feel as professional as I would like.
 
-It got me thinking. So what parts of game making am I good at? Are there any genres that utilize only this aspect? I decided to try and build a programming game - game that you play by programming. Like [Screeps](https://screeps.com/)!
+It got me thinking. So, what parts of game making am I good at? Are there any genres that utilize only this aspect? I decided to try and build a programming game - game that you play by programming. Like [Screeps](https://screeps.com/)!
 
 ![Screeps](/projects/http-games/screeps.png)
 
-But that still has visuals... Soo, `Screeps alternative` without visuals?
+But that still has visuals... So, `Screeps alternative` without visuals?
 
-After some searching I found even better inspiration, [Artifacts MMO](https://www.artifactsmmo.com/). Similarly to Screens it's played by programming a script, but this time it utilizes HTTP REST API directly.
+After some searching I found even better inspiration, [Artifacts MMO](https://www.artifactsmmo.com/). Similarly to Screeps, it's played by programming a script, but this time it utilizes HTTP REST API directly.
 
 ![Artifacts MMO](/projects/http-games/artifactsmmo.png)
 
-Yet, I still wasn't 100% sure... Visualizing seems to be important for playing it, it got a huge wiki and many MMO RPG aspets that would take months to get right. Soo, `Artifacts MMO alternative`?
+Yet, I still wasn't 100% sure... Visualizing seems to be important for playing it, it got a huge wiki and many MMO RPG aspects that would take months to get right. So, `Artifacts MMO alternative`?
 
-As silly as this approach sounds, finding alternative and looking for it's alternatives always led me to discover new ones. Until my sight landed on [SpaceTraders](https://spacetraders.io/)!
+As silly as this approach sounds, finding an alternative and looking for its alternatives always led me to discover new ones. Until my sight landed on [SpaceTraders](https://spacetraders.io/)!
 
 ![SpaceTraders](/projects/http-games/spacetraders.png)
 
-A game for programmers played entirely through HTTP requests. No visual, no animations, no sounds. And so I found genre I want to build, because it only utilized the skill I was the most trained in, REST HTTP servers.
+A game for programmers played entirely through HTTP requests. No visuals, no animations, no sounds. And so I found the genre I want to build, because it only utilized the skill I was most trained in, REST HTTP servers.
 
 ---
 
-After trying SpaceTraders for some time, I quickly understood the most important part of such HTTP game\* is documentation.
+After trying SpaceTraders for some time, I quickly understood the most important part of such HTTP game* is documentation.
 
-> - `HTTP Game`. At this point, I already knew what the project will be called.
+> * `HTTP Game`. At this point, I already knew what the project will be called.
 
-I searched for go-to framework for building documentations, and there seems to be quite a few options. Most commonly mentioned [Vuepress](https://vuepress.vuejs.org/) and it's Vite's alternative [VitePress](https://vitepress.vuejs.org/). From those two, I personally preferred Vitepress due to it's more modern-looking design, and being framework agnostic.
+I searched for go-to framework for building documentations, and there seems to be quite a few options. Most commonly mentioned were [Vuepress](https://vuepress.vuejs.org/) and its Vite alternative [VitePress](https://vitepress.vuejs.org/). From those two, I personally preferred Vitepress due to its more modern-looking design, and being framework agnostic.
 
 There was also [Docusaurus](https://docusaurus.io/), [MkDocs](https://www.mkdocs.org/), [Docsify](https://docsify.js.org/), and many more, but they all lacked modern UI and UX I was hoping for.
 
-By pure chance and luck I came across [Fumadocs](https://fumadocs.dev/) which had exactly what I needed:
+By pure chance and luck, I came across [Fumadocs](https://fumadocs.dev/) which had exactly what I needed:
 
 - Modern-looking UI similar to [shadcn/ui](https://ui.shadcn.com/)
 - Mobile responsiveness with neat components
@@ -50,7 +50,6 @@ By pure chance and luck I came across [Fumadocs](https://fumadocs.dev/) which ha
 - `llms.txt` file generation
 
 It was built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/), so technologies familiar to me, and similar to other docs frameworks, all content was written with Markdown. Specifically, [MDX](https://mdxjs.com/), a combination of Markdown for content and JSX for components.
-
 ## Technologies
 
 - [Appwrite](https://appwrite.io/)
@@ -89,8 +88,8 @@ Since there isn't any UI to showcase, I highly recommend checking it out yoursel
 
 ## Future plans
 
-While developing the app, I left `TODOs` all around the code. I wanted the prototype and first game to be finished very quickly, so I can give it to a few friends for feedback. And so I cut corners here-and-there, such as unoptimal looping, missing E2E tests, or ugly patches for loading environment variables. I wouldn't consider it priority to resolve those, but I am very glad I took them so I can get back to them easily.
+While developing the app, I left `TODOs` throughout the codebase. I wanted the prototype and first game to be finished very quickly, so I could give it to a few friends for feedback. And so I cut corners here and there, such as unoptimal looping, missing E2E tests, or ugly patches for loading environment variables. I wouldn't consider it a priority to resolve those, but I am very glad I noted them so I can get back to them easily.
 
 One game is not enough! I will brainstorm more ideas of games that can be added, and motivate community to contribute.
 
-Once community grows enough, addition of profiles, challenges, leaderboards and achievements is a must.
+Once the community grows enough, the addition of profiles, challenges, leaderboards and achievements is a must.
