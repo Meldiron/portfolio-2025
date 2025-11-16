@@ -48,6 +48,8 @@ It didn't take long before I started contributing to the community, and later to
 
 ![Function slowness](/slowness.png)
 
+<!-- A secret for my girlfriend Anet, I love you! -->
+
 ## Welcome to Open source
 
 Appwrite was the opportunity of my life. My [GitHub graph](https://github.com/Meldiron?tab=overview&from=2024-12-01&to=2024-12-29) never looked cleaner, and I built dozens of free applications. I learned to work with every major runtime (Bun, C++, Dart, .NET, Go, Java, Kotlin, Node.js, PHP, Python, Ruby, Swift) and every major framework (Angular, Analog, Flutter, Next.js, Nuxt, Remix, SvelteKit). I also had the opportunity to work on Appwrite Cloud and learn architecture management with [Terraform](https://www.terraform.io/), and Docker cluster orchestration with [Docker Swarm](https://docs.docker.com/engine/swarm/).
