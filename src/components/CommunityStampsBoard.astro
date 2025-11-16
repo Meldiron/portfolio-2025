@@ -2,6 +2,7 @@
   <!-- Board -->
   <div
     @mousedown="handleBoardClick($event)"
+    @touchstart="handleTouchStart($event)"
     @dragstart.prevent
     @selectstart.prevent
     @contextmenu.prevent="isDragging"
@@ -194,7 +195,7 @@
         <input
           type="number"
           x-model.number="virtualY"
-          :style="`width: ${30 + (virtualX ?? '').toString().length * 8}px`"
+          :style="`width: ${30 + (virtualY ?? '').toString().length * 8}px`"
           class="bg-transparent focus:bg-neutral-950 focus:border border-neutral-600 rounded text-white text-center focus:outline-none focus:border-neutral-400 font-mono transition-colors"
         />
       </div>

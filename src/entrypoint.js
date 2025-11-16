@@ -86,6 +86,24 @@ export default (Alpine) => {
             this.handleMouseUp(e);
           }
         });
+
+        // Add touch event listeners for mobile devices
+        document.addEventListener(
+          "touchmove",
+          (e) => {
+            if (this.isDragging) {
+              e.preventDefault(); // Prevent scrolling
+              this.handleTouchMove(e);
+            }
+          },
+          { passive: false },
+        );
+
+        document.addEventListener("touchend", (e) => {
+          if (this.isDragging) {
+            this.handleTouchEnd(e);
+          }
+        });
       });
     },
 
@@ -97,21 +115,32 @@ export default (Alpine) => {
         return;
       }
 
+      // Get coordinates from either mouse or touch event
+      const clientX =
+        event.clientX || (event.touches && event.touches[0].clientX);
+      const clientY =
+        event.clientY || (event.touches && event.touches[0].clientY);
+
       // Start potential drag operation
       this.isDragging = true;
       this.hasMoved = false;
-      this.dragStartX = event.clientX;
-      this.dragStartY = event.clientY;
+      this.dragStartX = clientX;
+      this.dragStartY = clientY;
       this.dragStartVirtualX = this.virtualX;
       this.dragStartVirtualY = this.virtualY;
-      this.clickStartX = event.clientX;
-      this.clickStartY = event.clientY;
+      this.clickStartX = clientX;
+      this.clickStartY = clientY;
 
       const rect = event.currentTarget.getBoundingClientRect();
-      this.relativeX = event.clientX - rect.left;
-      this.relativeY = event.clientY - rect.top;
+      this.relativeX = clientX - rect.left;
+      this.relativeY = clientY - rect.top;
       this.wheelX = this.relativeX;
       this.wheelY = this.relativeY;
+    },
+
+    handleTouchStart(event) {
+      // Treat touch start like a board click
+      this.handleBoardClick(event);
     },
 
     handleMouseMove(event) {
@@ -121,13 +150,35 @@ export default (Alpine) => {
       const deltaY = event.clientY - this.dragStartY;
 
       // Update virtual grid position
-      this.virtualX = this.dragStartVirtualX + deltaX;
-      this.virtualY = this.dragStartVirtualY + deltaY;
+      this.virtualX = Math.round(this.dragStartVirtualX + deltaX);
+      this.virtualY = Math.round(this.dragStartVirtualY + deltaY);
 
       // Check if user has moved significantly (more than 5 pixels)
       const totalDistance = Math.sqrt(
         Math.pow(event.clientX - this.clickStartX, 2) +
           Math.pow(event.clientY - this.clickStartY, 2),
+      );
+
+      if (totalDistance > 5) {
+        this.hasMoved = true;
+      }
+    },
+
+    handleTouchMove(event) {
+      if (!this.isDragging) return;
+
+      const touch = event.touches[0];
+      const deltaX = touch.clientX - this.dragStartX;
+      const deltaY = touch.clientY - this.dragStartY;
+
+      // Update virtual grid position
+      this.virtualX = Math.round(this.dragStartVirtualX + deltaX);
+      this.virtualY = Math.round(this.dragStartVirtualY + deltaY);
+
+      // Check if user has moved significantly (more than 5 pixels)
+      const totalDistance = Math.sqrt(
+        Math.pow(touch.clientX - this.clickStartX, 2) +
+          Math.pow(touch.clientY - this.clickStartY, 2),
       );
 
       if (totalDistance > 5) {
@@ -141,6 +192,17 @@ export default (Alpine) => {
       this.isDragging = false;
 
       // Only show wheel if user didn't move much (just clicked)
+      if (!this.hasMoved) {
+        this.wheelVisible = true;
+      }
+    },
+
+    handleTouchEnd() {
+      if (!this.isDragging) return;
+
+      this.isDragging = false;
+
+      // Only show wheel if user didn't move much (just tapped)
       if (!this.hasMoved) {
         this.wheelVisible = true;
       }
