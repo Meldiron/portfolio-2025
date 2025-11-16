@@ -119,17 +119,17 @@ export default (Alpine) => {
 
       const deltaX = event.clientX - this.dragStartX;
       const deltaY = event.clientY - this.dragStartY;
-      
+
       // Update virtual grid position
       this.virtualX = this.dragStartVirtualX + deltaX;
       this.virtualY = this.dragStartVirtualY + deltaY;
 
       // Check if user has moved significantly (more than 5 pixels)
       const totalDistance = Math.sqrt(
-        Math.pow(event.clientX - this.clickStartX, 2) + 
-        Math.pow(event.clientY - this.clickStartY, 2)
+        Math.pow(event.clientX - this.clickStartX, 2) +
+          Math.pow(event.clientY - this.clickStartY, 2),
       );
-      
+
       if (totalDistance > 5) {
         this.hasMoved = true;
       }
@@ -137,7 +137,7 @@ export default (Alpine) => {
 
     handleMouseUp() {
       if (!this.isDragging) return;
-      
+
       this.isDragging = false;
 
       // Only show wheel if user didn't move much (just clicked)
