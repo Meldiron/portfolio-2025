@@ -235,17 +235,32 @@ export default (Alpine) => {
     },
 
     async loadEmojis() {
-      const response = await this.databases.listDocuments("main", "stamps", [
-        window.Appwrite.Query.limit(1000),
-      ]);
-      this.emojis = response.documents.map((doc) => ({
-        emoji: doc.emoji,
-        x: doc.x,
-        y: doc.y,
-        size: doc.size,
-        rotation: doc.rotation,
-        id: doc.$id,
-      }));
+      let cursor = null;
+      do {
+        const queries = [window.Appwrite.Query.limit(1000)];
+        if (cursor) {
+          queries.push(window.Appwrite.Query.cursorAfter(cursor));
+        }
+        const response = await this.databases.listDocuments(
+          "main",
+          "stamps",
+          queries,
+        );
+        this.emojis.push(
+          ...response.documents.map((doc) => ({
+            emoji: doc.emoji,
+            x: doc.x,
+            y: doc.y,
+            size: doc.size,
+            rotation: doc.rotation,
+            id: doc.$id,
+          })),
+        );
+        if (response.documents.length > 0) {
+          cursor = response.documents[response.documents.length - 1].$id;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      } while (cursor !== null);
     },
 
     closeWheel() {
