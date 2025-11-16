@@ -1,9 +1,13 @@
 <div class="space-y-4 relative" x-data={`minigame()`}>
   <!-- Board -->
   <div
-    @click="handleBoardClick($event)"
+    @mousedown="handleBoardClick($event)"
+    @dragstart.prevent
+    @selectstart.prevent
+    @contextmenu.prevent="isDragging"
     data-board
-    class="relative w-full h-80 bg-gradient-to-tr from-neutral-950 via-black to-neutral-950 rounded-xl border border-neutral-700 overflow-hidden shadow-lg cursor-pointer"
+    class="relative w-full h-80 bg-gradient-to-tr from-neutral-950 via-black to-neutral-950 rounded-xl border border-neutral-700 overflow-hidden shadow-lg select-none"
+    :class="isDragging ? 'cursor-grabbing' : 'cursor-grab'"
   >
     <!-- Board texture/pattern -->
     <div class="absolute inset-0 opacity-10 pointer-events-none">
@@ -22,7 +26,12 @@
               stroke-width="0.5"></path>
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill="url(#grid)"></rect>
+        <rect 
+          width="100%" 
+          height="100%" 
+          fill="url(#grid)"
+          :style="`transform: translate(${virtualX % 20}px, ${virtualY % 20}px);`"
+        ></rect>
       </svg>
     </div>
 
@@ -41,7 +50,7 @@
     <!-- Rendered Emojis -->
     <template x-for="emoji in emojis" :key="emoji.id">
       <div
-        :style="`left: ${emoji.x}px; top: ${emoji.y}px; transform: translate(-50%, -50%) rotate(${+emoji.rotation}deg);`"
+        :style="`left: ${emoji.x + virtualX}px; top: ${emoji.y + virtualY}px; transform: translate(-50%, -50%) rotate(${+emoji.rotation}deg);`"
         :class="emoji.size"
         class="absolute pointer-events-none select-none"
         x-text="emoji.emoji"
@@ -51,15 +60,15 @@
   </div>
 
   <!-- Wheel Selector (outside board to avoid clipping) -->
+  <template x-if="wheelVisible">
   <div
-    x-show="wheelVisible"
     x-transition:enter="transition ease-out duration-200"
     x-transition:enter-start="opacity-0 scale-75"
     x-transition:enter-end="opacity-100 scale-100"
     x-transition:leave="transition ease-in duration-150"
     x-transition:leave-start="opacity-100 scale-100"
     x-transition:leave-end="opacity-0 scale-75"
-    :style="`left: ${relativeX}px; top: ${relativeY}px; transform: translate(-50%, -50%);`"
+    :style="`left: ${wheelX}px; top: ${wheelY}px; transform: translate(-50%, -50%);`"
     data-wheel
     class="absolute z-50 pointer-events-auto"
   >
@@ -140,4 +149,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

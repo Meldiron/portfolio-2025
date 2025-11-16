@@ -5,6 +5,16 @@ export default (Alpine) => {
     wheelY: 0,
     relativeX: 0,
     relativeY: 0,
+    virtualX: 0, // Virtual grid X offset
+    virtualY: 0, // Virtual grid Y offset
+    isDragging: false,
+    dragStartX: 0,
+    dragStartY: 0,
+    dragStartVirtualX: 0,
+    dragStartVirtualY: 0,
+    clickStartX: 0,
+    clickStartY: 0,
+    hasMoved: false,
     options: ["⭐", "👏", "💎", "🔥", "💯", "❓"],
     emojis: [],
     sizes: ["text-lg", "text-2xl", "text-4xl"], // small, medium, large
@@ -63,6 +73,19 @@ export default (Alpine) => {
             this.closeWheel();
           }
         });
+
+        // Add mouse event listeners for panning
+        document.addEventListener("mousemove", (e) => {
+          if (this.isDragging) {
+            this.handleMouseMove(e);
+          }
+        });
+
+        document.addEventListener("mouseup", (e) => {
+          if (this.isDragging) {
+            this.handleMouseUp(e);
+          }
+        });
       });
     },
 
@@ -74,12 +97,53 @@ export default (Alpine) => {
         return;
       }
 
+      // Start potential drag operation
+      this.isDragging = true;
+      this.hasMoved = false;
+      this.dragStartX = event.clientX;
+      this.dragStartY = event.clientY;
+      this.dragStartVirtualX = this.virtualX;
+      this.dragStartVirtualY = this.virtualY;
+      this.clickStartX = event.clientX;
+      this.clickStartY = event.clientY;
+
       const rect = event.currentTarget.getBoundingClientRect();
       this.relativeX = event.clientX - rect.left;
       this.relativeY = event.clientY - rect.top;
-      this.wheelX = event.clientX;
-      this.wheelY = event.clientY;
-      this.wheelVisible = true;
+      this.wheelX = this.relativeX;
+      this.wheelY = this.relativeY;
+    },
+
+    handleMouseMove(event) {
+      if (!this.isDragging) return;
+
+      const deltaX = event.clientX - this.dragStartX;
+      const deltaY = event.clientY - this.dragStartY;
+      
+      // Update virtual grid position
+      this.virtualX = this.dragStartVirtualX + deltaX;
+      this.virtualY = this.dragStartVirtualY + deltaY;
+
+      // Check if user has moved significantly (more than 5 pixels)
+      const totalDistance = Math.sqrt(
+        Math.pow(event.clientX - this.clickStartX, 2) + 
+        Math.pow(event.clientY - this.clickStartY, 2)
+      );
+      
+      if (totalDistance > 5) {
+        this.hasMoved = true;
+      }
+    },
+
+    handleMouseUp() {
+      if (!this.isDragging) return;
+      
+      this.isDragging = false;
+
+      // Only show wheel if user didn't move much (just clicked)
+      if (!this.hasMoved) {
+        this.wheelVisible = true;
+      }
     },
 
     async selectOption(option) {
@@ -87,8 +151,8 @@ export default (Alpine) => {
 
       const emojiData = {
         emoji: option,
-        x: Math.floor(this.relativeX),
-        y: Math.floor(this.relativeY),
+        x: Math.floor(this.relativeX - this.virtualX),
+        y: Math.floor(this.relativeY - this.virtualY),
         size: this.selectedSize,
         rotation: this.selectedRotation + "",
       };
