@@ -33,9 +33,9 @@ A game for programmers played entirely through HTTP requests. No visuals, no ani
 
 ---
 
-After trying SpaceTraders for some time, I quickly understood the most important part of such HTTP game* is documentation.
+After trying SpaceTraders for some time, I quickly understood the most important part of such HTTP game\* is documentation.
 
-> * `HTTP Game`. At this point, I already knew what the project will be called.
+> - `HTTP Game`. At this point, I already knew what the project will be called.
 
 I searched for go-to framework for building documentations, and there seems to be quite a few options. Most commonly mentioned were [Vuepress](https://vuepress.vuejs.org/) and its Vite alternative [VitePress](https://vitepress.vuejs.org/). From those two, I personally preferred Vitepress due to its more modern-looking design, and being framework agnostic.
 
@@ -50,6 +50,7 @@ By pure chance and luck, I came across [Fumadocs](https://fumadocs.dev/) which h
 - `llms.txt` file generation
 
 It was built with [Next.js](https://nextjs.org/) and [React](https://reactjs.org/), so technologies familiar to me, and similar to other docs frameworks, all content was written with Markdown. Specifically, [MDX](https://mdxjs.com/), a combination of Markdown for content and JSX for components.
+
 ## Technologies
 
 - [Appwrite](https://appwrite.io/)

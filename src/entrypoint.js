@@ -24,6 +24,9 @@ export default (Alpine) => {
     client: null,
     databases: null,
     isLoading: false,
+    isPendingEmojis: false, // User has moved but loading hasn't started yet
+    isLoadingEmojis: false, // Actual loading is in progress
+    loadEmojisTimeout: null,
 
     init() {
       // Initialize Appwrite
@@ -38,17 +41,21 @@ export default (Alpine) => {
         "databases.main.collections.stamps.documents",
         (response) => {
           if (response.events.includes("databases.*.tables.*.rows.*.create")) {
-            // Add new emoji from database
+            // Add new emoji from database only if it's within current viewport
             const data = response.payload;
-            const newEmoji = {
-              emoji: data.emoji,
-              x: data.x,
-              y: data.y,
-              size: data.size,
-              rotation: data.rotation,
-              id: data.$id,
-            };
-            this.emojis.push(newEmoji);
+
+            // Check if emoji is within current viewport
+            if (this.isEmojiInViewport(data.x, data.y)) {
+              const newEmoji = {
+                emoji: data.emoji,
+                x: data.x,
+                y: data.y,
+                size: data.size,
+                rotation: data.rotation,
+                id: data.$id,
+              };
+              this.emojis.push(newEmoji);
+            }
           } else if (
             response.events.includes("databases.*.tables.*.rows.*.delete")
           ) {
@@ -61,6 +68,17 @@ export default (Alpine) => {
 
       // Load existing emojis from database
       this.loadEmojis();
+
+      // Watch for changes to virtualX and virtualY to reload emojis
+      this.$watch("virtualX", () => {
+        this.isPendingEmojis = true;
+        this.debouncedLoadEmojis();
+      });
+
+      this.$watch("virtualY", () => {
+        this.isPendingEmojis = true;
+        this.debouncedLoadEmojis();
+      });
 
       // Close wheel when clicking outside
       this.$nextTick(() => {
@@ -161,6 +179,8 @@ export default (Alpine) => {
 
       if (totalDistance > 5) {
         this.hasMoved = true;
+        // Set pending state when user starts moving
+        this.isPendingEmojis = true;
       }
     },
 
@@ -183,6 +203,8 @@ export default (Alpine) => {
 
       if (totalDistance > 5) {
         this.hasMoved = true;
+        // Set pending state when user starts moving
+        this.isPendingEmojis = true;
       }
     },
 
@@ -190,6 +212,11 @@ export default (Alpine) => {
       if (!this.isDragging) return;
 
       this.isDragging = false;
+
+      // Load emojis for new viewport if user moved significantly
+      if (this.hasMoved) {
+        this.debouncedLoadEmojis();
+      }
 
       // Only show wheel if user didn't move much (just clicked)
       if (!this.hasMoved) {
@@ -201,6 +228,11 @@ export default (Alpine) => {
       if (!this.isDragging) return;
 
       this.isDragging = false;
+
+      // Load emojis for new viewport if user moved significantly
+      if (this.hasMoved) {
+        this.debouncedLoadEmojis();
+      }
 
       // Only show wheel if user didn't move much (just tapped)
       if (!this.hasMoved) {
@@ -234,35 +266,132 @@ export default (Alpine) => {
       }
     },
 
+    debouncedLoadEmojis() {
+      // Clear existing timeout
+      if (this.loadEmojisTimeout) {
+        clearTimeout(this.loadEmojisTimeout);
+      }
+
+      // Set new timeout to load emojis after a brief delay
+      this.loadEmojisTimeout = setTimeout(() => {
+        this.loadEmojis();
+      }, 300); // 300ms debounce
+    },
+
+    isEmojiInViewport(x, y) {
+      // Get viewport dimensions
+      const canvasElement = document.querySelector("[data-board]");
+      if (!canvasElement) return false;
+
+      const canvasRect = canvasElement.getBoundingClientRect();
+      const viewportWidth = canvasRect.width;
+      const viewportHeight = canvasRect.height;
+
+      // Calculate visible area bounds based on current virtual position
+      const leftBound = -this.virtualX;
+      const rightBound = -this.virtualX + viewportWidth;
+      const topBound = -this.virtualY;
+      const bottomBound = -this.virtualY + viewportHeight;
+
+      // Add some padding to include emojis slightly outside viewport
+      const padding = 200;
+      const paddedLeft = leftBound - padding;
+      const paddedRight = rightBound + padding;
+      const paddedTop = topBound - padding;
+      const paddedBottom = bottomBound + padding;
+
+      return (
+        x >= paddedLeft &&
+        x <= paddedRight &&
+        y >= paddedTop &&
+        y <= paddedBottom
+      );
+    },
+
     async loadEmojis() {
+      // Clear pending state and set loading state
+      this.isPendingEmojis = false;
+      this.isLoadingEmojis = true;
+
+      // Get viewport dimensions
+      const canvasElement = document.querySelector("[data-board]");
+      if (!canvasElement) {
+        this.isLoadingEmojis = false;
+        return;
+      }
+
+      const canvasRect = canvasElement.getBoundingClientRect();
+      const viewportWidth = canvasRect.width;
+      const viewportHeight = canvasRect.height;
+
+      // Calculate visible area bounds based on current virtual position
+      const leftBound = -this.virtualX;
+      const rightBound = -this.virtualX + viewportWidth;
+      const topBound = -this.virtualY;
+      const bottomBound = -this.virtualY + viewportHeight;
+
+      // Add some padding to load emojis outside viewport for smooth scrolling
+      const paddingX = 2000;
+      const paddingY = 100;
+      const paddedLeft = leftBound - paddingX;
+      const paddedRight = rightBound + paddingX;
+      const paddedTop = topBound - paddingY;
+      const paddedBottom = bottomBound + paddingY;
+
+      // Clear existing emojis and prepare new array
+      const newEmojis = [];
+
       let cursor = null;
       do {
-        const queries = [window.Appwrite.Query.limit(1000)];
+        const queries = [
+          window.Appwrite.Query.limit(1000),
+          window.Appwrite.Query.greaterThanEqual("x", paddedLeft),
+          window.Appwrite.Query.lessThanEqual("x", paddedRight),
+          window.Appwrite.Query.greaterThanEqual("y", paddedTop),
+          window.Appwrite.Query.lessThanEqual("y", paddedBottom),
+        ];
         if (cursor) {
           queries.push(window.Appwrite.Query.cursorAfter(cursor));
         }
-        const response = await this.databases.listDocuments(
-          "main",
-          "stamps",
-          queries,
-        );
-        this.emojis.push(
-          ...response.documents.map((doc) => ({
-            emoji: doc.emoji,
-            x: doc.x,
-            y: doc.y,
-            size: doc.size,
-            rotation: doc.rotation,
-            id: doc.$id,
-          })),
-        );
-        if (response.documents.length > 0) {
-          cursor = response.documents[response.documents.length - 1].$id;
-        } else {
+        try {
+          const response = await this.databases.listDocuments(
+            "main",
+            "stamps",
+            queries,
+          );
+          newEmojis.push(
+            ...response.documents.map((doc) => ({
+              emoji: doc.emoji,
+              x: doc.x,
+              y: doc.y,
+              size: doc.size,
+              rotation: doc.rotation,
+              id: doc.$id,
+            })),
+          );
+          if (response.documents.length > 0) {
+            cursor = response.documents[response.documents.length - 1].$id;
+          } else {
+            cursor = null;
+          }
+        } catch (error) {
+          console.error("Failed to load emojis:", error);
           cursor = null;
         }
         await new Promise((resolve) => setTimeout(resolve, 100));
       } while (cursor !== null);
+
+      this.emojis = newEmojis;
+
+      // Clear loading state
+      this.isLoadingEmojis = false;
+    },
+
+    resetPosition() {
+      this.isPendingEmojis = true;
+      this.virtualX = 0;
+      this.virtualY = 0;
+      this.debouncedLoadEmojis();
     },
 
     closeWheel() {
