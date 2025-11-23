@@ -27,6 +27,19 @@ export default (Alpine) => {
     isPendingEmojis: false, // User has moved but loading hasn't started yet
     isLoadingEmojis: false, // Actual loading is in progress
     loadEmojisTimeout: null,
+    
+    emojiSizeToPx(size) {
+      switch (size) {
+        case "text-lg":
+          return "2rem";
+        case "text-2xl":
+          return "2.5rem";
+        case "text-4xl":
+          return "3rem";
+        default:
+          return "1rem";
+      }
+    },
 
     init() {
       // Initialize Appwrite

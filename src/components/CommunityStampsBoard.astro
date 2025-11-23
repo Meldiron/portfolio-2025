@@ -84,8 +84,7 @@
     <!-- Rendered Emojis -->
     <template x-for="emoji in emojis" :key="emoji.id">
       <div
-        :style="`left: ${emoji.x + virtualX}px; top: ${emoji.y + virtualY}px; transform: translate(-50%, -50%) rotate(${+emoji.rotation}deg);`"
-        :class="emoji.size"
+        :style="`left: ${emoji.x + virtualX}px; top: ${emoji.y + virtualY}px; transform: translate(-50%, -50%) rotate(${+emoji.rotation}deg); font-size: ${emojiSizeToPx(emoji.size)}`"
         class="absolute pointer-events-none select-none"
         x-text="emoji.emoji"
       >
