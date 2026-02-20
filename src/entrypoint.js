@@ -27,7 +27,7 @@ export default (Alpine) => {
     isPendingEmojis: false, // User has moved but loading hasn't started yet
     isLoadingEmojis: false, // Actual loading is in progress
     loadEmojisTimeout: null,
-    
+
     emojiSizeToPx(size) {
       switch (size) {
         case "text-lg":
