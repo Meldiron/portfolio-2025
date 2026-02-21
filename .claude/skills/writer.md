@@ -46,7 +46,7 @@ Do not use shorthand or abbreviations. Write the full term instead. For example:
 - "single sign-on" not "SSO"
 - "application programming interface" not "API"
 
-Only universally understood abbreviations are allowed, such as URL, HTTP, HTTPS, HTML, CSS, TOTP, and similar web fundamentals that everyone recognizes.
+Only universally understood abbreviations are allowed, such as URL, HTTP, HTTPS, HTML, CSS, TOTP, AI, CTA, QA, and similar web fundamentals that everyone recognizes.
 
 ### 6. Respect paragraph boundaries
 
@@ -67,6 +67,16 @@ Always write words in their full form. For example:
 - "cannot" not "can't"
 - "would not" not "wouldn't"
 
-### 9. Double-check grammar
+### 9. No possessive apostrophes
+
+Never use possessive forms with `'s`. Restructure the sentence to use "of" or other phrasing instead. For example:
+
+- "the public link of the gallery" not "the gallery's public link"
+- "the email of the user" not "the user's email"
+- "the settings of the form" not "the form's settings"
+- "the name of the project" not "the project's name"
+- "the progress of the download" not "the download's progress"
+
+### 10. Double-check grammar
 
 After finishing any changes to a markdown file, always re-read the full file and verify grammar, spelling, and punctuation before considering the task done.

@@ -5,18 +5,24 @@ description: "Collect moments that almost slipped away. No apps, no signups, and
 github: "Meldiron/almost-moments"
 demo: "moments.almostapps.eu"
 image: { url: "/projects/almost-moments.svg", alt: "Almost Moments logo" }
-cover: { url: "/projects/almost-moments-thumbnail.png", alt: "Almost Moments Thumbnail" }
+cover:
+  {
+    url: "/projects/almost-moments-thumbnail.png",
+    alt: "Almost Moments Thumbnail",
+  }
 ---
 
 > Disclaimer: As a learning opportunity for skills and writing content with AI, this entire article has been written by AI. It's pretty clear, but I decided to keep it like this anyway, for this one project. All information has been verified and is accurate. All ideas and thoughts I wanted to capture were captured. It's just tone that makes this evident AI content.
 
 ## Vision
 
-Every trip, birthday, anniversary, or holiday gathering ends the same way. Everyone took photos and videos, but getting them all in one place is a mess. With a small group, it is easy enough. But once you have ten or more people, things get tricky fast. [AirDrop](https://support.apple.com/en-us/102481) needs too many individual transfers. [Google Drive](https://drive.google.com/) requires an app and an account. There are dedicated photo sharing apps out there, but they charge upwards of €25 per event.
+Every trip, birthday, anniversary, or holiday gathering ends the same way. Everyone took photos and videos, but getting them all in one place is a mess. With a small group, it is easy enough. But once you have ten or more people, things get tricky fast. [AirDrop](https://support.apple.com/en-us/119857) needs too many individual transfers. [Google Drive](https://drive.google.com/) requires an app and an account. There are dedicated photo sharing apps out there, but they charge upwards of €25 per event.
 
 I previously tried self-hosting [Immich](https://immich.app/), an open source gallery application. It worked well, but running it on a virtual private server meant ongoing monthly costs just to keep it alive.
 
-Around the same time, I was experimenting with Imagine, an artificial intelligence web builder designed for anyone. While tools like these abstract away a lot of knowledge about how to work with artificial intelligence, from prompting to skills to memory and more, I wanted to learn it at a lower level, without the abstraction. I specifically chose [Claude Code](https://github.com/anthropics/claude-code), since it supports skills that let me customize and extend how the artificial intelligence works.
+Around the same time, I was experimenting with [Imagine](https://imagine.dev/), an artificial intelligence web builder designed for anyone. While tools like these abstract away a lot of knowledge about how to work with AI, from prompting to skills to memory and more, I wanted to learn it at a "lower level", without the abstraction. I specifically chose [Claude Code](https://github.com/anthropics/claude-code), since it supports skills that let me customize and extend how the artificial intelligence works.
+
+---
 
 With that in mind, I set out to build an application that is effortless for both the event organizer and the participants. The organizer is the only person who needs to create an account. From there, it takes just a few clicks to set up an empty gallery and get a shareable URL or a printable QR code.
 
@@ -24,21 +30,21 @@ Participants simply open the public URL. No app to install, no sign-up required.
 
 Privacy and security were a priority. All data is stored through [Appwrite](https://appwrite.io/) Databases, and any validation that cannot be done securely on the client side, like checking whether a gallery's public link has expired, is handled by server-side rendered endpoints in the [Next.js](https://nextjs.org/) application.
 
-Exporting is kept simple. A single click downloads all files into one archive, making it easy to back up. For viewing purposes, the public URL is the better option, as it displays all images with proper optimizations.
+Exporting is kept simple. A single click downloads all files into one ZIP archive, making it easy to back up. For viewing purposes, the public URL is the better option, as it displays all images with proper optimizations.
 
-Speaking of optimizations, the public gallery uses [blurhash](https://blurha.sh/), the same technique used by [Wolt](https://wolt.com/), to show a blurry placeholder before the actual image loads. On top of that, Appwrite image transformations serve smaller previews in the grid at 720p, 80% quality, converted to webp. The original file is only loaded when viewing an image in fullscreen.
+Speaking of optimizations, the public gallery uses [BlurHash](https://blurha.sh/), the same technique used by [Wolt](https://wolt.com/), to show a blurry placeholder before the actual image loads. On top of that, Appwrite image transformations serve smaller previews in the grid at 720p resolution, 80% quality, converted to webp format. The original file is only loaded when viewing an image in fullscreen.
 
 ## Technologies
 
-- [Appwrite](https://appwrite.io/), authentication, TablesDB for data storage, file storage for media, and Sites for server-side rendered deployment
+- [Appwrite](https://appwrite.io/) for Authentication, TablesDB for galleries, Storage for pictures, and Sites for server-side web app rendered deployment
 - [Next.js](https://nextjs.org/), the full-stack framework powering both the frontend and the server-side endpoints
 - [shadcn/ui](https://ui.shadcn.com/), component library built on [Radix UI](https://www.radix-ui.com/) primitives, providing accessible and themeable components
 - [Tailwind CSS](https://tailwindcss.com/), utility-first styling
 - [TypeScript](https://www.typescriptlang.org/), type safety across the entire codebase
 - [Zod](https://zod.dev/), schema validation for forms and data
 - [sharp](https://sharp.pixelplumbing.com/), server-side image processing for generating blurhash values
-- [blurhash](https://blurha.sh/), compact image placeholder algorithm for smooth loading previews
-- [qrcode](https://github.com/soldair/node-qrcode), generating QR codes for easy gallery sharing
+- [BlurHash](https://blurha.sh/), compact image placeholder algorithm for smooth loading previews
+- [Node QRCode](https://github.com/soldair/node-qrcode), generating QR codes for easy gallery sharing
 
 ## Screens
 
@@ -58,15 +64,15 @@ I did not prompt this one, but the artificial intelligence decided to add a dire
 
 ![Homepage compare](/projects/almost-moments/homepage-compare.png)
 
-The frequently asked questions section came with a solid set of questions. A few answers needed corrections, but they were easy to fix before finishing the homepage.
+The frequently asked questions section came with a solid set of questions. A few answers needed corrections, but they were easy to fix, and nothing major.
 
 ![Homepage faq](/projects/almost-moments/homepage-faq.png)
 
-The homepage wraps up with a call to action section and a footer, both looking clean and modern.
+The homepage wraps up with a CTA section and a footer, both looking clean and modern.
 
 ![Homepage footer](/projects/almost-moments/homepage-footer.png)
 
-The login screen supports signing up with email and password, or using Google OAuth directly. Password reset is handled through a magic URL sent to the user's email.
+The login screen supports signing up with email and password, or using Google OAuth (sign in with Google) directly. Password reset is handled through a magic URL sent to the user's email.
 
 ![Auth login](/projects/almost-moments/auth-login.png)
 
@@ -78,7 +84,7 @@ The dashboard is where all gallery management happens. Each gallery card shows t
 
 ![Dashboard galleries](/projects/almost-moments/dashboard-galleries.png)
 
-Thanks to [shadcn/ui](https://ui.shadcn.com/), all components automatically support both light and dark themes. A simple toggle switches between them, and this applies across every page.
+Thanks to [shadcn/ui](https://ui.shadcn.com/), all components automatically support both light and dark themes. So I added a simple toggle to switch between them, and this now works and applies across every page.
 
 ![Dashboard galleries light mode](/projects/almost-moments/dashboard-galleries-light.png)
 
@@ -112,7 +118,7 @@ The export button opens a small popover showing download progress, which is espe
 
 ![Manage progress download](/projects/almost-moments/manage-progress-download.png)
 
-The settings page provides cards for changing your email, password, deleting your account, or enabling two-factor authentication.
+The settings page provides cards for changing your email or password, deleting your account, or enabling two-factor authentication.
 
 ![Settings cards](/projects/almost-moments/settings-cards.png)
 

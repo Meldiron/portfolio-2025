@@ -37,7 +37,8 @@ for (let i = 0; i < headings.length; i++) {
 
   let seconds = Math.round(getReadingTime(part).time / 1000);
 
-  const imageCount = (part.match(/\.(png|jpg|jpeg|gif|webp|svg)\)/gi) || []).length;
+  const imageCount = (part.match(/\.(png|jpg|jpeg|gif|webp|svg)\)/gi) || [])
+    .length;
   const videoCount = (part.match(/\.(mp4|webm|ogg|mov)\)/gi) || []).length;
   const extraSeconds = imageCount * 10 + videoCount * 15;
   seconds += extraSeconds;
@@ -177,7 +178,14 @@ for (let i = 0; i < headings.length; i++) {
           video.controls = true;
           img.parentElement?.replaceChild(video, img);
           new Plyr(video, {
-            controls: ["play", "progress", "current-time", "mute", "volume", "fullscreen"],
+            controls: [
+              "play",
+              "progress",
+              "current-time",
+              "mute",
+              "volume",
+              "fullscreen",
+            ],
           });
           return;
         }
