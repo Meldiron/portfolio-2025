@@ -3,154 +3,135 @@ title: "Almost Moments"
 pubDate: 2026-02-08 #Y-M-D
 description: "Collect moments that almost slipped away. No apps, no signups, and for free."
 github: "Meldiron/almost-moments"
-demo: "https://moments.almostapps.eu/"
+demo: "moments.almostapps.eu"
 image: { url: "/projects/almost-moments.svg", alt: "Almost Moments logo" }
 cover: { url: "/projects/almost-moments-thumbnail.png", alt: "Almost Moments Thumbnail" }
 ---
 
+> Disclaimer: As a learning opportunity for skills and writing content with AI, this entire article has been written by AI. It's pretty clear, but I decided to keep it like this anyway, for this one project. All information has been verified and is accurate. All ideas and thoughts I wanted to capture were captured. It's just tone that makes this evident AI content.
+
 ## Vision
 
-Something about going on trips with friends.. trips, birthdays, anniversaries, summer trips, winter tris.. Something about few people being easy to share photos and videos, but 10 and more people gets very tricky.. airdrop needs too many transfers, google drive needs app and an account.. there are apps for this but they cost upwards of 25€ per event.
+Every trip, birthday, anniversary, or holiday gathering ends the same way. Everyone took photos and videos, but getting them all in one place is a mess. With a small group, it is easy enough. But once you have ten or more people, things get tricky fast. [AirDrop](https://support.apple.com/en-us/102481) needs too many individual transfers. [Google Drive](https://drive.google.com/) requires an app and an account. There are dedicated photo sharing apps out there, but they charge upwards of €25 per event.
 
-Something about using immich, open source gallery app, but hosting it on VPS which creates monthly maintain cost.
+I previously tried self-hosting [Immich](https://immich.app/), an open source gallery application. It worked well, but running it on a virtual private server meant ongoing monthly costs just to keep it alive.
 
-Something about recent experiment with Imagine, AI web builder for anyone. Something about knowing this abstract a lot of knowledge about how to use AI, talk to it, skills, memories, and much much more. Something about me wanting to learn it in "low-level", without abstraction of any tools. Specifically wanting to learn with Claude Code, as it supports skills.
+Around the same time, I was experimenting with Imagine, an artificial intelligence web builder designed for anyone. While tools like these abstract away a lot of knowledge about how to work with artificial intelligence, from prompting to skills to memory and more, I wanted to learn it at a lower level, without the abstraction. I specifically chose [Claude Code](https://github.com/anthropics/claude-code), since it supports skills that let me customize and extend how the artificial intelligence works.
 
----
+With that in mind, I set out to build an application that is effortless for both the event organizer and the participants. The organizer is the only person who needs to create an account. From there, it takes just a few clicks to set up an empty gallery and get a shareable URL or a printable QR code.
 
-Something about wanting to create application that is easy to use by both event organizer, and participants.
+Participants simply open the public URL. No app to install, no sign-up required. It works on any device: phone, tablet, or desktop.
 
-something about Event organizer creating an account (only him, noone else needs to), and quickly in matter of few click creating an empty gallery, being given URL to share, or QR code to print.
+Privacy and security were a priority. All data is stored through [Appwrite](https://appwrite.io/) Databases, and any validation that cannot be done securely on the client side, like checking whether a gallery's public link has expired, is handled by server-side rendered endpoints in the [Next.js](https://nextjs.org/) application.
 
-Something about public URL not requiring application, or sign ups, and working on all devices including phone, tablet, desktop and more.
+Exporting is kept simple. A single click downloads all files into one archive, making it easy to back up. For viewing purposes, the public URL is the better option, as it displays all images with proper optimizations.
 
-Something about privacy and security, using Appwrite Databases, but using them correctly. And when client-side fetch cannot be done securely (like validating expiry date of a gallery), use of API endpoint in Next.js SSR application.
-
-Something about ability to download all files together in single click, into a single file that is easy to backup. Something about this being good enough of export option, since for viewing purpose, public URL should be used, as it shows all images.
-
-Something about public URL using optimizations to show images. Specifically blurhash, similar to Wolt, so blurry version shows before actual image loads, to keep user satisfied with loading process. Also mentioning using appwrite image transformation, preview endpoint, to show smaller version of images in preview, and only loading original file in fullscreen view. That allows loading much smaller images, while showing good enough quality  in grid at 720p, 80% quality, and transformed to webp.
+Speaking of optimizations, the public gallery uses [blurhash](https://blurha.sh/), the same technique used by [Wolt](https://wolt.com/), to show a blurry placeholder before the actual image loads. On top of that, Appwrite image transformations serve smaller previews in the grid at 720p, 80% quality, converted to webp. The original file is only loaded when viewing an image in fullscreen.
 
 ## Technologies
 
-Appwrite - auth, tablesDB, storage, sites (SSR)
-
-blurhash
-
-next.js
-
-shad/cn
-
-tailwind
-
-zod
-
-typescript
-
-sharp
-
-radix
-
-qrcode
-
+- [Appwrite](https://appwrite.io/), authentication, TablesDB for data storage, file storage for media, and Sites for server-side rendered deployment
+- [Next.js](https://nextjs.org/), the full-stack framework powering both the frontend and the server-side endpoints
+- [shadcn/ui](https://ui.shadcn.com/), component library built on [Radix UI](https://www.radix-ui.com/) primitives, providing accessible and themeable components
+- [Tailwind CSS](https://tailwindcss.com/), utility-first styling
+- [TypeScript](https://www.typescriptlang.org/), type safety across the entire codebase
+- [Zod](https://zod.dev/), schema validation for forms and data
+- [sharp](https://sharp.pixelplumbing.com/), server-side image processing for generating blurhash values
+- [blurhash](https://blurha.sh/), compact image placeholder algorithm for smooth loading previews
+- [qrcode](https://github.com/soldair/node-qrcode), generating QR codes for easy gallery sharing
 
 ## Screens
 
-something about prompting AI to do 5 uniquely different designs from each other for homepage, each on different git branch. Something about using designer and marketer skills from skills.sh. something about combining it and picking what I liked the most.
+I started by prompting the artificial intelligence to generate five uniquely different homepage designs, each on its own git branch. I used designer and marketer skills from [skills.sh](https://skills.sh) to guide the process, then combined elements from different versions and picked what I liked the most.
 
 ![Homepage hero](/projects/almost-moments/homepage-hero.png)
 
-Something about being proud specifically about interactive showcase component, looking like apple UI when switching apps. Something about asking AI to do very common horizontal sliding gallery, and then limiting it to mobile border view, to achieve this design.
+One thing I am especially proud of is the interactive showcase component. It looks like the app-switching interface on Apple devices. I initially asked the artificial intelligence to build a common horizontal sliding gallery, then constrained it to a mobile device frame, and this design emerged from that.
 
 ![Homepage interactive](/projects/almost-moments/homepage-interactive.mp4)
 
-Something about bento grid component, but simple and easy to scan through. Something about specifically liking marking skills here, with copy explaing for who exactly this platform is useful, and what pain points it solves. In marketing its very good approach to point out a pain point, make reader feel it, and then giving a solution.
+The bento grid section keeps things simple and easy to scan through. What I particularly like here is the marketing-focused copy that clearly spells out who the platform is for and what pain points it solves. Pointing out a problem, making the reader feel it, and then offering a solution is a proven marketing approach.
 
 ![Homepage grid](/projects/almost-moments/homepage-grid.png)
 
-Not prompted, but AI decided to add comparasion with Google Drive directly, which is a great marketing catch too. Since google drive often requires app, an account, invitations...
+I did not prompt this one, but the artificial intelligence decided to add a direct comparison with [Google Drive](https://drive.google.com/). It is a great marketing catch, since Google Drive often requires an app, an account, and invitations to get started.
 
 ![Homepage compare](/projects/almost-moments/homepage-compare.png)
 
-Something about liking how AI defines F&A section with very good set of questions. Mention some answers were wrong, but very easy to fix before finishing homepage.
+The frequently asked questions section came with a solid set of questions. A few answers needed corrections, but they were easy to fix before finishing the homepage.
 
 ![Homepage faq](/projects/almost-moments/homepage-faq.png)
 
-Lastly for homepage, something about a CTA section and a footer, both looking very simple and modern.
+The homepage wraps up with a call to action section and a footer, both looking clean and modern.
 
 ![Homepage footer](/projects/almost-moments/homepage-footer.png)
 
-Next, something about login screen that supports sign up with email and password, or using Google OAuth (sign in) directly. Something about Magic URL for password reset.
+The login screen supports signing up with email and password, or using Google OAuth directly. Password reset is handled through a magic URL sent to the user's email.
 
 ![Auth login](/projects/almost-moments/auth-login.png)
 
-After successful login, something about ability to use 2 factor authentication. And if enabled, TOTP will be requested before user can access the dashboard.
+After a successful login, users can enable two-factor authentication. When enabled, a TOTP code is required before the user can access the dashboard.
 
 ![Auth 2fa](/projects/almost-moments/auth-2fa.png)
 
-Welcome to dashboard. Something about managing your galleries here.  Seeing list with most important details such as total pictures, title and short description, creation date, and public link expiry date.
-
-Also mention ability to "star" (like) - mark galleries as favourites. Then you can easily filter to only see favourites, or more filters, like soon expiring, or created this year.
+The dashboard is where all gallery management happens. Each gallery card shows the most important details at a glance: total number of pictures, title, short description, creation date, and when the public link expires. Galleries can also be starred as favorites, and filters let you narrow down to favorites only, soon-to-expire galleries, or those created in the current year.
 
 ![Dashboard galleries](/projects/almost-moments/dashboard-galleries.png)
 
-Mention thanks to use of shadcn, all components automatically support lgiht and dark theme both, so a simple toggle can switch it. This applies to all pages, but mention something about showcasing it here.
+Thanks to [shadcn/ui](https://ui.shadcn.com/), all components automatically support both light and dark themes. A simple toggle switches between them, and this applies across every page.
 
 ![Dashboard galleries light mode](/projects/almost-moments/dashboard-galleries-light.png)
 
-Something about share button in gallery card, opening dropdown with multiple sharing options - qr code, opening link, or copying link.
+The share button on each gallery card opens a dropdown with multiple sharing options: a QR code, a direct link to open, or a button to copy the link to the clipboard.
 
 ![Dashboard share](/projects/almost-moments/dashboard-share.png)
 
-Something about modal to create new gallery allowing to set name, optional description, and public link duration.
+Creating a new gallery is straightforward. The modal lets you set a name, an optional description, and the duration of the public link.
 
 ![Dashboard create gallery](/projects/almost-moments/dashboard-create-gallery.png)
 
-Something about gallery manager page, which shows settings such as name, description, and public link duration, allowing changing all of that.
+Inside a gallery, the management page shows its settings, such as name, description, and public link duration, all of which can be changed at any time.
 
 ![Manage images](/projects/almost-moments/manage-images.png)
 
-Something about UX improvement by showing warning alert component when gallery is soon to expire public link, with CTA to easily set new expiry.
+As a user experience improvement, a warning alert appears when a gallery's public link is about to expire, with a quick action to set a new expiry date.
 
 ![Manage expiring](/projects/almost-moments/manage-expiring.png)
 
-Similarly, something about error alert component when public link already expired, with CTA to set new expiry.
+Similarly, if the public link has already expired, an error alert takes its place, again with a shortcut to renew it.
 
 ![Manage expired](/projects/almost-moments/manage-expired.png)
 
-Something about seeing all files in a list, paginated using cursor pagination, showing file name, size, and cretion date.
+All files are listed with cursor-based pagination, showing the file name, size, and creation date. The creation date was a tricky decision. Should it be the date of upload, or the date the picture was actually taken? I went with the date the picture was taken, so when exporting files from multiple participants, everything stays in chronological order.
 
-Something about creation date being tricky, weather it should be date of upload, or date when picture was taken. I decided to use date of taking picture, so when exporting all pictures from all participants, they remain in chronological order.
-
-Something about ability to select a file, or bulk select multipe, or also selecting all with single click. Somethign about a slider showing from bottom allowing to delete files, or export them as ZIP.
+Files can be selected individually, in bulk, or all at once with a single click. A bottom action bar slides in with options to delete the selected files or export them as a ZIP archive.
 
 ![Manage bulk](/projects/almost-moments/manage-bulk.png)
 
-Something about export button opening smal popover, showing progress which is useful when exporting large galleries of thousands of files.
+The export button opens a small popover showing download progress, which is especially useful when exporting large galleries with thousands of files.
 
 ![Manage progress download](/projects/almost-moments/manage-progress-download.png)
 
-Something about new page, settings card, allowing you to change email, password, delete account, or enable 2 factor authentication.
+The settings page provides cards for changing your email, password, deleting your account, or enabling two-factor authentication.
 
 ![Settings cards](/projects/almost-moments/settings-cards.png)
 
-Something about modal to enable 2 factor authentication showing QR code, or allowing to copy secret manually.
+The two-factor authentication setup modal displays a QR code for scanning, or allows copying the secret manually.
 
 ![Settings 2fa](/projects/almost-moments/settings-2fa.png)
 
-Something about showing recovery codes after connecting TOTP (2fa). These can be used when losing device with second factor.
-
-SOmetihng so they notice ability to regenerate recovery codes. Also important to mention user can disable second factor . Both these actions require recently refreshed session, which is done by doing second factor challenge in last 15 minutes. Frontend smartly cehcks that, and shows modal to refresh session by providing TOTP before doing those actions.
+After connecting TOTP, recovery codes are shown. These can be used if the device with the second factor is lost. Recovery codes can also be regenerated, and two-factor authentication can be disabled entirely. Both actions require a recently refreshed session, specifically a TOTP challenge completed within the last 15 minutes. The frontend checks this automatically and prompts the user to verify before proceeding.
 
 ![Settings recovery codes](/projects/almost-moments/settings-recovery-codes.png)
 
 ## Future plans
 
-Something about ability to show video and audio files too. Currently they are allowed, but preview only shows icon, instead of allowing to play video, or listen to audio files.
+Video and audio files can already be uploaded, but the public gallery currently only shows an icon for them. Adding inline playback for videos and an audio player would make the experience much more complete.
 
-Something about read only mode, so participants can only download files, and event organizer can upload. Similarly, upload-only mode, when participants can upload pictures, but cannot see all gallery picturs.
+A read-only mode would let participants download files while keeping uploads restricted to the organizer. Similarly, an upload-only mode would allow participants to contribute photos without being able to browse the full gallery.
 
-Somehing about a new view for organizer - slideshow. Meant to be opened on some display or monitor on the event location, so participants are more likely to upload their pictures, so they get shown there.
+A slideshow view for the organizer would be a great addition. Displayed on a screen or monitor at the event location, it would encourage participants to upload their pictures knowing they get shown on the slideshow.
 
-Something about realtime updates to gallery, so if many people enter it at the same time, they can see how others people upload pictures live, jumping into the list one by one.
+Real-time updates to the gallery would make the experience feel alive. When multiple people have the gallery open at the same time, they could watch new uploads appear one by one as others add their photos.
 
-Finally, something about forgotten feature I realised only after I started using the app myself- a bility to remove galelry. So basic, yet missing, right now.
+And finally, a feature I only realized was missing after I started using the app myself. The ability to delete a gallery. So basic, yet not there yet.

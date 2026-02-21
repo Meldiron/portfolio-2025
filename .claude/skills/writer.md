@@ -48,6 +48,25 @@ Do not use shorthand or abbreviations. Write the full term instead. For example:
 
 Only universally understood abbreviations are allowed, such as URL, HTTP, HTTPS, HTML, CSS, TOTP, and similar web fundamentals that everyone recognizes.
 
-### 6. Double-check grammar
+### 6. Respect paragraph boundaries
+
+When the draft already has paragraphs defined, treat each one as a fixed boundary. Only write about the topic that paragraph covers. Do not merge paragraphs together, do not split one into multiple, and do not remove any. Before writing, define a plan that maps each draft paragraph to its topic, and follow that plan strictly.
+
+### 7. No em dashes
+
+Never use em dashes (`—`) or en dashes (`–`). These are typical markers of artificial intelligence writing. Use commas, periods, or restructure the sentence instead.
+
+### 8. No contractions
+
+Always write words in their full form. For example:
+
+- "I am" not "I'm"
+- "it is" not "it's"
+- "do not" not "don't"
+- "they are" not "they're"
+- "cannot" not "can't"
+- "would not" not "wouldn't"
+
+### 9. Double-check grammar
 
 After finishing any changes to a markdown file, always re-read the full file and verify grammar, spelling, and punctuation before considering the task done.
