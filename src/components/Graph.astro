@@ -117,11 +117,15 @@ weeks.push(
 );
 
 const colorData: any = {};
+const today = new Date().toISOString().split("T")[0];
 
 let week = 0;
 let day = 0;
+let totalWeeks = 0;
 weeks.forEach(({ contributionDays }: any) => {
-  contributionDays.forEach(({ contributionCount }: any) => {
+  contributionDays.forEach(({ contributionCount, date }: any) => {
+    if (date > today) return;
+
     let contributionsColor = "rgba(255, 255, 255, 0.05)";
 
     if (contributionCount >= 15) {
@@ -149,24 +153,32 @@ weeks.forEach(({ contributionDays }: any) => {
     if (day === 7) {
       day = 0;
       week++;
+      totalWeeks = week;
     }
   });
 });
+// Account for a partial final week
+if (day > 0) {
+  totalWeeks = week + 1;
+}
 ---
 
 <section>
   {
     weeks.length > 0 && (
       <div id="contributions" class="flex gap-1">
-        {Array.apply(null, Array(53 * 5)).map((_week, i) => {
+        {Array.apply(null, Array(totalWeeks)).map((_week, i) => {
           return (
             <div class={`flex-col gap-1 flex`}>
               {Array.apply(null, Array(7)).map((_day, j) => {
-                return (
+                const color = colorData[`week-${i}-day-${j}`];
+                return color ? (
                   <div
                     class="h-2 w-2 lg:h-3 lg:w-3 rounded-[1px] sm:rounded-sm"
-                    style={`background-color: ${colorData[`week-${i}-day-${j}`]}`}
+                    style={`background-color: ${color}`}
                   />
+                ) : (
+                  <div class="h-2 w-2 lg:h-3 lg:w-3" />
                 );
               })}
             </div>
