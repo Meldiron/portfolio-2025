@@ -17,6 +17,7 @@ export default (Alpine) => {
     hasMoved: false,
     options: ["⭐", "👏", "💎", "🔥", "💯", "❓"],
     emojis: [],
+    emojiIds: null, // Set<string> for O(1) dedup, initialized in init()
     sizes: ["text-lg", "text-2xl", "text-4xl"], // small, medium, large
     rotations: [-15, 0, 15],
     selectedSize: "text-2xl", // default to medium
@@ -26,7 +27,8 @@ export default (Alpine) => {
     isLoading: false,
     isPendingEmojis: false, // User has moved but loading hasn't started yet
     isLoadingEmojis: false, // Actual loading is in progress
-    loadEmojisTimeout: null,
+    loadThrottleTimeout: null,
+    loadGeneration: 0, // Incremented on each load to cancel stale requests
 
     emojiSizeToPx(size) {
       switch (size) {
@@ -41,7 +43,61 @@ export default (Alpine) => {
       }
     },
 
+    // Add emoji only if not already tracked. Returns true if added.
+    addEmoji(emoji) {
+      if (this.emojiIds.has(emoji.id)) return false;
+      this.emojiIds.add(emoji.id);
+      this.emojis.push(emoji);
+      return true;
+    },
+
+    // Remove emoji by ID from both the array and the Set.
+    removeEmoji(id) {
+      if (!this.emojiIds.has(id)) return;
+      this.emojiIds.delete(id);
+      this.emojis = this.emojis.filter((e) => e.id !== id);
+    },
+
+    // Remove emojis that are far outside the current viewport to free memory.
+    cleanupDistantEmojis() {
+      const canvasElement = document.querySelector("[data-board]");
+      if (!canvasElement) return;
+
+      const rect = canvasElement.getBoundingClientRect();
+      const cleanupPadX = 3000;
+      const cleanupPadY = 500;
+
+      const left = -this.virtualX - cleanupPadX;
+      const right = -this.virtualX + rect.width + cleanupPadX;
+      const top = -this.virtualY - cleanupPadY;
+      const bottom = -this.virtualY + rect.height + cleanupPadY;
+
+      const removedIds = [];
+      const kept = [];
+      for (const emoji of this.emojis) {
+        if (
+          emoji.x < left ||
+          emoji.x > right ||
+          emoji.y < top ||
+          emoji.y > bottom
+        ) {
+          removedIds.push(emoji.id);
+        } else {
+          kept.push(emoji);
+        }
+      }
+
+      if (removedIds.length > 0) {
+        this.emojis = kept;
+        for (const id of removedIds) {
+          this.emojiIds.delete(id);
+        }
+      }
+    },
+
     init() {
+      this.emojiIds = new Set();
+
       // Initialize Appwrite
       this.client = new window.Appwrite.Client();
       this.client
@@ -54,27 +110,22 @@ export default (Alpine) => {
         "databases.main.collections.stamps.documents",
         (response) => {
           if (response.events.includes("databases.*.tables.*.rows.*.create")) {
-            // Add new emoji from database only if it's within current viewport
             const data = response.payload;
 
-            // Check if emoji is within current viewport
             if (this.isEmojiInViewport(data.x, data.y)) {
-              const newEmoji = {
+              this.addEmoji({
                 emoji: data.emoji,
                 x: data.x,
                 y: data.y,
                 size: data.size,
                 rotation: data.rotation,
                 id: data.$id,
-              };
-              this.emojis.push(newEmoji);
+              });
             }
           } else if (
             response.events.includes("databases.*.tables.*.rows.*.delete")
           ) {
-            // Remove deleted emoji from database
-            const deletedId = response.payload.$id;
-            this.emojis = this.emojis.filter((emoji) => emoji.id !== deletedId);
+            this.removeEmoji(response.payload.$id);
           }
         },
       );
@@ -84,13 +135,11 @@ export default (Alpine) => {
 
       // Watch for changes to virtualX and virtualY to reload emojis
       this.$watch("virtualX", () => {
-        this.isPendingEmojis = true;
-        this.debouncedLoadEmojis();
+        this.throttledLoadEmojis();
       });
 
       this.$watch("virtualY", () => {
-        this.isPendingEmojis = true;
-        this.debouncedLoadEmojis();
+        this.throttledLoadEmojis();
       });
 
       // Close wheel when clicking outside
@@ -192,7 +241,6 @@ export default (Alpine) => {
 
       if (totalDistance > 5) {
         this.hasMoved = true;
-        // Set pending state when user starts moving
         this.isPendingEmojis = true;
       }
     },
@@ -216,7 +264,6 @@ export default (Alpine) => {
 
       if (totalDistance > 5) {
         this.hasMoved = true;
-        // Set pending state when user starts moving
         this.isPendingEmojis = true;
       }
     },
@@ -226,9 +273,9 @@ export default (Alpine) => {
 
       this.isDragging = false;
 
-      // Load emojis for new viewport if user moved significantly
+      // Ensure a final load for the resting position
       if (this.hasMoved) {
-        this.debouncedLoadEmojis();
+        this.throttledLoadEmojis();
       }
 
       // Only show wheel if user didn't move much (just clicked)
@@ -242,9 +289,9 @@ export default (Alpine) => {
 
       this.isDragging = false;
 
-      // Load emojis for new viewport if user moved significantly
+      // Ensure a final load for the resting position
       if (this.hasMoved) {
-        this.debouncedLoadEmojis();
+        this.throttledLoadEmojis();
       }
 
       // Only show wheel if user didn't move much (just tapped)
@@ -279,16 +326,22 @@ export default (Alpine) => {
       }
     },
 
-    debouncedLoadEmojis() {
-      // Clear existing timeout
-      if (this.loadEmojisTimeout) {
-        clearTimeout(this.loadEmojisTimeout);
-      }
+    // Leading-edge throttle: fires immediately, then at most once per 400ms.
+    throttledLoadEmojis() {
+      // If throttle cooldown is active, the trailing call at the end will pick
+      // up whatever the latest position is.
+      if (this.loadThrottleTimeout) return;
 
-      // Set new timeout to load emojis after a brief delay
-      this.loadEmojisTimeout = setTimeout(() => {
-        this.loadEmojis();
-      }, 300); // 300ms debounce
+      // Fire immediately (leading edge)
+      this.loadEmojis();
+
+      // Set cooldown — when it expires, fire once more if position changed.
+      this.loadThrottleTimeout = setTimeout(() => {
+        this.loadThrottleTimeout = null;
+        if (this.isPendingEmojis) {
+          this.throttledLoadEmojis();
+        }
+      }, 400);
     },
 
     isEmojiInViewport(x, y) {
@@ -322,6 +375,9 @@ export default (Alpine) => {
     },
 
     async loadEmojis() {
+      // Increment generation to cancel any in-flight load
+      const generation = ++this.loadGeneration;
+
       // Clear pending state and set loading state
       this.isPendingEmojis = false;
       this.isLoadingEmojis = true;
@@ -351,11 +407,11 @@ export default (Alpine) => {
       const paddedTop = topBound - paddingY;
       const paddedBottom = bottomBound + paddingY;
 
-      // Clear existing emojis and prepare new array
-      const newEmojis = [];
-
       let cursor = null;
       do {
+        // Bail out if a newer load has started
+        if (this.loadGeneration !== generation) return;
+
         const queries = [
           window.Appwrite.Query.limit(1000),
           window.Appwrite.Query.greaterThanEqual("x", paddedLeft),
@@ -372,16 +428,22 @@ export default (Alpine) => {
             "stamps",
             queries,
           );
-          newEmojis.push(
-            ...response.documents.map((doc) => ({
+
+          // Bail out if a newer load has started
+          if (this.loadGeneration !== generation) return;
+
+          // Incrementally merge — only add emojis we don't already have
+          for (const doc of response.documents) {
+            this.addEmoji({
               emoji: doc.emoji,
               x: doc.x,
               y: doc.y,
               size: doc.size,
               rotation: doc.rotation,
               id: doc.$id,
-            })),
-          );
+            });
+          }
+
           if (response.documents.length > 0) {
             cursor = response.documents[response.documents.length - 1].$id;
           } else {
@@ -394,7 +456,11 @@ export default (Alpine) => {
         await new Promise((resolve) => setTimeout(resolve, 100));
       } while (cursor !== null);
 
-      this.emojis = newEmojis;
+      // Only finalize if this is still the latest load
+      if (this.loadGeneration !== generation) return;
+
+      // Prune emojis that are far from the current viewport
+      this.cleanupDistantEmojis();
 
       // Clear loading state
       this.isLoadingEmojis = false;
@@ -402,9 +468,12 @@ export default (Alpine) => {
 
     resetPosition() {
       this.isPendingEmojis = true;
+      // Clear everything on teleport — old emojis are all distant
+      this.emojis = [];
+      this.emojiIds.clear();
       this.virtualX = 0;
       this.virtualY = 0;
-      this.debouncedLoadEmojis();
+      this.throttledLoadEmojis();
     },
 
     closeWheel() {
