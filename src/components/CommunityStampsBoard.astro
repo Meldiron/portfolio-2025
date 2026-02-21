@@ -82,12 +82,16 @@
     </div>
 
     <!-- Rendered Emojis -->
-    <template x-for="emoji in emojis" :key="emoji.id">
+    <template x-for="(emoji, index) in emojis" :key="emoji.id">
       <div
         :style="`left: ${emoji.x + virtualX}px; top: ${emoji.y + virtualY}px; transform: translate(-50%, -50%) rotate(${+emoji.rotation}deg); font-size: ${emojiSizeToPx(emoji.size)}`"
         class="absolute pointer-events-none select-none"
-        x-text="emoji.emoji"
       >
+        <span
+          class="stamp-appear inline-block"
+          :style="`animation-delay: ${(index % 25) * 25}ms`"
+          x-text="emoji.emoji"
+        ></span>
       </div>
     </template>
   </div>
@@ -258,3 +262,23 @@
     </button>
   </div>
 </div>
+
+<style>
+  @keyframes stamp-appear {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    60% {
+      transform: scale(1.15);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .stamp-appear {
+    animation: stamp-appear 0.35s ease-out both;
+  }
+</style>
