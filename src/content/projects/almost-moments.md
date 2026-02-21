@@ -28,7 +28,7 @@ With that in mind, I set out to build an application that is effortless for both
 
 Participants simply open the public URL. No app to install, no sign-up required. It works on any device: phone, tablet, or desktop.
 
-Privacy and security were a priority. All data is stored through [Appwrite](https://appwrite.io/) Databases, and any validation that cannot be done securely on the client side, like checking whether a gallery's public link has expired, is handled by server-side rendered endpoints in the [Next.js](https://nextjs.org/) application.
+Privacy and security were a priority. All data is stored through [Appwrite](https://appwrite.io/) Databases, and any validation that cannot be done securely on the client side, like checking whether the public link of a gallery has expired, is handled by server-side rendered endpoints in the [Next.js](https://nextjs.org/) application.
 
 Exporting is kept simple. A single click downloads all files into one ZIP archive, making it easy to back up. For viewing purposes, the public URL is the better option, as it displays all images with proper optimizations.
 
@@ -72,7 +72,7 @@ The homepage wraps up with a CTA section and a footer, both looking clean and mo
 
 ![Homepage footer](/projects/almost-moments/homepage-footer.png)
 
-The login screen supports signing up with email and password, or using Google OAuth (sign in with Google) directly. Password reset is handled through a magic URL sent to the user's email.
+The login screen supports signing up with email and password, or using Google OAuth (sign in with Google) directly. Password reset is handled through a magic URL sent to your email.
 
 ![Auth login](/projects/almost-moments/auth-login.png)
 
@@ -100,7 +100,7 @@ Inside a gallery, the management page shows its settings, such as name, descript
 
 ![Manage images](/projects/almost-moments/manage-images.png)
 
-As a user experience improvement, a warning alert appears when a gallery's public link is about to expire, with a quick action to set a new expiry date.
+As a user experience improvement, a warning alert appears when the public link of a gallery is about to expire, with a quick action to set a new expiry date.
 
 ![Manage expiring](/projects/almost-moments/manage-expiring.png)
 
