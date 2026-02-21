@@ -37,7 +37,9 @@ for (let i = 0; i < headings.length; i++) {
 
   let seconds = Math.round(getReadingTime(part).time / 1000);
 
-  const extraSeconds = part.split(".png)").length * 10;
+  const imageCount = (part.match(/\.(png|jpg|jpeg|gif|webp|svg)\)/gi) || []).length;
+  const videoCount = (part.match(/\.(mp4|webm|ogg|mov)\)/gi) || []).length;
+  const extraSeconds = imageCount * 10 + videoCount * 15;
   seconds += extraSeconds;
 
   readingTimes[heading.slug] = Math.ceil(seconds / 60) + " min";
@@ -135,6 +137,8 @@ for (let i = 0; i < headings.length; i++) {
   import "photoswipe/style.css";
   import pswpModule from "photoswipe";
   import PhotoSwipeLightbox from "photoswipe/lightbox";
+  import "plyr/dist/plyr.css";
+  import Plyr from "plyr";
 
   const lightbox = new PhotoSwipeLightbox({
     pswpModule,
@@ -153,11 +157,28 @@ for (let i = 0; i < headings.length; i++) {
     return itemData;
   });
 
+  const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
+
+  function isVideoSrc(src: string) {
+    return videoExtensions.some((ext) => src.toLowerCase().endsWith(ext));
+  }
+
   document.addEventListener(
     "astro:page-load",
     () => {
+      // Replace <img> tags that point to video files with <video> elements
       document.querySelectorAll(".project-article img").forEach((img) => {
-        if (!(img instanceof HTMLImageElement)) {
+        if (!(img instanceof HTMLImageElement)) return;
+
+        if (isVideoSrc(img.src)) {
+          const video = document.createElement("video");
+          video.src = img.src;
+          video.playsInline = true;
+          video.controls = true;
+          img.parentElement?.replaceChild(video, img);
+          new Plyr(video, {
+            controls: ["play", "progress", "current-time", "mute", "volume", "fullscreen"],
+          });
           return;
         }
 

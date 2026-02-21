@@ -114,12 +114,28 @@ const { seo } = Astro.props;
     margin-right: auto;
   }
 
-  .project-article p:has(img) {
+  .project-article p:has(img),
+  .project-article p:has(.plyr) {
     max-width: 56rem !important;
   }
 
   .project-article img {
     cursor: pointer;
+  }
+
+  .project-article .plyr {
+    border-radius: 1rem;
+    border: 2px solid rgb(38 38 38);
+    overflow: hidden;
+    --plyr-color-main: #eeeeee;
+    --plyr-video-background: #121212;
+    --plyr-video-control-color: #eeeeee;
+    --plyr-video-control-background-hover: rgba(255, 255, 255, 0.1);
+    --plyr-video-aspect-ratio: auto;
+  }
+
+  .project-article .plyr video {
+    margin: 0;
   }
 
   cap-widget {
