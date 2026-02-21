@@ -402,10 +402,10 @@ export default (Alpine) => {
       // Add some padding to load emojis outside viewport for smooth scrolling
       const paddingX = 2000;
       const paddingY = 100;
-      const paddedLeft = leftBound - paddingX;
-      const paddedRight = rightBound + paddingX;
-      const paddedTop = topBound - paddingY;
-      const paddedBottom = bottomBound + paddingY;
+      const paddedLeft = Math.floor(leftBound - paddingX);
+      const paddedRight = Math.ceil(rightBound + paddingX);
+      const paddedTop = Math.floor(topBound - paddingY);
+      const paddedBottom = Math.ceil(bottomBound + paddingY);
 
       let cursor = null;
       do {
