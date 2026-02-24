@@ -10,7 +10,7 @@ const { title, company, date } = Astro.props;
 <a
   target="_blank"
   href={company.url}
-  class="py-3 flex items-center justify-between"
+  class="py-3 flex items-center justify-between border-b border-border last:border-b-0"
 >
   <div class="flex items-center gap-4">
     <Image
@@ -18,12 +18,12 @@ const { title, company, date } = Astro.props;
       alt={company.name}
       width={40}
       height={40}
-      class="rounded-md w-[40px] h-[40px] object-contain"
+      class="w-[40px] h-[40px] object-contain border border-border"
     />
     <div>
-      <h3 class="font-medium">{title}</h3>
-      <p class="hover-underline text-sm opacity-60">{company.name}</p>
+      <h3 class="font-medium text-black">{title}</h3>
+      <p class="hover-underline text-sm text-muted">{company.name}</p>
     </div>
   </div>
-  <p class="text-sm opacity-60">{date}</p>
+  <p class="text-sm text-muted font-mono">{date}</p>
 </a>

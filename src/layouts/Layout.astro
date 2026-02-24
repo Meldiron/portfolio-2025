@@ -30,44 +30,50 @@ const { seo } = Astro.props;
       data-website-id="9cd0e69d-273d-4bbb-88eb-4f10a5019bcd"></script>
   </head>
   <body>
-    <header>
-      <div
-        class="px-6 py-6 max-w-2xl mx-auto flex items-center justify-between"
-      >
-        <nav>
-          <ul>
-            {
-              navBarLinks.map((link) => (
-                <li class="inline pr-3">
-                  <a
-                    class="opacity-60 hover:opacity-100 hover-underline transition-all"
-                    href={link.url}
-                    target={link.external ? "_blank" : "_self"}
-                  >
-                    {link.title}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
-      </div>
-    </header>
-    <main class="mb-20 space-y-14">
-      <slot />
-    </main>
-    <footer></footer>
+    <!-- Diagonal hatching background -->
+    <div class="fixed inset-0 pointer-events-none z-0 bg-hatching"></div>
+
+    <div class="relative z-10">
+      <header class="border-b border-border">
+        <div
+          class="px-6 py-5 max-w-2xl mx-auto flex items-center justify-between"
+        >
+          <nav>
+            <ul class="flex gap-6">
+              {
+                navBarLinks.map((link) => (
+                  <li>
+                    <a
+                      class="font-mono text-sm uppercase tracking-wider text-muted hover:text-black transition-colors"
+                      href={link.url}
+                      target={link.external ? "_blank" : "_self"}
+                    >
+                      {link.title}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main class="mb-20 space-y-14">
+        <slot />
+      </main>
+      <footer></footer>
+    </div>
 
     <script is:inline src="/cap.min.js"></script>
   </body>
 </html>
 
 <style is:global>
-  @import url(https://fonts.bunny.net/css?family=abhaya-libre:400,500|inter:200,200i,400,400i,600,600i,800,800i);
+  @import url(https://fonts.bunny.net/css?family=inter:200,200i,400,400i,600,600i,800,800i);
+  @import url(https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-mono/style.min.css);
 
   html {
     font-family: "Inter", sans-serif;
-    background: #121212;
+    background: #f5f5f4;
   }
 
   * {
@@ -75,11 +81,12 @@ const { seo } = Astro.props;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    color: #eeeeee;
+    color: #1a1a1a;
   }
 
   code {
     font-family:
+      "Geist Mono",
       Menlo,
       Monaco,
       Lucida Console,
@@ -97,11 +104,32 @@ const { seo } = Astro.props;
   }
 
   .hover-underline:hover {
-    text-decoration-color: rgba(255, 255, 255, 1);
+    text-decoration-color: rgba(0, 0, 0, 0.6);
   }
 
   .hover-underline-appwrite:hover {
     text-decoration-color: #fd366e !important;
+  }
+
+  /* Bracket-notation section label */
+  .section-label {
+    font-family: "Geist Mono", monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #5cb8a5;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  /* Diagonal hatching background */
+  .bg-hatching {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.02) 10px,
+      rgba(0, 0, 0, 0.02) 11px
+    );
   }
 
   .project-article h1,
@@ -124,13 +152,12 @@ const { seo } = Astro.props;
   }
 
   .project-article .plyr {
-    border-radius: 1rem;
-    border: 2px solid rgb(38 38 38);
+    border: 1px solid #d4d4d4;
     overflow: hidden;
-    --plyr-color-main: #eeeeee;
-    --plyr-video-background: #121212;
-    --plyr-video-control-color: #eeeeee;
-    --plyr-video-control-background-hover: rgba(255, 255, 255, 0.1);
+    --plyr-color-main: #1a1a1a;
+    --plyr-video-background: #f5f5f4;
+    --plyr-video-control-color: #1a1a1a;
+    --plyr-video-control-background-hover: rgba(0, 0, 0, 0.05);
     --plyr-video-aspect-ratio: auto;
   }
 
@@ -139,13 +166,13 @@ const { seo } = Astro.props;
   }
 
   cap-widget {
-    --cap-background: #262626;
-    --cap-border-color: #404040;
-    --cap-checkbox-background: #171717;
-    --cap-checkbox-border: 1px solid #404040;
-    --cap-color: white;
-    --cap-spinner-color: #d4d4d4;
-    --cap-spinner-background-color: #404040;
+    --cap-background: #ffffff;
+    --cap-border-color: #d4d4d4;
+    --cap-checkbox-background: #f5f5f4;
+    --cap-checkbox-border: 1px solid #d4d4d4;
+    --cap-color: #1a1a1a;
+    --cap-spinner-color: #6b7280;
+    --cap-spinner-background-color: #d4d4d4;
     --cap-credits-font-size: 0px;
     --cap-active-scale: 1;
   }

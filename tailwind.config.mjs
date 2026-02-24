@@ -10,8 +10,16 @@ export default {
         xxs: "380px",
       },
       colors: {
-        black: "#121212",
-        white: "#eeeeee",
+        black: "#1a1a1a",
+        white: "#f5f5f4",
+        accent: "#5cb8a5",
+        "accent-hover": "#4a9e8d",
+        surface: "#ffffff",
+        border: "#d4d4d4",
+        muted: "#6b7280",
+      },
+      fontFamily: {
+        mono: ['"Geist Mono"', "monospace"],
       },
     },
   },

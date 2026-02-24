@@ -63,15 +63,15 @@ for (let i = 0; i < headings.length; i++) {
       class="mb-4"
     />
 
-    <h1 class="font-bold text-3xl mb-4">{entry.data.title}</h1>
-    <p class="opacity-60 mb-6">
+    <h1 class="font-bold text-3xl mb-4 text-black">{entry.data.title}</h1>
+    <p class="text-muted mb-6">
       {entry.data.description}
     </p>
     <div class="mb-2">
       <a
         href={"https://github.com/" + entry.data.github}
         target="_blank"
-        class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+        class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-black border-border hover:border-muted border text-sm py-0.5 px-2 font-mono"
       >
         {" "}
         <Icon name="mdi:github" size={14} />
@@ -83,7 +83,7 @@ for (let i = 0; i < headings.length; i++) {
           <a
             href={"https://" + entry.data.demo}
             target="_blank"
-            class=" inline-flex  mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+            class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-black border-border hover:border-muted border text-sm py-0.5 px-2 font-mono"
           >
             {" "}
             <Icon name="mdi:link-variant" size={14} /> {entry.data.demo}
@@ -99,7 +99,7 @@ for (let i = 0; i < headings.length; i++) {
           alt={entry.data.cover.alt}
           width={800}
           height={300}
-          class="w-full rounded-xl mb-10"
+          class="w-full border border-border mb-10"
         />
       )
     }
@@ -107,15 +107,15 @@ for (let i = 0; i < headings.length; i++) {
 
   <section class="px-6 mx-auto max-w-3xl w-full">
     <div
-      class="bg-gradient-to-r from-neutral-900 to-transparent rounded-md px-6 py-6 w-full"
+      class="bg-surface border border-border px-6 py-6 w-full"
     >
-      <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
+      <h3 class="text-lg mb-3 font-semibold text-black font-mono">Table of Contents</h3>
       <div class="flex flex-col gap-1">
         {
           headings.map((heading) => (
-            <a href={`#${heading.slug}`} class="text-neutral-100">
+            <a href={`#${heading.slug}`} class="text-black">
               <span class="hover-underline">{heading.text}</span>
-              <span class="ml-1 text-sm text-neutral-500">
+              <span class="ml-1 text-sm text-muted font-mono">
                 {readingTimes[heading.slug] ?? ""}
               </span>
             </a>
@@ -127,7 +127,7 @@ for (let i = 0; i < headings.length; i++) {
 
   <section class="px-6 mx-auto max-w-4xl w-full">
     <article
-      class="project-article min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-neutral-100 prose-p:text-lg prose-ul:text-lg prose-hr:border-neutral-700 prose-img:rounded-2xl prose-img:border-2 prose-img:border-neutral-800 prose-img:p-1.5"
+      class="project-article min-w-full w-full prose-neutral prose prose-a:text-accent prose-a:underline-offset-4 prose-headings:mb-2 prose-headings:text-black prose-p:text-[#4a4a4a] prose-p:text-lg prose-ul:text-lg prose-hr:border-border prose-img:border prose-img:border-border prose-img:p-1.5"
     >
       <Content />
     </article>

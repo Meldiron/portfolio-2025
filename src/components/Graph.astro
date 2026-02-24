@@ -126,7 +126,7 @@ weeks.forEach(({ contributionDays }: any) => {
   contributionDays.forEach(({ contributionCount, date }: any) => {
     if (date > today) return;
 
-    let contributionsColor = "rgba(255, 255, 255, 0.05)";
+    let contributionsColor = "#ebedf0";
 
     if (contributionCount >= 15) {
       contributionsColor = "#39d353";
@@ -136,10 +136,6 @@ weeks.forEach(({ contributionDays }: any) => {
       contributionsColor = "#006d32";
     } else if (contributionCount >= 1) {
       contributionsColor = "#0e4429";
-    }
-
-    if (contributionsColor === "#ebedf0") {
-      contributionsColor = "rgba(255, 255, 255, 0.05)";
     }
 
     let daySlot = day + 1;
@@ -174,7 +170,7 @@ if (day > 0) {
                 const color = colorData[`week-${i}-day-${j}`];
                 return color ? (
                   <div
-                    class="h-2 w-2 lg:h-3 lg:w-3 rounded-[1px] sm:rounded-sm"
+                    class="h-2 w-2 lg:h-3 lg:w-3"
                     style={`background-color: ${color}`}
                   />
                 ) : (

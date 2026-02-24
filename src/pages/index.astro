@@ -45,25 +45,25 @@ for (const category of homePageContent.techstack) {
         alt="Face"
         width={100}
         height={100}
-        class="rounded-full"
+        class="border border-border"
       />
       <div class="group flex flex-col justify-center w-fit">
-        <h1 class="font-bold text-3xl mb-1">Matej Bačo</h1>
-        <p class="text-[rgba(255,255,255,0.6)]">
+        <h1 class="font-bold text-3xl mb-1 text-black">Matej Bačo</h1>
+        <p class="text-muted">
           Engineering lead at <img
             src="https://appwrite.io/assets/logomark/logo.svg"
             alt="Appwrite logo"
             class="inline-block ml-1 mr-0.5 transform translate-y-[-2px] h-4"
           />
           <a
-            class="hover-underline hover-underline-appwrite text-white"
+            class="hover-underline hover-underline-appwrite text-black"
             href="https://appwrite.io/"
             target="_blank">Appwrite</a
           >
         </p>
       </div>
     </div>
-    <p class="max-w-md mb-4">
+    <p class="max-w-md mb-4 text-muted">
       I am impact-driven software engineer from Czech Republic in love with
       everything open source.
     </p>
@@ -75,17 +75,17 @@ for (const category of homePageContent.techstack) {
 
   <section class="mx-auto w-full">
     <div class="max-w-2xl mx-auto px-6">
-      <h2 class="mb-8 text-2xl text-[white]">Open source activity</h2>
+      <p class="section-label mb-4">[ Open Source Activity ]</p>
     </div>
     <div
       class="relative w-full flex items-center justify-center overflow-hidden"
     >
       <div
-        class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#121212]"
+        class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#f5f5f4]"
       >
       </div>
       <div
-        class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#121212]"
+        class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#f5f5f4]"
       >
       </div>
       <Graph />
@@ -100,10 +100,10 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Career path</h2>
+    <p class="section-label mb-4 sm:mb-0 flex-shrink-0 whitespace-nowrap">[ Career ]</p>
     <div>
       <div class="mb-6">
-        <p>
+        <p class="text-muted">
           Since the day one I worked remotely, which made me disciplined,
           open-minded, and time-flexible individual.
         </p>
@@ -118,16 +118,16 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
+    <p class="section-label mb-6">[ Latest Projects ]</p>
     <div class="grid grid-cols-1 gap-4 mb-4">
       {
         projects.map((project) => (
           <a
-            class="p-4 rounded-lg border border-white border-opacity-20 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
+            class="p-4 border border-border bg-surface hover:border-muted flex items-center gap-3 transition-colors"
             href={`/projects/${project.slug}`}
             target="_self"
           >
-            <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+            <div class="flex-shrink-0 p-2 border border-border">
               <img
                 src={project.data.image.url}
                 alt={project.data.image.alt}
@@ -137,13 +137,13 @@ for (const category of homePageContent.techstack) {
             </div>
             <div class="w-full">
               <div class="flex gap-2">
-                <p class="text-xl">{project.data.title}</p>
+                <p class="text-xl text-black">{project.data.title}</p>
               </div>
-              <p class="mt-0.5 opacity-70 text-sm">
+              <p class="mt-0.5 text-muted text-sm">
                 {project.data.description}
               </p>
             </div>
-            <div class="rotate-45">
+            <div class="rotate-45 text-muted">
               <Icon name="mdi:arrow-up" />
             </div>
           </a>
@@ -158,7 +158,7 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
+    <p class="section-label mb-6">[ Latest Posts ]</p>
     <div class="grid grid-cols-1 gap-4 mb-4">
       {
         posts.map((post) => (
@@ -168,7 +168,7 @@ for (const category of homePageContent.techstack) {
             }
             target={post.data.external ? "_blank" : "_self"}
           >
-            <p class="text-[rgba(255,255,255,0.6)] mb-2 text-xs">
+            <p class="text-muted mb-2 text-xs font-mono">
               {post.data.pubDate.getDate() +
                 "." +
                 (post.data.pubDate.getMonth() + 1) +
@@ -176,12 +176,12 @@ for (const category of homePageContent.techstack) {
                 post.data.pubDate.getFullYear()}{" "}
               ·{" "}
               {post.data.external && (
-                <span class="text-[#ffffff]">Appwrite</span>
+                <span class="text-black">Appwrite</span>
               )}
             </p>
             <div>
-              <h3 class="font-medium hover-underline">{post.data.title}</h3>
-              <p class="text-sm opacity-60 mt-2 mb-3">
+              <h3 class="font-medium text-black hover-underline">{post.data.title}</h3>
+              <p class="text-sm text-muted mt-2 mb-3">
                 {post.data.description}
               </p>
             </div>
@@ -197,21 +197,21 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Tech experience</h2>
+    <p class="section-label mb-6">[ Tech Experience ]</p>
 
     <div class="space-y-8">
       {
         homePageContent.techstack.map((item) => (
           <div>
-            <h3 class="mb-3 text-xl text-[rgba(255,255,255,0.7)]">
+            <h3 class="mb-3 text-xl font-mono text-muted">
               {item.name}
             </h3>
 
             <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
               {item.items.map((item) => (
                 <button class="group relative col-span-1 overflow-hidden">
-                  <div class="relative justify-center p-3 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-hidden">
-                    <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#121212] via-[#121212]" />
+                  <div class="relative justify-center p-3 px-3 border border-border bg-surface flex items-center gap-2 overflow-hidden hover:border-muted transition-colors">
+                    <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-surface via-surface" />
 
                     <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
                       {item.icon === "__ASTRO__" && (
@@ -223,7 +223,7 @@ for (const category of homePageContent.techstack) {
                           viewBox="0 0 85 107"
                         >
                           <path
-                            fill="#fff"
+                            fill="#1a1a1a"
                             d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
                           />
                           <path
@@ -231,7 +231,7 @@ for (const category of homePageContent.techstack) {
                             d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
                           />
                           <path
-                            fill="#fff"
+                            fill="#1a1a1a"
                             d="M0 69.587s14.314-6.973 28.668-6.973L39.49 29.12c.405-1.62 1.588-2.72 2.924-2.72 1.335 0 2.518 1.1 2.924 2.72L56.16 62.614c17 0 28.668 6.973 28.668 6.973S60.514 3.352 60.467 3.219C59.769 1.261 58.591 0 57.003 0H27.827c-1.588 0-2.718 1.261-3.464 3.22C24.311 3.35 0 69.586 0 69.586Z"
                           />
                           <defs>
@@ -258,7 +258,7 @@ for (const category of homePageContent.techstack) {
                         />
                       )}
                     </div>
-                    <p class="text-sm line-clamp-1">{item.name}</p>
+                    <p class="text-sm line-clamp-1 text-black">{item.name}</p>
                   </div>
                 </button>
               ))}
@@ -270,11 +270,11 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
-    <h2 class="mb-8 text-2xl text-[white]">Community stamps</h2>
+    <p class="section-label mb-6">[ Community Stamps ]</p>
     <div class="mb-4">
       <CommunityStampsBoard />
       <p class="mt-3 text-sm mb-2 text-center">
-        <span class="opacity-60 inline-block">Powered by</span>
+        <span class="text-muted inline-block">Powered by</span>
         <a href="https://appwrite.io/" target="_blank">
           <img
             src="/appwrite.svg"
@@ -282,7 +282,7 @@ for (const category of homePageContent.techstack) {
             width="12"
           /><span class="inline-block text-[#FD366E]">Appwrite</span></a
         >
-        <span class="-ml-1 opacity-60 inline-block"
+        <span class="-ml-1 text-muted inline-block"
           >, Cloud backend I helped to develop.</span
         >
       </p>
@@ -290,9 +290,9 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's connect</h2>
+    <p class="section-label mb-4 sm:mb-0 flex-shrink-0 whitespace-nowrap">[ Connect ]</p>
     <div>
-      <div class="mb-6">
+      <div class="mb-6 text-muted">
         Reach out to me to collaborate on a fun project, build an integration,
         write an article, or just to say hi.
       </div>
@@ -303,13 +303,13 @@ for (const category of homePageContent.techstack) {
           ))
         }
       </div>
-      <div class="mt-6">
+      <div class="mt-6 text-muted">
         You can also leave me a message and I'll get in touch with you. Let's do
         something amazing together!
       </div>
       <div>
         <form
-          class="bg-neutral-900 mt-4 p-3 rounded-lg border border-neutral-700 flex flex-col gap-3"
+          class="bg-surface mt-4 p-4 border border-border flex flex-col gap-4"
           action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
           method="POST"
           enctype="multipart/form-data"
@@ -317,30 +317,30 @@ for (const category of homePageContent.techstack) {
           <div
             id="contact-success"
             style="display: none;"
-            class="bg-green-950 rounded-lg p-3 border border-green-800"
+            class="bg-emerald-50 p-3 border border-emerald-200"
           >
-            <p class="text-green-200 font-semibold text-center">
+            <p class="text-emerald-700 font-semibold text-center">
               Thanks for your message!
             </p>
           </div>
 
           <div>
-            <p class="opacity-60 text-sm mb-2">E-mail address:</p>
+            <p class="text-muted text-sm mb-2 font-mono">$email</p>
             <input
               required
               type="email"
-              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              class="focus:outline-none focus:border-accent w-full px-4 py-2 bg-white border-b border-border text-black placeholder-muted"
               name="sender"
               placeholder="you@example.com"
             />
           </div>
 
           <div>
-            <p class="opacity-60 text-sm mb-2">Message:</p>
+            <p class="text-muted text-sm mb-2 font-mono">$message</p>
             <textarea
               rows="4"
               required
-              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              class="focus:outline-none focus:border-accent w-full px-4 py-2 bg-white border-b border-border text-black placeholder-muted"
               name="message"
               placeholder="Enter your text..."></textarea>
           </div>
@@ -353,11 +353,11 @@ for (const category of homePageContent.techstack) {
 
           <button
             type="submit"
-            class="bg-neutral-800 py-2 rounded-lg text-white">Send</button
+            class="bg-accent hover:bg-accent-hover py-2.5 text-[#ffffff] font-mono uppercase tracking-wider text-sm transition-colors">Send Message</button
           >
         </form>
         <p class="mt-3 text-sm mb-2 text-center">
-          <span class="opacity-60 inline-block">Powered by</span>
+          <span class="text-muted inline-block">Powered by</span>
           <a href="https://formbin.almostapps.eu/" target="_blank">
             <img
               src="/formbin.svg"
@@ -365,7 +365,7 @@ for (const category of homePageContent.techstack) {
               width="12"
             /><span class="inline-block text-[#F06225]">FormBin</span></a
           >
-          <span class="-ml-1 opacity-60 inline-block"
+          <span class="-ml-1 text-muted inline-block"
             >, one of my side projects.</span
           >
         </p>

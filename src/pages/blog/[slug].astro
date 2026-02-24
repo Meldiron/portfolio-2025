@@ -32,8 +32,8 @@ export async function getStaticPaths() {
   }}
 >
   <section class="mt-10 max-w-2xl mx-auto px-6">
-    <h1 class="font-bold text-3xl mb-4">{entry.data.title}</h1>
-    <p class="opacity-60 mb-6">
+    <h1 class="font-bold text-3xl mb-4 text-black">{entry.data.title}</h1>
+    <p class="text-muted mb-6">
       {entry.data.description}
     </p>
     <div class="flex gap-4 mb-6">
@@ -42,11 +42,11 @@ export async function getStaticPaths() {
         alt="Face"
         width={40}
         height={40}
-        class="w-[40px] aspect-square object-cover rounded-full"
+        class="w-[40px] aspect-square object-cover border border-border"
       />
       <div>
-        <p class="font-medium">Matej Bačo</p>
-        <p class="opacity-60">
+        <p class="font-medium text-black">Matej Bačo</p>
+        <p class="text-muted font-mono text-sm">
           {
             entry.data.pubDate.getDate() +
               "." +
@@ -62,10 +62,10 @@ export async function getStaticPaths() {
       alt={entry.data.image.alt}
       width={800}
       height={300}
-      class="w-full rounded-xl mb-10"
+      class="w-full border border-border mb-10"
     />
     <article
-      class="prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-[#b3b3b3]"
+      class="prose prose-a:text-accent prose-a:underline-offset-4 prose-headings:mb-2 prose-headings:text-black prose-p:text-muted"
     >
       <Content />
     </article>

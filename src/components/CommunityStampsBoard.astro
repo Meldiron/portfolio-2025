@@ -7,11 +7,11 @@
     @selectstart.prevent
     @contextmenu.prevent="isDragging"
     data-board
-    class="relative w-full h-80 bg-gradient-to-tr from-neutral-950 via-black to-neutral-950 rounded-xl border border-neutral-700 overflow-hidden shadow-lg select-none"
+    class="relative w-full h-80 bg-surface border border-border overflow-hidden select-none"
     :class="isDragging ? 'cursor-grabbing' : 'cursor-grab'"
   >
     <!-- Board texture/pattern -->
-    <div class="absolute inset-0 opacity-10 pointer-events-none">
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern
@@ -23,7 +23,7 @@
             <path
               d="M 20 0 L 0 0 0 20"
               fill="none"
-              stroke="white"
+              stroke="#1a1a1a"
               stroke-width="0.5"></path>
           </pattern>
         </defs>
@@ -34,12 +34,6 @@
           :style="`transform: translate(${virtualX % 20}px, ${virtualY % 20}px);`"
         ></rect>
       </svg>
-    </div>
-
-    <!-- Cork board texture -->
-    <div
-      class="absolute inset-0 bg-gradient-to-br from-neutral-800/5 to-neutral-800/5 pointer-events-none"
-    >
     </div>
 
     <!-- Dynamic loading/updating indicator -->
@@ -54,31 +48,25 @@
       class="absolute top-2 right-2 z-20 pointer-events-none"
     >
       <div
-        class="flex items-center gap-2 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-lg bg-neutral-900/80 border-neutral-700"
+        class="flex items-center gap-2 backdrop-blur-sm border rounded-lg px-3 py-2 shadow-sm bg-surface/80 border-border"
       >
         <div class="w-4 h-4 flex items-center justify-center">
           <div
             x-show="!isLoadingEmojis && isPendingEmojis"
-            class="w-2 h-2 bg-neutral-400 rounded-full animate-pulse"
+            class="w-2 h-2 bg-muted rounded-full animate-pulse"
           >
           </div>
           <div
             x-show="isLoadingEmojis"
-            class="w-4 h-4 border-2 border-neutral-600 border-t-white rounded-full animate-spin"
+            class="w-4 h-4 border-2 border-border border-t-black rounded-full animate-spin"
           >
           </div>
         </div>
         <span
           x-show="isLoadingEmojis"
-          class="text-xs font-medium text-neutral-300">Updating</span
+          class="text-xs font-medium text-muted">Updating</span
         >
       </div>
-    </div>
-
-    <!-- Subtle shadow overlay -->
-    <div
-      class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent pointer-events-none"
-    >
     </div>
 
     <!-- Rendered Emojis -->
@@ -111,14 +99,14 @@
       <div class="flex flex-col items-center gap-3">
         <!-- Size Configuration -->
         <div
-          class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl"
+          class="bg-surface/90 backdrop-blur-sm border border-border p-2 shadow-sm"
         >
           <div class="flex items-center gap-1">
             <template x-for="(size, index) in sizes" :key="size">
               <button
                 @click.stop="selectedSize = size"
-                :class="selectedSize === size ? 'bg-neutral-600' : 'bg-neutral-700/80 hover:bg-neutral-600/80'"
-                class="w-6 h-6 border border-neutral-500 rounded flex items-center justify-center text-xs transition-colors duration-200"
+                :class="selectedSize === size ? 'bg-accent text-[#ffffff]' : 'bg-white hover:bg-[#f0f0f0] text-black'"
+                class="w-6 h-6 border border-border flex items-center justify-center text-xs transition-colors duration-200"
                 :title="`Size: ${size === 'text-lg' ? 'Small' : size === 'text-2xl' ? 'Medium' : 'Large'}`"
                 x-text="size === 'text-lg' ? 'S' : size === 'text-2xl' ? 'M' : 'L'"
               >
@@ -131,7 +119,7 @@
         <div class="relative w-32 h-32">
           <!-- Wheel background -->
           <div
-            class="absolute inset-0 bg-neutral-800/90 backdrop-blur-sm rounded-full border border-neutral-600 shadow-xl"
+            class="absolute inset-0 bg-surface/90 backdrop-blur-sm rounded-full border border-border shadow-sm"
           >
           </div>
 
@@ -141,7 +129,7 @@
               :disabled="isLoading"
               @click.stop="!isLoading && selectOption(option)"
               :style="`transform: rotate(${index * 60}deg) translateY(-40px) rotate(-${index * 60}deg) translateX(48px) translateY(48px);`"
-              class="absolute left-0 top-0 w-8 h-8 bg-neutral-700/80 hover:bg-neutral-600/80 disabled:opacity-50 border border-neutral-500 rounded-full flex items-center justify-center text-lg transition-colors duration-200 cursor-pointer"
+              class="absolute left-0 top-0 w-8 h-8 bg-white hover:bg-[#f0f0f0] disabled:opacity-50 border border-border rounded-full flex items-center justify-center text-lg transition-colors duration-200 cursor-pointer"
               x-text="option"
             >
             </button>
@@ -153,7 +141,7 @@
             class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4"
           >
             <div
-              class="w-full h-full border-2 border-neutral-600 border-t-white bg-neutral-950 rounded-full animate-spin"
+              class="w-full h-full border-2 border-border border-t-black bg-surface rounded-full animate-spin"
             >
             </div>
           </div>
@@ -161,21 +149,21 @@
           <!-- Center dot -->
           <div
             x-show="!isLoading"
-            class="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-neutral-950 border-neutral-600 border rounded-full"
+            class="absolute top-1/2 left-1/2 w-4 h-4 -translate-x-1/2 -translate-y-1/2 bg-white border-border border rounded-full"
           >
           </div>
         </div>
 
         <!-- Rotation Configuration -->
         <div
-          class="bg-neutral-800/90 backdrop-blur-sm border border-neutral-600 rounded-lg p-2 shadow-xl"
+          class="bg-surface/90 backdrop-blur-sm border border-border p-2 shadow-sm"
         >
           <div class="flex items-center gap-1">
             <template x-for="rotation in rotations" :key="rotation">
               <button
                 @click.stop="selectedRotation = rotation"
-                :class="selectedRotation === rotation ? 'bg-neutral-600' : 'bg-neutral-700/80 hover:bg-neutral-600/80'"
-                class="w-6 h-6 border border-neutral-500 rounded flex items-center justify-center text-xs transition-colors duration-200"
+                :class="selectedRotation === rotation ? 'bg-accent text-[#ffffff]' : 'bg-white hover:bg-[#f0f0f0] text-black'"
+                class="w-6 h-6 border border-border flex items-center justify-center text-xs transition-colors duration-200"
                 :title="`Rotation: ${rotation}°`"
                 x-text="rotation === 0 ? '↑' : rotation > 0 ? '↗' : '↖'"
               >
@@ -197,7 +185,7 @@
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="size-6 transform rotate-90"
+          class="size-6 transform rotate-90 text-muted"
         >
           <path
             stroke-linecap="round"
@@ -209,10 +197,10 @@
           type="number"
           x-model.number="virtualX"
           :style="`width: ${30 + (virtualX ?? '').toString().length * 8}px`"
-          class="bg-transparent focus:bg-neutral-950 focus:border border-neutral-600 rounded text-white text-center focus:outline-none focus:border-neutral-400 font-mono transition-colors"
+          class="bg-transparent focus:bg-surface focus:border border-border text-black text-center focus:outline-none focus:border-muted font-mono transition-colors"
         />
       </div>
-      <div class="flex items-center gap-1 text-neutral-400">
+      <div class="flex items-center gap-1 text-muted">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -231,7 +219,7 @@
           type="number"
           x-model.number="virtualY"
           :style="`width: ${30 + (virtualY ?? '').toString().length * 8}px`"
-          class="bg-transparent focus:bg-neutral-950 focus:border border-neutral-600 rounded text-white text-center focus:outline-none focus:border-neutral-400 font-mono transition-colors"
+          class="bg-transparent focus:bg-surface focus:border border-border text-black text-center focus:outline-none focus:border-muted font-mono transition-colors"
         />
       </div>
     </div>
@@ -242,7 +230,7 @@
   >
     <button
       @click="resetPosition()"
-      class="py-1 px-1 bg-transparent hover:bg-neutral-800 rounded text-neutral-300 hover:text-white transition-colors duration-200 text-xs"
+      class="py-1 px-1 bg-transparent hover:bg-white text-muted hover:text-black transition-colors duration-200 text-xs"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
