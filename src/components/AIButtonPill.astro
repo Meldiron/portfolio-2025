@@ -1,0 +1,42 @@
+---
+import { Icon } from "astro-icon/components";
+import simpleIcons from "@iconify-json/simple-icons/icons.json";
+
+const icons = [
+  { name: "openai", color: "#fff" },
+  { name: "claude", color: "#D97757" },
+  { name: "googlegemini", color: "#8E75B2" },
+  { name: "meta", color: "#0081FB" },
+  { name: "perplexity", color: "#1FB8CD" },
+  { name: "ollama", color: "#fff" },
+];
+
+function renderIcon(name: string, color: string, zIndex: number) {
+  const icon = simpleIcons.icons[name];
+  const width = icon.width || simpleIcons.width || 24;
+  const height = icon.height || simpleIcons.height || 24;
+  const body = icon.body.replace(/currentColor/g, color);
+  return `<div class="relative w-6 h-6 rounded-full bg-[#121212] flex items-center justify-center outline outline-1 outline-neutral-700" style="z-index: ${zIndex}"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 ${width} ${height}" class="w-3 h-3">${body}</svg></div>`;
+}
+---
+
+<a
+  href="https://universal-prompt.appwrite.network/s/matej"
+  target="_blank"
+  class="flex items-center gap-2 transition-opacity"
+>
+  <div class="flex items-center -space-x-1.5">
+    {icons.map(({ name, color }, i) => (
+      <Fragment set:html={renderIcon(name, color, i + 1)} />
+    ))}
+    <div class="relative w-6 h-6 rounded-full bg-[#121212] flex items-center justify-center outline outline-1 outline-neutral-700 text-[9px]" style={`z-index: ${icons.length + 1}`}>
+      +10
+    </div>
+  </div>
+  <span class="hover-underline opacity-60 flex items-center gap-2">
+    <span>Chat with AI</span>
+    <span class="rotate-45">
+      <Icon name="mdi:arrow-up" />
+    </span>
+  </span>
+</a>

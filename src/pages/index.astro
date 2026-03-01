@@ -9,7 +9,7 @@ import ResumeItem from "../components/ResumeItem.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
-import AIDropdownButton from "../components/AIDropdownButton.astro";
+import AIButtonPill from "../components/AIButtonPill.astro";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -68,9 +68,22 @@ for (const category of homePageContent.techstack) {
       everything open source.
     </p>
     <div class="flex flex-wrap gap-4">
-      <Link text="Read my story" href="/about" external={false} />
-      <AIDropdownButton />
+      <AIButtonPill />
     </div>
+    <p class="mt-3 text-sm">
+      <span class="opacity-60 inline-block">Powered by</span>
+      <img
+        src="/ai-provider.svg"
+        class="inline-block ml-1 mr-0.5 transform translate-y-[-2px]"
+        width="14"
+      />
+      <a href="https://universal-prompt.appwrite.network/" target="_blank">
+        <span class="inline-block text-white">Universal Prompt</span></a
+      >
+      <span class="-ml-1 opacity-60 inline-block"
+        >, one of my side projects.</span
+      >
+    </p>
   </section>
 
   <section class="mx-auto w-full">
@@ -283,7 +296,7 @@ for (const category of homePageContent.techstack) {
           /><span class="inline-block text-[#FD366E]">Appwrite</span></a
         >
         <span class="-ml-1 opacity-60 inline-block"
-          >, Cloud backend I helped to develop.</span
+          >, Cloud platform I worked on.</span
         >
       </p>
     </div>

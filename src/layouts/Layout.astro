@@ -43,9 +43,7 @@ const { seo } = Astro.props;
                     class="opacity-60 hover:opacity-100 hover-underline transition-all"
                     href={link.url}
                     target={link.external ? "_blank" : "_self"}
-                  >
-                    {link.title}
-                  </a>
+                  >{link.title}</a>
                 </li>
               ))
             }

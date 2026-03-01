@@ -9,7 +9,14 @@ import alpinejs from "@astrojs/alpinejs";
 export default defineConfig({
   integrations: [
     tailwind(),
-    icon(),
+    icon({
+      include: {
+        mdi: ["*"],
+        devicon: ["*"],
+        logos: ["*"],
+        "simple-icons": ["openai", "claude", "googlegemini", "raycast", "meta", "perplexity", "ollama"],
+      },
+    }),
     alpinejs({
       entrypoint: "/src/entrypoint",
     }),
