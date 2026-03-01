@@ -12,7 +12,7 @@ const icons = [
 ];
 
 function renderIcon(name: string, color: string, zIndex: number) {
-  const icon = simpleIcons.icons[name];
+  const icon = (simpleIcons.icons as Record<string, any>)[name];
   const width = icon.width || simpleIcons.width || 24;
   const height = icon.height || simpleIcons.height || 24;
   const body = icon.body.replace(/currentColor/g, color);
