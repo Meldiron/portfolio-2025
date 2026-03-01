@@ -26,10 +26,15 @@ function renderIcon(name: string, color: string, zIndex: number) {
   class="flex items-center gap-2 transition-opacity"
 >
   <div class="flex items-center -space-x-1.5">
-    {icons.map(({ name, color }, i) => (
-      <Fragment set:html={renderIcon(name, color, i + 1)} />
-    ))}
-    <div class="relative w-6 h-6 rounded-full bg-[#121212] flex items-center justify-center outline outline-1 outline-neutral-700 text-[9px]" style={`z-index: ${icons.length + 1}`}>
+    {
+      icons.map(({ name, color }, i) => (
+        <Fragment set:html={renderIcon(name, color, i + 1)} />
+      ))
+    }
+    <div
+      class="relative w-6 h-6 rounded-full bg-[#121212] flex items-center justify-center outline outline-1 outline-neutral-700 text-[9px]"
+      style={`z-index: ${icons.length + 1}`}
+    >
       +10
     </div>
   </div>

@@ -14,7 +14,15 @@ export default defineConfig({
         mdi: ["*"],
         devicon: ["*"],
         logos: ["*"],
-        "simple-icons": ["openai", "claude", "googlegemini", "raycast", "meta", "perplexity", "ollama"],
+        "simple-icons": [
+          "openai",
+          "claude",
+          "googlegemini",
+          "raycast",
+          "meta",
+          "perplexity",
+          "ollama",
+        ],
       },
     }),
     alpinejs({
