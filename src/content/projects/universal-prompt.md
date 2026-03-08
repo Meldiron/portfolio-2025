@@ -11,13 +11,13 @@ cover:
     alt: "Universal Prompt Thumbnail",
   }
 pageLayout: "showcase"
-tech:
-  - React
-  - Vite
-  - Appwrite
-  - shadcn/ui
-  - Tailwind CSS
-  - TypeScript
+labels:
+  - { name: "React", url: "https://react.dev/" }
+  - { name: "Vite", url: "https://vite.dev/" }
+  - { name: "Appwrite", url: "https://appwrite.io/" }
+  - { name: "shadcn/ui", url: "https://ui.shadcn.com/" }
+  - { name: "Tailwind CSS", url: "https://tailwindcss.com/" }
+  - { name: "TypeScript", url: "https://www.typescriptlang.org/" }
 screenshots:
   - url: "/projects/universal-prompt/hero.png"
     caption: "Homepage with prompt input, supported platforms, and example prompts"

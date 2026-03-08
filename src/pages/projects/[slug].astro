@@ -111,14 +111,20 @@ if (!isShowcase) {
   {
     isShowcase ? (
       <>
-        {entry.data.tech && entry.data.tech.length > 0 && (
+        {entry.data.labels && entry.data.labels.length > 0 && (
           <section class="px-6 mx-auto max-w-3xl w-full mb-8 !-mt-6">
             <div class="flex flex-wrap justify-center gap-2">
-              {entry.data.tech.map((t) => (
-                <span class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80">
-                  {t}
-                </span>
-              ))}
+              {entry.data.labels.map((label) =>
+                label.url ? (
+                  <a href={label.url} target="_blank" class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80 hover:border-opacity-40 transition-colors">
+                    {label.name}
+                  </a>
+                ) : (
+                  <span class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80">
+                    {label.name}
+                  </span>
+                )
+              )}
             </div>
           </section>
         )}

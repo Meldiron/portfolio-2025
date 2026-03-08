@@ -36,7 +36,14 @@ const projectsCollection = defineCollection({
       alt: z.string(),
     }),
     pageLayout: z.enum(["article", "showcase"]).default("article"),
-    tech: z.array(z.string()).optional(),
+    labels: z
+      .array(
+        z.object({
+          name: z.string(),
+          url: z.string().optional(),
+        })
+      )
+      .optional(),
     screenshots: z
       .array(
         z.object({

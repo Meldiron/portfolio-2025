@@ -11,11 +11,11 @@ cover:
     alt: "Appwrite Arena Thumbnail",
   }
 pageLayout: "showcase"
-tech:
-  - TanStack Start
-  - React
-  - Tailwind CSS
-  - TypeScript
+labels:
+  - { name: "TanStack Start", url: "https://tanstack.com/start" }
+  - { name: "React", url: "https://react.dev/" }
+  - { name: "Tailwind CSS", url: "https://tailwindcss.com/" }
+  - { name: "TypeScript", url: "https://www.typescriptlang.org/" }
 screenshots:
   - url: "/projects/appwrite-arena/hero-cards.png"
     caption: "Homepage with AI model cards and overall rankings"
