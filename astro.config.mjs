@@ -8,7 +8,7 @@ import alpinejs from "@astrojs/alpinejs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://matejbaco.eu",
+  site: "https://www.matejbaco.eu",
   integrations: [
     sitemap(),
     tailwind(),

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { seo } = Astro.props;
-const siteUrl = Astro.site?.toString() ?? "https://matejbaco.eu";
+const siteUrl = Astro.site?.toString() ?? "https://www.matejbaco.eu";
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).toString();
 const ogImage = new URL(seo.image, siteUrl).toString();
 
@@ -19,20 +19,20 @@ const jsonLd = {
       "@type": "WebSite",
       "name": "Matej Bačo",
       "alternateName": "Meldiron",
-      "url": "https://matejbaco.eu",
+      "url": "https://www.matejbaco.eu",
     },
     {
       "@type": "Person",
       "name": "Matej Bačo",
       "alternateName": "Meldiron",
-      "url": "https://matejbaco.eu",
+      "url": "https://www.matejbaco.eu",
       "jobTitle": "Engineering Lead",
       "worksFor": {
         "@type": "Organization",
         "name": "Appwrite",
         "url": "https://appwrite.io",
       },
-      "image": "https://matejbaco.eu/logo.webp",
+      "image": "https://www.matejbaco.eu/logo.webp",
       "sameAs": [
         "https://github.com/Meldiron",
         "https://www.linkedin.com/in/matejbaco/",
@@ -42,22 +42,22 @@ const jsonLd = {
     {
       "@type": "SiteNavigationElement",
       "name": "Home",
-      "url": "https://matejbaco.eu/",
+      "url": "https://www.matejbaco.eu/",
     },
     {
       "@type": "SiteNavigationElement",
       "name": "Projects",
-      "url": "https://matejbaco.eu/projects",
+      "url": "https://www.matejbaco.eu/projects",
     },
     {
       "@type": "SiteNavigationElement",
       "name": "Blog",
-      "url": "https://matejbaco.eu/blog",
+      "url": "https://www.matejbaco.eu/blog",
     },
     {
       "@type": "SiteNavigationElement",
       "name": "About",
-      "url": "https://matejbaco.eu/about",
+      "url": "https://www.matejbaco.eu/about",
     },
   ],
 };

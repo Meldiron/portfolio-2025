@@ -20,7 +20,7 @@ export const GET: APIRoute = async () => {
   // Site information from config
   content += `# Matej Bačo - Portfolio Site (Full Content)\n\n`;
   content += `${homePageContent.seo.description}\n\n`;
-  content += `URL: https://matejbaco.eu\n`;
+  content += `URL: https://www.matejbaco.eu\n`;
 
   // Navigation
   content += `## Navigation\n`;
