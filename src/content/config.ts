@@ -35,6 +35,16 @@ const projectsCollection = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
+    pageLayout: z.enum(["article", "showcase"]).default("article"),
+    tech: z.array(z.string()).optional(),
+    screenshots: z
+      .array(
+        z.object({
+          url: z.string(),
+          caption: z.string().optional(),
+        })
+      )
+      .optional(),
   }),
 });
 

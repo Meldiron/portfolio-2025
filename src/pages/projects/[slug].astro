@@ -13,6 +13,7 @@ if (!entry) {
 }
 
 const { Content, headings } = await entry.render();
+const isShowcase = entry.data.pageLayout === "showcase";
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -26,24 +27,26 @@ export async function getStaticPaths() {
 }
 
 const readingTimes: any = {};
-for (let i = 0; i < headings.length; i++) {
-  const heading = headings[i];
-  const nextHeading = headings[i + 1];
+if (!isShowcase) {
+  for (let i = 0; i < headings.length; i++) {
+    const heading = headings[i];
+    const nextHeading = headings[i + 1];
 
-  let part = entry.body.split("## " + heading.text)[1] ?? "";
-  if (nextHeading) {
-    part = part.split("## " + nextHeading.text)[0] ?? "";
+    let part = entry.body.split("## " + heading.text)[1] ?? "";
+    if (nextHeading) {
+      part = part.split("## " + nextHeading.text)[0] ?? "";
+    }
+
+    let seconds = Math.round(getReadingTime(part).time / 1000);
+
+    const imageCount = (part.match(/\.(png|jpg|jpeg|gif|webp|svg)\)/gi) || [])
+      .length;
+    const videoCount = (part.match(/\.(mp4|webm|ogg|mov)\)/gi) || []).length;
+    const extraSeconds = imageCount * 10 + videoCount * 15;
+    seconds += extraSeconds;
+
+    readingTimes[heading.slug] = Math.ceil(seconds / 60) + " min";
   }
-
-  let seconds = Math.round(getReadingTime(part).time / 1000);
-
-  const imageCount = (part.match(/\.(png|jpg|jpeg|gif|webp|svg)\)/gi) || [])
-    .length;
-  const videoCount = (part.match(/\.(mp4|webm|ogg|mov)\)/gi) || []).length;
-  const extraSeconds = imageCount * 10 + videoCount * 15;
-  seconds += extraSeconds;
-
-  readingTimes[heading.slug] = Math.ceil(seconds / 60) + " min";
 }
 ---
 
@@ -105,33 +108,100 @@ for (let i = 0; i < headings.length; i++) {
     }
   </section>
 
-  <section class="px-6 mx-auto max-w-3xl w-full">
-    <div
-      class="bg-gradient-to-r from-neutral-900 to-transparent rounded-md px-6 py-6 w-full"
-    >
-      <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
-      <div class="flex flex-col gap-1">
-        {
-          headings.map((heading) => (
-            <a href={`#${heading.slug}`} class="text-neutral-100">
-              <span class="hover-underline">{heading.text}</span>
-              <span class="ml-1 text-sm text-neutral-500">
-                {readingTimes[heading.slug] ?? ""}
-              </span>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-  </section>
+  {
+    isShowcase ? (
+      <>
+        {entry.data.tech && entry.data.tech.length > 0 && (
+          <section class="px-6 mx-auto max-w-3xl w-full mb-8 !-mt-6">
+            <div class="flex flex-wrap justify-center gap-2">
+              {entry.data.tech.map((t) => (
+                <span class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80">
+                  {t}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
 
-  <section class="px-6 mx-auto max-w-4xl w-full">
-    <article
-      class="project-article min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-neutral-100 prose-p:text-lg prose-ul:text-lg prose-hr:border-neutral-700 prose-img:rounded-2xl prose-img:border-2 prose-img:border-neutral-800 prose-img:p-1.5"
-    >
-      <Content />
-    </article>
-  </section>
+        {entry.body.trim().length > 0 && (
+          <section class="px-6 mx-auto max-w-3xl w-full mb-8">
+            <article class="prose-neutral prose prose-invert prose-p:text-neutral-100 prose-p:text-lg">
+              <Content />
+            </article>
+          </section>
+        )}
+
+        <section class="px-6 mx-auto max-w-3xl w-full mb-10">
+          <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-5 py-4">
+            <div class="flex items-start gap-3">
+              <div class="mt-0.5 rounded-md bg-orange-500/15 p-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fb923c" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
+              </div>
+              <div>
+                  <p class="text-lg font-medium text-neutral-300 mb-0.5">Minimal case study!</p>
+                <p class="text-sm text-neutral-500">This is a small project made in a couple of days, and it only contains screenshots instead of a detailed case study. Some screenshots have captions to capture my thoughts and intentions when developing those parts of the application.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {entry.data.screenshots && entry.data.screenshots.length > 0 && (
+          <section class="px-6 mx-auto max-w-4xl w-full">
+            <div class="showcase-gallery flex flex-col">
+              {entry.data.screenshots.map((screenshot, index) => (
+                <>
+                  {index > 0 && (
+                    <div class="flex items-center gap-3 py-20">
+                      <div class="h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent w-full" />
+                      <div class="h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent w-full" />
+                    </div>
+                  )}
+                  <figure>
+                    <Image
+                      src={screenshot.url}
+                      alt={screenshot.caption ?? entry.data.title}
+                      width={1200}
+                      height={700}
+                      class="w-full rounded-2xl border-2 border-neutral-800 p-1.5"
+                    />
+                    {screenshot.caption && (
+                      <figcaption class="text-center text-base text-neutral-100 mt-6">
+                        {screenshot.caption}
+                      </figcaption>
+                    )}
+                  </figure>
+                </>
+              ))}
+            </div>
+          </section>
+        )}
+      </>
+    ) : (
+      <>
+        <section class="px-6 mx-auto max-w-3xl w-full">
+          <div class="bg-gradient-to-r from-neutral-900 to-transparent rounded-md px-6 py-6 w-full">
+            <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
+            <div class="flex flex-col gap-1">
+              {headings.map((heading) => (
+                <a href={`#${heading.slug}`} class="text-neutral-100">
+                  <span class="hover-underline">{heading.text}</span>
+                  <span class="ml-1 text-sm text-neutral-500">
+                    {readingTimes[heading.slug] ?? ""}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section class="px-6 mx-auto max-w-4xl w-full">
+          <article class="project-article min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-neutral-100 prose-p:text-lg prose-ul:text-lg prose-hr:border-neutral-700 prose-img:rounded-2xl prose-img:border-2 prose-img:border-neutral-800 prose-img:p-1.5">
+            <Content />
+          </article>
+        </section>
+      </>
+    )
+  }
 </Layout>
 
 <script>
@@ -140,23 +210,6 @@ for (let i = 0; i < headings.length; i++) {
   import PhotoSwipeLightbox from "photoswipe/lightbox";
   import "plyr/dist/plyr.css";
   import Plyr from "plyr";
-
-  const lightbox = new PhotoSwipeLightbox({
-    pswpModule,
-    children: "img",
-    gallery: ".project-article",
-  });
-
-  lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
-    const e = element ?? linkEl;
-    if (e) {
-      itemData.src = e.dataset["pswpSrc"];
-      itemData.w = +(e.dataset["pswpWidth"] ?? 0);
-      itemData.h = +(e.dataset["pswpHeight"] ?? 0);
-    }
-
-    return itemData;
-  });
 
   const videoExtensions = [".mp4", ".webm", ".ogg", ".mov"];
 
@@ -167,35 +220,85 @@ for (let i = 0; i < headings.length; i++) {
   document.addEventListener(
     "astro:page-load",
     () => {
-      // Replace <img> tags that point to video files with <video> elements
-      document.querySelectorAll(".project-article img").forEach((img) => {
-        if (!(img instanceof HTMLImageElement)) return;
+      // Article layout lightbox
+      const articleGallery = document.querySelector(".project-article");
+      if (articleGallery) {
+        const lightbox = new PhotoSwipeLightbox({
+          pswpModule,
+          children: "img",
+          gallery: ".project-article",
+        });
 
-        if (isVideoSrc(img.src)) {
-          const video = document.createElement("video");
-          video.src = img.src;
-          video.playsInline = true;
-          video.controls = true;
-          img.parentElement?.replaceChild(video, img);
-          new Plyr(video, {
-            controls: [
-              "play",
-              "progress",
-              "current-time",
-              "mute",
-              "volume",
-              "fullscreen",
-            ],
-          });
-          return;
-        }
+        lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
+          const e = element ?? linkEl;
+          if (e) {
+            itemData.src = e.dataset["pswpSrc"];
+            itemData.w = +(e.dataset["pswpWidth"] ?? 0);
+            itemData.h = +(e.dataset["pswpHeight"] ?? 0);
+          }
+          return itemData;
+        });
 
-        img.setAttribute("data-pswp-src", img.src);
-        img.setAttribute("data-pswp-width", img.naturalWidth + "");
-        img.setAttribute("data-pswp-height", img.naturalHeight + "");
-      });
-      if (lightbox) lightbox.init();
+        document.querySelectorAll(".project-article img").forEach((img) => {
+          if (!(img instanceof HTMLImageElement)) return;
+
+          if (isVideoSrc(img.src)) {
+            const video = document.createElement("video");
+            video.src = img.src;
+            video.playsInline = true;
+            video.controls = true;
+            img.parentElement?.replaceChild(video, img);
+            new Plyr(video, {
+              controls: [
+                "play",
+                "progress",
+                "current-time",
+                "mute",
+                "volume",
+                "fullscreen",
+              ],
+            });
+            return;
+          }
+
+          img.setAttribute("data-pswp-src", img.src);
+          img.setAttribute("data-pswp-width", img.naturalWidth + "");
+          img.setAttribute("data-pswp-height", img.naturalHeight + "");
+        });
+
+        lightbox.init();
+      }
+
+      // Showcase layout lightbox
+      const showcaseGallery = document.querySelector(".showcase-gallery");
+      if (showcaseGallery) {
+        const lightbox = new PhotoSwipeLightbox({
+          pswpModule,
+          children: "img",
+          gallery: ".showcase-gallery",
+        });
+
+        lightbox.addFilter("domItemData", (itemData, element, linkEl) => {
+          const e = element ?? linkEl;
+          if (e) {
+            itemData.src = e.dataset["pswpSrc"];
+            itemData.w = +(e.dataset["pswpWidth"] ?? 0);
+            itemData.h = +(e.dataset["pswpHeight"] ?? 0);
+          }
+          return itemData;
+        });
+
+        document.querySelectorAll(".showcase-gallery img").forEach((img) => {
+          if (!(img instanceof HTMLImageElement)) return;
+          img.setAttribute("data-pswp-src", img.src);
+          img.setAttribute("data-pswp-width", img.naturalWidth + "");
+          img.setAttribute("data-pswp-height", img.naturalHeight + "");
+        });
+
+        lightbox.init();
+      }
     },
     { once: false },
   );
 </script>
+
