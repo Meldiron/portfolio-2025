@@ -12,8 +12,8 @@ cover:
   }
 pageLayout: "showcase"
 tech:
-  - Next.js
-  - Appwrite
+  - TanStack Start
+  - React
   - Tailwind CSS
   - TypeScript
 screenshots:

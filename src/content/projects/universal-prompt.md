@@ -12,8 +12,10 @@ cover:
   }
 pageLayout: "showcase"
 tech:
-  - Next.js
+  - React
+  - Vite
   - Appwrite
+  - shadcn/ui
   - Tailwind CSS
   - TypeScript
 screenshots:
