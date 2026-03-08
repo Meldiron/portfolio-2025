@@ -8,6 +8,58 @@ interface Props {
 }
 
 const { seo } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(seo.image, Astro.site).toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Matej Bačo",
+      "alternateName": "Meldiron",
+      "url": "https://matejbaco.eu",
+    },
+    {
+      "@type": "Person",
+      "name": "Matej Bačo",
+      "alternateName": "Meldiron",
+      "url": "https://matejbaco.eu",
+      "jobTitle": "Engineering Lead",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Appwrite",
+        "url": "https://appwrite.io",
+      },
+      "image": "https://matejbaco.eu/logo.webp",
+      "sameAs": [
+        "https://github.com/Meldiron",
+        "https://www.linkedin.com/in/matejbaco/",
+        "https://discord.com/channels/@me/287294735054274560/",
+      ],
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": "Home",
+      "url": "https://matejbaco.eu/",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": "Projects",
+      "url": "https://matejbaco.eu/projects",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": "Blog",
+      "url": "https://matejbaco.eu/blog",
+    },
+    {
+      "@type": "SiteNavigationElement",
+      "name": "About",
+      "url": "https://matejbaco.eu/about",
+    },
+  ],
+};
 ---
 
 <html lang="en">
@@ -15,12 +67,22 @@ const { seo } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/logo.webp" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="author" content="Matej Bačo" />
     <title>{seo.title}</title>
     <meta name="description" content={seo.description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={seo.title} />
     <meta property="og:description" content={seo.description} />
-    <meta property="og:image" content={seo.image} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Matej Bačo" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={seo.title} />
+    <meta name="twitter:description" content={seo.description} />
+    <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <ViewTransitions />
     <script is:inline src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
     ></script>
