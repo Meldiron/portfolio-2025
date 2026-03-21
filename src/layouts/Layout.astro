@@ -112,7 +112,7 @@ const jsonLd = {
     <div class="relative z-[2]">
     <header class="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <div class="pointer-events-auto flex items-center gap-2">
-        <nav class="px-1 py-1 rounded-full liquid-glass">
+        <nav class="px-1 py-1 rounded-full liquid-glass liquid-glass-blur">
           <ul class="flex items-center gap-0.5">
             {
               navBarLinks.map((link) => {
@@ -134,7 +134,7 @@ const jsonLd = {
         </nav>
         <button
           id="theme-toggle"
-          class="w-8 h-8 rounded-full liquid-glass flex items-center justify-center"
+          class="w-8 h-8 rounded-full liquid-glass liquid-glass-blur flex items-center justify-center"
           aria-label="Toggle theme"
         >
           <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -316,18 +316,26 @@ const jsonLd = {
     overflow-x: clip;
   }
 
-  /* Liquid glass: low blur + saturation + inset glow */
+  /* Liquid glass: low blur + saturation + inset glow
+     Set --liquid-glass-enabled to 0 to disable backdrop-filter effects */
+  :root { --liquid-glass-enabled: 1; }
+
   .liquid-glass {
     background: var(--liquid-glass-bg);
     border: 1px solid var(--liquid-glass-border);
     box-shadow: var(--liquid-glass-shadow);
-    -webkit-backdrop-filter: blur(3px) saturate(180%);
-    backdrop-filter: blur(3px) saturate(180%);
-    transition: all 0.2s ease;
+    will-change: transform;
+    contain: layout style paint;
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
   .liquid-glass:hover {
     background: color-mix(in srgb, var(--liquid-glass-bg), var(--liquid-glass-shine));
     border-color: color-mix(in srgb, var(--liquid-glass-border) 80%, white);
+  }
+  /* Only apply backdrop-filter to fixed/sticky elements that truly need it */
+  .liquid-glass-blur {
+    -webkit-backdrop-filter: blur(calc(3px * var(--liquid-glass-enabled))) saturate(calc(100% + 80% * var(--liquid-glass-enabled)));
+    backdrop-filter: blur(calc(3px * var(--liquid-glass-enabled))) saturate(calc(100% + 80% * var(--liquid-glass-enabled)));
   }
 
   * {
