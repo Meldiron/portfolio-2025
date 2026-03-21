@@ -115,7 +115,6 @@ const SHORT_MONTH_PRS = 3;
 for (const m of months) {
   m.visiblePRs = m.days.length <= 28 ? SHORT_MONTH_PRS : INITIAL_PRS;
 }
-const totalMonths = months.length;
 const totalContributions = months.reduce((sum, m) => sum + m.totalContributions, 0);
 const totalPRs = (githubData.prs as PR[]).length;
 ---
@@ -343,29 +342,31 @@ const totalPRs = (githubData.prs as PR[]).length;
 
     // Skip-to-end button: show when timeline is in view and months remain hidden
     const skipBtn = document.getElementById("timeline-skip-btn");
-    if (skipBtn) {
+    if (skipBtn && container) {
+      const btn = skipBtn;
+      const ctr = container;
       function updateSkipBtn() {
-        const rect = container.getBoundingClientRect();
+        const rect = ctr.getBoundingClientRect();
         const inView = rect.top < window.innerHeight && rect.bottom > 0;
         const hasHidden = revealed < allMonths.length;
         if (inView && hasHidden) {
-          skipBtn.style.opacity = "1";
-          skipBtn.style.pointerEvents = "auto";
+          btn.style.opacity = "1";
+          btn.style.pointerEvents = "auto";
         } else {
-          skipBtn.style.opacity = "0";
-          skipBtn.style.pointerEvents = "none";
+          btn.style.opacity = "0";
+          btn.style.pointerEvents = "none";
         }
       }
 
-      skipBtn.addEventListener("click", () => {
+      btn.addEventListener("click", () => {
         // Reveal all months
         while (revealed < allMonths.length) {
           (allMonths[revealed] as HTMLElement).classList.remove("hidden");
           revealed++;
         }
         // Hide button immediately
-        skipBtn.style.opacity = "0";
-        skipBtn.style.pointerEvents = "none";
+        btn.style.opacity = "0";
+        btn.style.pointerEvents = "none";
         // Scroll to bottom
         requestAnimationFrame(() => {
           window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
