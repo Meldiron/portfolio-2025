@@ -241,7 +241,7 @@ const totalPRs = (githubData.prs as PR[]).length;
 
 <div
   id="timeline-popover"
-  class="fixed px-2 py-1 rounded bg-neutral-800 border border-neutral-700 text-xs text-white whitespace-nowrap pointer-events-none z-50 opacity-0"
+  class="fixed px-2.5 py-1.5 rounded-lg bg-white/[0.1] border border-white/[0.15] backdrop-blur-xl shadow-lg shadow-black/30 text-xs text-white whitespace-nowrap pointer-events-none z-50 opacity-0"
   style="transition: left 0.15s ease-out, top 0.15s ease-out, opacity 0.15s ease-out;"
 >
   <p id="timeline-popover-date" class="opacity-50 text-center"></p>
@@ -249,73 +249,90 @@ const totalPRs = (githubData.prs as PR[]).length;
 </div>
 
 <script>
-  // Popover via event delegation (single listener instead of one per square)
-  const popover = document.getElementById("timeline-popover")!;
-  const popoverDate = document.getElementById("timeline-popover-date")!;
-  const popoverCount = document.getElementById("timeline-popover-count")!;
-  let isVisible = false;
+  function initTimeline() {
+    const popover = document.getElementById("timeline-popover");
+    const popoverDate = document.getElementById("timeline-popover-date");
+    const popoverCount = document.getElementById("timeline-popover-count");
+    const container = document.getElementById("timeline-container");
+    if (!popover || !popoverDate || !popoverCount || !container) return;
 
-  const container = document.getElementById("timeline-container")!;
-  container.addEventListener("mouseover", (e) => {
-    const el = (e.target as HTMLElement).closest(".timeline-square") as HTMLElement | null;
-    if (!el) return;
+    let isVisible = false;
 
-    const date = el.dataset.date!;
-    const count = parseInt(el.dataset.count!, 10);
-    const rect = el.getBoundingClientRect();
+    container.addEventListener("mouseover", (e) => {
+      const el = (e.target as HTMLElement).closest(".timeline-square") as HTMLElement | null;
+      if (!el) return;
 
-    popoverDate.textContent = date;
-    popoverCount.textContent = `${count} contribution${count !== 1 ? "s" : ""}`;
+      const date = el.dataset.date!;
+      const count = parseInt(el.dataset.count!, 10);
+      const rect = el.getBoundingClientRect();
 
-    // Measure popover size (ensure it's in the DOM flow for measurement)
-    popover.style.visibility = "hidden";
-    popover.style.opacity = "0";
-    popover.style.display = "block";
-    const popoverHeight = popover.offsetHeight;
-    const popoverWidth = popover.offsetWidth;
-    popover.style.visibility = "";
+      popoverDate.textContent = date;
+      popoverCount.textContent = `${count} contribution${count !== 1 ? "s" : ""}`;
 
-    const left = rect.left + rect.width / 2 - popoverWidth / 2;
-    const top = rect.top - popoverHeight - 6;
-
-    popover.style.left = `${left}px`;
-    popover.style.top = `${top}px`;
-
-    if (!isVisible) {
+      // Position above the square
+      // Disable transitions, move off-screen, measure, then position
       popover.style.transition = "none";
-      popover.offsetHeight;
-      popover.style.transition = "left 0.15s ease-out, top 0.15s ease-out, opacity 0.15s ease-out";
+      popover.style.left = "-9999px";
+      popover.style.top = "-9999px";
+      popover.style.opacity = "0";
+      popover.style.display = "block";
+      popover.offsetHeight; // force layout
+      const popoverHeight = popover.offsetHeight;
+      const popoverWidth = popover.offsetWidth;
+
+      const left = rect.left + rect.width / 2 - popoverWidth / 2;
+      const top = rect.top - popoverHeight - 65;
+
+      popover.style.left = `${left}px`;
+      popover.style.top = `${top}px`;
+      popover.offsetHeight; // force layout at new position
+
+      if (!isVisible) {
+        // First hover: no slide transition, just fade in
+        popover.style.transition = "opacity 0.15s ease-out";
+      } else {
+        popover.style.transition = "left 0.15s ease-out, top 0.15s ease-out, opacity 0.15s ease-out";
+      }
+
+      popover.style.opacity = "1";
+      isVisible = true;
+    });
+
+    container.addEventListener("mouseout", (e) => {
+      const el = (e.target as HTMLElement).closest(".timeline-square");
+      if (!el) return;
+      const related = (e as MouseEvent).relatedTarget as HTMLElement | null;
+      if (related?.closest?.(".timeline-square")) return;
+      popover.style.opacity = "0";
+      isVisible = false;
+    });
+
+    // Progressive loading: reveal 3 more months when scrolling near bottom
+    const allMonths = document.querySelectorAll(".timeline-month");
+    // Count how many are already visible (handles SPA back-navigation)
+    let revealed = 0;
+    allMonths.forEach((m) => {
+      if (!(m as HTMLElement).classList.contains("hidden")) revealed++;
+    });
+
+    function maybeReveal() {
+      if (revealed >= allMonths.length) return;
+      const docHeight = document.documentElement.scrollHeight;
+      const scrollBottom = window.scrollY + window.innerHeight;
+      if (scrollBottom >= docHeight - 300) {
+        for (let j = 0; j < 3 && revealed < allMonths.length; j++) {
+          (allMonths[revealed] as HTMLElement).classList.remove("hidden");
+          revealed++;
+        }
+        requestAnimationFrame(maybeReveal);
+      }
     }
 
-    popover.style.opacity = "1";
-    isVisible = true;
-  });
-
-  container.addEventListener("mouseout", (e) => {
-    const el = (e.target as HTMLElement).closest(".timeline-square");
-    if (!el) return;
-    const related = (e as MouseEvent).relatedTarget as HTMLElement | null;
-    if (related?.closest?.(".timeline-square")) return;
-    popover.style.opacity = "0";
-    isVisible = false;
-  });
-
-  // Progressive loading: reveal 1 more month when scrolling near bottom
-  const allMonths = document.querySelectorAll(".timeline-month");
-  let revealed = 5;
-
-  function maybeReveal() {
-    if (revealed >= allMonths.length) return;
-    const docHeight = document.documentElement.scrollHeight;
-    const scrollBottom = window.scrollY + window.innerHeight;
-    if (scrollBottom >= docHeight - 300) {
-      (allMonths[revealed] as HTMLElement).classList.remove("hidden");
-      revealed++;
-      // Check again after reveal in case still near bottom
-      requestAnimationFrame(maybeReveal);
-    }
+    window.addEventListener("scroll", maybeReveal, { passive: true });
+    maybeReveal();
   }
 
-  window.addEventListener("scroll", maybeReveal, { passive: true });
-  maybeReveal();
+  // Run on initial load and on SPA navigations
+  initTimeline();
+  document.addEventListener("astro:page-load", initTimeline);
 </script>

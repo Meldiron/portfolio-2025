@@ -57,7 +57,7 @@ if (!isShowcase) {
     image: entry.data.image.url,
   }}
 >
-  <section class="mt-10 max-w-3xl mx-auto px-6">
+  <section class="mt-14 max-w-3xl mx-auto px-6">
     <img
       src={entry.data.image.url}
       alt={entry.data.image.alt}
@@ -67,16 +67,15 @@ if (!isShowcase) {
     />
 
     <h1 class="font-bold text-3xl mb-4">{entry.data.title}</h1>
-    <p class="opacity-60 mb-6">
+    <p class="text-white/50 mb-6">
       {entry.data.description}
     </p>
     <div class="mb-2">
       <a
         href={"https://github.com/" + entry.data.github}
         target="_blank"
-        class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+        class="inline-flex mr-1 gap-1 items-center mb-2 w-[fit-content] text-white/80 border-white/[0.1] hover:border-white/[0.2] hover:bg-white/[0.05] border rounded-lg text-sm py-0.5 px-2 transition-all"
       >
-        {" "}
         <Icon name="mdi:github" size={14} />
         {entry.data.github}
       </a>
@@ -86,9 +85,8 @@ if (!isShowcase) {
           <a
             href={"https://" + entry.data.demo}
             target="_blank"
-            class=" inline-flex  mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+            class="inline-flex mr-1 gap-1 items-center mb-2 w-[fit-content] text-white/80 border-white/[0.1] hover:border-white/[0.2] hover:bg-white/[0.05] border rounded-lg text-sm py-0.5 px-2 transition-all"
           >
-            {" "}
             <Icon name="mdi:link-variant" size={14} /> {entry.data.demo}
           </a>
         )
@@ -102,7 +100,7 @@ if (!isShowcase) {
           alt={entry.data.cover.alt}
           width={800}
           height={300}
-          class="w-full rounded-xl mb-10"
+          class="w-full rounded-xl mb-10 ring-1 ring-white/[0.05]"
         />
       )
     }
@@ -116,11 +114,11 @@ if (!isShowcase) {
             <div class="flex flex-wrap justify-center gap-2">
               {entry.data.labels.map((label) =>
                 label.url ? (
-                  <a href={label.url} target="_blank" class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80 hover:border-opacity-40 transition-colors">
+                  <a href={label.url} target="_blank" class="px-3 py-1 text-sm rounded-full border border-white/[0.1] text-white/70 hover:border-white/[0.2] hover:bg-white/[0.05] backdrop-blur-3xl transition-all">
                     {label.name}
                   </a>
                 ) : (
-                  <span class="px-3 py-1 text-sm rounded-full border border-white border-opacity-20 text-white text-opacity-80">
+                  <span class="px-3 py-1 text-sm rounded-full border border-white/[0.1] text-white/70 backdrop-blur-3xl">
                     {label.name}
                   </span>
                 )
@@ -131,21 +129,21 @@ if (!isShowcase) {
 
         {entry.body.trim().length > 0 && (
           <section class="px-6 mx-auto max-w-3xl w-full mb-8">
-            <article class="prose-neutral prose prose-invert prose-p:text-neutral-100 prose-p:text-lg">
+            <article class="prose-neutral prose prose-invert prose-p:text-white/70 prose-p:text-lg">
               <Content />
             </article>
           </section>
         )}
 
         <section class="px-6 mx-auto max-w-3xl w-full mb-10">
-          <div class="rounded-lg border border-neutral-800 bg-neutral-900/50 px-5 py-4">
+          <div class="rounded-xl border border-white/[0.05] bg-white/[0.01] backdrop-blur-3xl px-5 py-4">
             <div class="flex items-start gap-3">
-              <div class="mt-0.5 rounded-md bg-orange-500/15 p-1.5">
+              <div class="mt-0.5 rounded-lg bg-orange-500/15 p-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#fb923c" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" /></svg>
               </div>
               <div>
-                  <p class="text-lg font-medium text-neutral-300 mb-0.5">Minimal case study!</p>
-                <p class="text-sm text-neutral-500">This is a small project made in a couple of days, and it only contains screenshots instead of a detailed case study. Some screenshots have captions to capture my thoughts and intentions when developing those parts of the application.</p>
+                <p class="text-lg font-medium text-white/80 mb-0.5">Minimal case study!</p>
+                <p class="text-sm text-white/40">This is a small project made in a couple of days, and it only contains screenshots instead of a detailed case study. Some screenshots have captions to capture my thoughts and intentions when developing those parts of the application.</p>
               </div>
             </div>
           </div>
@@ -158,8 +156,8 @@ if (!isShowcase) {
                 <>
                   {index > 0 && (
                     <div class="flex items-center gap-3 py-20">
-                      <div class="h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent w-full" />
-                      <div class="h-px bg-gradient-to-r from-transparent via-neutral-700 to-transparent w-full" />
+                      <div class="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent w-full" />
+                      <div class="h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent w-full" />
                     </div>
                   )}
                   <figure>
@@ -168,10 +166,10 @@ if (!isShowcase) {
                       alt={screenshot.caption ?? entry.data.title}
                       width={1200}
                       height={700}
-                      class="w-full rounded-2xl border-2 border-neutral-800 p-1.5"
+                      class="w-full rounded-2xl ring-1 ring-white/[0.05] p-1.5"
                     />
                     {screenshot.caption && (
-                      <figcaption class="text-center text-base text-neutral-100 mt-6">
+                      <figcaption class="text-center text-base text-white/70 mt-6">
                         {screenshot.caption}
                       </figcaption>
                     )}
@@ -185,13 +183,13 @@ if (!isShowcase) {
     ) : (
       <>
         <section class="px-6 mx-auto max-w-3xl w-full">
-          <div class="bg-gradient-to-r from-neutral-900 to-transparent rounded-md px-6 py-6 w-full">
+          <div class="bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl rounded-xl px-6 py-6 w-full">
             <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
             <div class="flex flex-col gap-1">
               {headings.map((heading) => (
-                <a href={`#${heading.slug}`} class="text-neutral-100">
+                <a href={`#${heading.slug}`} class="text-white/80 hover:text-white transition-colors">
                   <span class="hover-underline">{heading.text}</span>
-                  <span class="ml-1 text-sm text-neutral-500">
+                  <span class="ml-1 text-sm text-white/30 font-mono">
                     {readingTimes[heading.slug] ?? ""}
                   </span>
                 </a>
@@ -201,7 +199,7 @@ if (!isShowcase) {
         </section>
 
         <section class="px-6 mx-auto max-w-4xl w-full">
-          <article class="project-article min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-neutral-100 prose-p:text-lg prose-ul:text-lg prose-hr:border-neutral-700 prose-img:rounded-2xl prose-img:border-2 prose-img:border-neutral-800 prose-img:p-1.5">
+          <article class="project-article min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-headings:mb-2 prose-p:text-white/70 prose-p:text-lg prose-ul:text-lg prose-hr:border-white/[0.08] prose-img:rounded-2xl prose-img:ring-1 prose-img:ring-white/[0.05] prose-img:p-1.5">
             <Content />
           </article>
         </section>
@@ -307,4 +305,3 @@ if (!isShowcase) {
     { once: false },
   );
 </script>
-

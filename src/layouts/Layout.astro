@@ -85,6 +85,13 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <ViewTransitions />
+    <script is:inline>
+      // Apply saved theme immediately to prevent flash
+      (function() {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <script is:inline src="https://cdn.jsdelivr.net/npm/appwrite@17.0.0"
     ></script>
     <script
@@ -92,18 +99,26 @@ const jsonLd = {
       src="https://cloud.umami.is/script.js"
       data-website-id="9cd0e69d-273d-4bbb-88eb-4f10a5019bcd"></script>
   </head>
-  <body>
-    <header>
-      <div
-        class="px-6 py-6 max-w-2xl mx-auto flex items-center justify-between"
-      >
-        <nav>
-          <ul>
+  <body class="relative">
+    <!-- Ambient mesh gradient (split for independent X offset) -->
+    <div id="ambient-mesh" class="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-0">
+      <div id="ambient-blue" class="absolute inset-0" style="background: radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59, 130, 246, 0.08), transparent), radial-gradient(ellipse 50% 60% at 30% 80%, rgba(59, 130, 246, 0.04), transparent);"></div>
+      <div id="ambient-pink" class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(236, 72, 153, 0.06), transparent), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(139, 92, 246, 0.05), transparent);"></div>
+    </div>
+
+    <!-- Noise texture overlay -->
+    <div class="pointer-events-none fixed inset-0 z-[1] opacity-[0.025]" style="background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 256 256%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.7%22 numOctaves=%224%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E'); background-repeat: repeat; background-size: 256px 256px;"></div>
+
+    <div class="relative z-[2]">
+    <header class="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none">
+      <div class="pointer-events-auto flex items-center gap-2">
+        <nav class="px-1 py-1 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-3xl shadow-lg shadow-black/20">
+          <ul class="flex items-center gap-0.5">
             {
               navBarLinks.map((link) => (
-                <li class="inline pr-3">
+                <li>
                   <a
-                    class="opacity-60 hover:opacity-100 hover-underline transition-all"
+                    class="block px-4 py-1.5 text-sm rounded-full text-[var(--text)] opacity-60 hover:opacity-100 hover:bg-[var(--glass-hover)] transition-all"
                     href={link.url}
                     target={link.external ? "_blank" : "_self"}
                   >
@@ -114,23 +129,165 @@ const jsonLd = {
             }
           </ul>
         </nav>
+        <button
+          id="theme-toggle"
+          class="w-8 h-8 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-3xl shadow-lg shadow-black/20 flex items-center justify-center hover:bg-[var(--glass-hover)] transition-all"
+          aria-label="Toggle theme"
+        >
+          <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg id="icon-moon" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
       </div>
     </header>
-    <main class="mb-20 space-y-14">
+    <main class="mb-20 mt-20 space-y-14">
       <slot />
     </main>
     <footer></footer>
 
     <script is:inline src="/cap.min.js"></script>
+    </div>
+
+    <script>
+      function initAmbientEffect() {
+        const mesh = document.getElementById("ambient-mesh");
+        const blue = document.getElementById("ambient-blue");
+        const pink = document.getElementById("ambient-pink");
+        if (!mesh || !blue || !pink) return;
+
+        // Config: [scrollPosition, opacity, xOffset]
+        // xOffset: blue shifts left by this amount, pink shifts right
+        const keyframes = [
+          [0, 0, 0],
+          [700, 1, 0],
+          [1000, 1, 200],
+          [1500, 1, 0],
+          [2000, 1, 300],
+          [3000, 1, 0],
+          [3200, 1, 0],
+          [4200, 0, 0],
+        ];
+
+        function interpolate(scrollY: number, valIndex: number): number {
+          if (scrollY <= keyframes[0][0]) return keyframes[0][valIndex];
+          if (scrollY >= keyframes[keyframes.length - 1][0]) return keyframes[keyframes.length - 1][valIndex];
+
+          for (let i = 0; i < keyframes.length - 1; i++) {
+            const startScroll = keyframes[i][0];
+            const endScroll = keyframes[i + 1][0];
+            if (scrollY >= startScroll && scrollY <= endScroll) {
+              const t = (scrollY - startScroll) / (endScroll - startScroll);
+              return keyframes[i][valIndex] + t * (keyframes[i + 1][valIndex] - keyframes[i][valIndex]);
+            }
+          }
+          return 0;
+        }
+
+        function update() {
+          const scrollY = window.scrollY;
+          const opacity = interpolate(scrollY, 1);
+          const offset = interpolate(scrollY, 2);
+
+          mesh!.style.opacity = String(opacity);
+          blue!.style.transform = `translateX(${-offset}px)`;
+          pink!.style.transform = `translateX(${offset}px)`;
+        }
+
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+      }
+
+      initAmbientEffect();
+      document.addEventListener("astro:page-load", initAmbientEffect);
+
+      function initThemeToggle() {
+        const toggle = document.getElementById("theme-toggle");
+        const iconSun = document.getElementById("icon-sun");
+        const iconMoon = document.getElementById("icon-moon");
+        if (!toggle || !iconSun || !iconMoon) return;
+
+        function applyTheme(theme: string) {
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+          if (theme === "light") {
+            iconSun.classList.remove("hidden");
+            iconMoon.classList.add("hidden");
+          } else {
+            iconSun.classList.add("hidden");
+            iconMoon.classList.remove("hidden");
+          }
+        }
+
+        // Apply current theme on load
+        const current = localStorage.getItem("theme") || "dark";
+        applyTheme(current);
+
+        toggle.addEventListener("click", () => {
+          const next = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+          applyTheme(next);
+        });
+      }
+
+      initThemeToggle();
+      document.addEventListener("astro:page-load", initThemeToggle);
+    </script>
   </body>
 </html>
 
 <style is:global>
   @import url(https://fonts.bunny.net/css?family=abhaya-libre:400,500|inter:200,200i,400,400i,600,600i,800,800i);
 
+  /* Dark theme (default) */
+  html, html[data-theme="dark"] {
+    --bg: #000000;
+    --text: #ededed;
+    --text-muted: rgba(255, 255, 255, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-hover: rgba(255, 255, 255, 0.1);
+    --glass-strong: rgba(255, 255, 255, 0.05);
+    --underline-color: rgba(255, 255, 255, 1);
+    --underline-hidden: rgba(0, 0, 0, 0);
+    --gradient-fade: #000000;
+    --prose-body: rgba(255, 255, 255, 0.7);
+    --plyr-bg: #000000;
+    --plyr-color: #ededed;
+    --cap-bg: rgba(255, 255, 255, 0.05);
+    --cap-border: rgba(255, 255, 255, 0.1);
+    --cap-spinner: rgba(255, 255, 255, 0.5);
+    --cap-spinner-bg: rgba(255, 255, 255, 0.1);
+    color-scheme: dark;
+  }
+
+  /* Light theme */
+  html[data-theme="light"] {
+    --bg: #f5f5f7;
+    --text: #1d1d1f;
+    --text-muted: rgba(0, 0, 0, 0.5);
+    --glass-bg: rgba(255, 255, 255, 0.6);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-hover: rgba(255, 255, 255, 0.8);
+    --glass-strong: rgba(255, 255, 255, 0.5);
+    --underline-color: rgba(0, 0, 0, 1);
+    --underline-hidden: rgba(255, 255, 255, 0);
+    --gradient-fade: #f5f5f7;
+    --prose-body: rgba(0, 0, 0, 0.7);
+    --plyr-bg: #f5f5f7;
+    --plyr-color: #1d1d1f;
+    --cap-bg: rgba(255, 255, 255, 0.6);
+    --cap-border: rgba(0, 0, 0, 0.1);
+    --cap-spinner: rgba(0, 0, 0, 0.4);
+    --cap-spinner-bg: rgba(0, 0, 0, 0.08);
+    color-scheme: light;
+  }
+
   html {
     font-family: "Inter", sans-serif;
-    background: #121212;
+    background: var(--bg);
+    transition: background 0.3s ease;
   }
 
   * {
@@ -138,7 +295,8 @@ const jsonLd = {
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    color: #eeeeee;
+    color: var(--text);
+    transition: color 0.3s ease;
   }
 
   code {
@@ -187,12 +345,13 @@ const jsonLd = {
   }
 
   .project-article .plyr {
-    border-radius: 1rem;
-    border: 2px solid rgb(38 38 38);
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.03);
     overflow: hidden;
-    --plyr-color-main: #eeeeee;
-    --plyr-video-background: #121212;
-    --plyr-video-control-color: #eeeeee;
+    --plyr-color-main: #ededed;
+    --plyr-video-background: #000000;
+    --plyr-video-control-color: #ededed;
     --plyr-video-control-background-hover: rgba(255, 255, 255, 0.1);
     --plyr-video-aspect-ratio: auto;
   }
@@ -202,13 +361,13 @@ const jsonLd = {
   }
 
   cap-widget {
-    --cap-background: #262626;
-    --cap-border-color: #404040;
-    --cap-checkbox-background: #171717;
-    --cap-checkbox-border: 1px solid #404040;
+    --cap-background: rgba(255, 255, 255, 0.05);
+    --cap-border-color: rgba(255, 255, 255, 0.1);
+    --cap-checkbox-background: rgba(255, 255, 255, 0.05);
+    --cap-checkbox-border: 1px solid rgba(255, 255, 255, 0.1);
     --cap-color: white;
-    --cap-spinner-color: #d4d4d4;
-    --cap-spinner-background-color: #404040;
+    --cap-spinner-color: rgba(255, 255, 255, 0.5);
+    --cap-spinner-background-color: rgba(255, 255, 255, 0.1);
     --cap-credits-font-size: 0px;
     --cap-active-scale: 1;
   }

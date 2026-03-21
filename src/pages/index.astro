@@ -43,18 +43,18 @@ for (const category of homePageContent.techstack) {
 ---
 
 <Layout seo={homePageContent.seo}>
-  <section class="mt-6 max-w-2xl mx-auto px-6">
+  <section class="mt-14 max-w-2xl mx-auto px-6">
     <div class="flex flex-col min-[520px]:flex-row gap-6 mb-8">
       <Image
         src="/logo.webp"
         alt="Face"
         width={100}
         height={100}
-        class="rounded-full"
+        class="rounded-full ring-1 ring-white/15 p-0.5"
       />
       <div class="group flex flex-col justify-center w-fit">
         <h1 class="font-bold text-3xl mb-1">Matej Bačo</h1>
-        <p class="text-[rgba(255,255,255,0.6)]">
+        <p class="text-white/50">
           Engineering lead at <img
             src="https://appwrite.io/assets/logomark/logo.svg"
             alt="Appwrite logo"
@@ -68,7 +68,7 @@ for (const category of homePageContent.techstack) {
         </p>
       </div>
     </div>
-    <p class="max-w-md mb-4">
+    <p class="max-w-md mb-4 text-white/60">
       I am impact-driven software engineer from Czech Republic in love with
       everything open source.
     </p>
@@ -76,7 +76,7 @@ for (const category of homePageContent.techstack) {
       <AIButtonPill />
     </div>
     <p class="mt-3 text-sm">
-      <span class="opacity-60 inline-block">Powered by</span>
+      <span class="opacity-40 inline-block">Powered by</span>
       <img
         src="/ai-provider.svg"
         class="inline-block ml-1 mr-0.5 transform translate-y-[-2px]"
@@ -85,7 +85,7 @@ for (const category of homePageContent.techstack) {
       <a href="https://universal-prompt.appwrite.network/" target="_blank">
         <span class="inline-block text-white">Universal Prompt</span></a
       >
-      <span class="-ml-1 opacity-60 inline-block"
+      <span class="-ml-1 opacity-40 inline-block"
         >, one of my side projects.</span
       >
     </p>
@@ -99,11 +99,11 @@ for (const category of homePageContent.techstack) {
       class="relative w-full flex items-center justify-center overflow-hidden"
     >
       <div
-        class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#121212]"
+        class="absolute right-0 h-full w-[50px] bg-gradient-to-r from-transparent to-[#000000]"
       >
       </div>
       <div
-        class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#121212]"
+        class="absolute left-0 h-full w-[50px] bg-gradient-to-l from-transparent to-[#000000]"
       >
       </div>
       <Graph />
@@ -118,7 +118,7 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Career path</h2>
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0 sm:sticky sm:top-6 sm:self-start">Career path</h2>
     <div>
       <div class="mb-6">
         <p>
@@ -137,15 +137,15 @@ for (const category of homePageContent.techstack) {
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
-    <div class="grid grid-cols-1 gap-4 mb-4">
+    <div class="grid grid-cols-1 gap-3 mb-4">
       {
         projects.map((project) => (
           <a
-            class="p-4 rounded-lg border border-white border-opacity-20 hover:border-opacity-30 flex items-center gap-3 group-hover:opacity-30 hover:!opacity-100 transition-opacity"
+            class="p-4 rounded-xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl shadow-lg shadow-white/[0.01] flex items-center gap-3 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-200"
             href={`/projects/${project.slug}`}
             target="_self"
           >
-            <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+            <div class="rounded-lg flex-shrink-0 p-2 bg-white/10">
               <img
                 src={project.data.image.url}
                 alt={project.data.image.alt}
@@ -154,14 +154,12 @@ for (const category of homePageContent.techstack) {
               />
             </div>
             <div class="w-full">
-              <div class="flex gap-2">
-                <p class="text-xl">{project.data.title}</p>
-              </div>
-              <p class="mt-0.5 opacity-70 text-sm">
+              <p class="text-lg font-medium">{project.data.title}</p>
+              <p class="mt-0.5 text-white/50 text-sm">
                 {project.data.description}
               </p>
             </div>
-            <div class="rotate-45">
+            <div class="rotate-45 opacity-40">
               <Icon name="mdi:arrow-up" />
             </div>
           </a>
@@ -177,34 +175,37 @@ for (const category of homePageContent.techstack) {
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
-    <div class="grid grid-cols-1 gap-4 mb-4">
+    <div class="grid grid-cols-1 gap-6 mb-4">
       {
         posts.map((post) => (
           <a
+            class="group block -mx-4 px-4 py-3 -my-3 rounded-xl hover:bg-white/[0.03] hover:backdrop-blur-3xl hover:border-white/[0.05] border border-transparent transition-all duration-200"
             href={
               post.data.external ? post.data.external : `/blog/${post.slug}`
             }
             target={post.data.external ? "_blank" : "_self"}
           >
-            <p class="text-[rgba(255,255,255,0.6)] mb-2 text-xs">
-              {post.data.pubDate.getDate() +
-                "." +
-                (post.data.pubDate.getMonth() + 1) +
-                "." +
-                post.data.pubDate.getFullYear()}{" "}
-              ·{" "}
-              {post.data.external ? (
-                <span class="text-[#ffffff]">Appwrite</span>
-              ) : (
-                <span>{post.data.readingTime}</span>
-              )}
-            </p>
-            <div>
-              <h3 class="font-medium hover-underline">{post.data.title}</h3>
-              <p class="text-sm opacity-60 mt-2 mb-3">
-                {post.data.description}
+            <div class="flex items-center gap-3 mb-1.5">
+              <p class="text-white/30 text-xs font-mono">
+                {post.data.pubDate.getDate() +
+                  "." +
+                  (post.data.pubDate.getMonth() + 1) +
+                  "." +
+                  post.data.pubDate.getFullYear()}
+              </p>
+              <div class="h-px flex-1 bg-white/[0.06]"></div>
+              <p class="text-xs text-white/30 font-mono">
+                {post.data.external ? (
+                  <span class="text-white/50">Appwrite</span>
+                ) : (
+                  <span>{post.data.readingTime}</span>
+                )}
               </p>
             </div>
+            <h3 class="font-medium text-lg group-hover:text-white transition-colors">{post.data.title}</h3>
+            <p class="text-sm text-white/40 mt-1 leading-relaxed">
+              {post.data.description}
+            </p>
           </a>
         ))
       }
@@ -223,15 +224,14 @@ for (const category of homePageContent.techstack) {
       {
         homePageContent.techstack.map((item) => (
           <div>
-            <h3 class="mb-3 text-xl text-[rgba(255,255,255,0.7)]">
+            <h3 class="mb-3 text-lg text-white/50 font-medium">
               {item.name}
             </h3>
 
             <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
               {item.items.map((item) => (
                 <button class="group relative col-span-1 overflow-hidden">
-                  <div class="relative justify-center p-3 px-3 rounded-md border border-white border-opacity-10 flex items-center gap-2 overflow-hidden">
-                    <div class="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-[#121212] via-[#121212]" />
+                  <div class="relative justify-center p-3 px-3 rounded-xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl shadow-lg shadow-white/[0.01] flex items-center gap-2 overflow-hidden hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-200">
 
                     <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
                       {item.icon === "__ASTRO__" && (
@@ -310,7 +310,7 @@ for (const category of homePageContent.techstack) {
   </section>
 
   <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0">Let's connect</h2>
+    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0 sm:sticky sm:top-6 sm:self-start">Let's connect</h2>
     <div>
       <div class="mb-6">
         Reach out to me to collaborate on a fun project, build an integration,
@@ -329,7 +329,7 @@ for (const category of homePageContent.techstack) {
       </div>
       <div>
         <form
-          class="bg-neutral-900 mt-4 p-3 rounded-lg border border-neutral-700 flex flex-col gap-3"
+          class="bg-white/[0.02] mt-4 p-4 rounded-xl border border-white/[0.08] backdrop-blur-3xl flex flex-col gap-3"
           action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
           method="POST"
           enctype="multipart/form-data"
@@ -337,7 +337,7 @@ for (const category of homePageContent.techstack) {
           <div
             id="contact-success"
             style="display: none;"
-            class="bg-green-950 rounded-lg p-3 border border-green-800"
+            class="bg-green-500/10 rounded-xl p-3 border border-green-500/20"
           >
             <p class="text-green-200 font-semibold text-center">
               Thanks for your message!
@@ -349,7 +349,7 @@ for (const category of homePageContent.techstack) {
             <input
               required
               type="email"
-              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"
               name="sender"
               placeholder="you@example.com"
             />
@@ -360,7 +360,7 @@ for (const category of homePageContent.techstack) {
             <textarea
               rows="4"
               required
-              class="focus:outline-none focus:border-neutral-500 w-full px-4 py-2 bg-neutral-800 border border-neutral-700 text-white rounded-lg placeholder-neutral-500"
+              class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"
               name="message"
               placeholder="Enter your text..."></textarea>
           </div>
@@ -373,7 +373,7 @@ for (const category of homePageContent.techstack) {
 
           <button
             type="submit"
-            class="bg-neutral-800 py-2 rounded-lg text-white">Send</button
+            class="bg-white/[0.01] py-2.5 rounded-xl text-white border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.15] backdrop-blur-3xl transition-all duration-200">Send</button
           >
         </form>
         <p class="mt-3 text-sm mb-2 text-center">

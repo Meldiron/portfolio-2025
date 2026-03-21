@@ -14,9 +14,9 @@ projects.sort((a, b) => {
 ---
 
 <Layout seo={projectsPageContent.seo}>
-  <section class="mt-10 max-w-2xl mx-auto px-6">
+  <section class="mt-14 max-w-2xl mx-auto px-6">
     <h1 class="font-bold text-3xl mb-1">Projects</h1>
-    <p class="opacity-60 mb-4">Apps and tools made in free time.</p>
+    <p class="text-white/50 mb-4">Apps and tools made in free time.</p>
 
     <div class="grid grid-cols-1 gap-4">
       {
@@ -26,21 +26,20 @@ projects.sort((a, b) => {
               new Date(project.data.pubDate).getFullYear() !=
                 new Date(projects[index - 1].data.pubDate).getFullYear()) ||
               index === 0) && (
-              <div class="flex items-center w-full text-start text-6xl font-light opacity-90 text-white mb-12 mt-6 gap-6">
+              <div class="flex items-center w-full text-start text-6xl font-light text-white/90 mb-12 mt-6 gap-6">
                 <p class="flex-shrink-0">
                   {project.data.pubDate.getFullYear()}
                 </p>
-                <div class="h-1 bg-gradient-to-r from-[rgba(255,255,255,0.9)] to-transparent w-full roudned-full" />
+                <div class="h-px bg-gradient-to-r from-white/30 to-transparent w-full" />
               </div>
             )}
-            <div class="p-4 rounded-lg border border-white border-opacity-20 transition-opacity">
+            <div class="p-4 rounded-xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl transition-all duration-200 hover:bg-white/[0.03] hover:border-white/[0.1]">
               <div class="mb-2">
                 <a
                   href={"https://github.com/" + project.data.github}
                   target="_blank"
-                  class="inline-flex mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+                  class="inline-flex mr-1 gap-1 items-center mb-2 w-[fit-content] text-white/80 border-white/[0.1] hover:border-white/[0.2] hover:bg-white/[0.05] border rounded-lg text-sm py-0.5 px-2 transition-all"
                 >
-                  {" "}
                   <Icon name="mdi:github" size={14} /> {project.data.github}
                 </a>
 
@@ -48,10 +47,9 @@ projects.sort((a, b) => {
                   <a
                     href={"https://" + project.data.demo}
                     target="_blank"
-                    class=" inline-flex  mr-1 flex gap-1 items-center mb-2 w-[fit-content] text-white border-opacity-20 hover:border-opacity-40 border-white border rounded-md text-sm py-0.5 px-2"
+                    class="inline-flex mr-1 gap-1 items-center mb-2 w-[fit-content] text-white/80 border-white/[0.1] hover:border-white/[0.2] hover:bg-white/[0.05] border rounded-lg text-sm py-0.5 px-2 transition-all"
                   >
-                    {" "}
-                    <Icon name="mdi:link-variant" size={14} />{" "}
+                    <Icon name="mdi:link-variant" size={14} />
                     {project.data.demo}
                   </a>
                 )}
@@ -62,8 +60,8 @@ projects.sort((a, b) => {
                 href={`/projects/${project.slug}`}
                 target="_self"
               >
-                <div class=" flex items-center gap-3">
-                  <div class="rounded-md flex-shrink-0 p-2 bg-white bg-opacity-5">
+                <div class="flex items-center gap-3">
+                  <div class="rounded-lg flex-shrink-0 p-2 bg-white/[0.08]">
                     <img
                       src={project.data.image.url}
                       alt={project.data.image.alt}
@@ -72,29 +70,27 @@ projects.sort((a, b) => {
                     />
                   </div>
                   <div class="w-full">
-                    <div class="flex gap-2">
-                      <p class="text-xl group-hover:underline">
-                        {project.data.title}
-                      </p>
-                    </div>
-                    <p class="mt-0.5 opacity-70 text-sm">
+                    <p class="text-xl group-hover:text-white transition-colors">
+                      {project.data.title}
+                    </p>
+                    <p class="mt-0.5 text-white/50 text-sm">
                       {project.data.description}
                     </p>
                   </div>
-                  <div class="rotate-45">
+                  <div class="rotate-45 opacity-40">
                     <Icon name="mdi:arrow-up" />
                   </div>
                 </div>
 
                 {project.data.cover && (
-                  <div class="relative">
-                    <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-[rgba(0,0,0,0.9)]" />
+                  <div class="relative mt-4">
+                    <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-black/90 rounded-b-lg" />
                     <Image
                       src={project.data.cover.url}
                       alt={project.data.cover.alt}
                       width={250}
                       height={150}
-                      class=" mt-4 w-full h-[150px] object-cover object-top rounded-md"
+                      class="w-full h-[150px] object-cover object-top rounded-lg"
                     />
                   </div>
                 )}
