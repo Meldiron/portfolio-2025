@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check": "eslint . --ignore-pattern dist/ --ignore-pattern public/ --ignore-pattern .astro/",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "fetch-github": "node scripts/fetch-github.mjs"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.3",
@@ -37,6 +38,7 @@
     "@iconify-json/mdi": "^1.1.64",
     "@tailwindcss/typography": "^0.5.12",
     "@types/photoswipe": "^4.1.6",
+    "dotenv": "^17.3.1",
     "eslint": "^9.17.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",

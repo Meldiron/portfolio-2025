@@ -1,4 +1,6 @@
 ---
+import githubData from "../data/github.json";
+
 interface Props {
   year?: number;
 }
@@ -15,106 +17,17 @@ type Week = {
 };
 type Weeks = Week[];
 
-async function getContributions(
-  token: string,
-  username: string,
-  year: number | null = null,
-) {
-  const headers = {
-    Authorization: `bearer ${token}`,
-  };
-  const fromDate = `${year}-01-01T00:00:00Z`;
-  const toDate = `${year}-12-31T23:59:59Z`;
-
-  let query = `contributionsCollection() {`;
-  if (year) {
-    query = `contributionsCollection(from: "${fromDate}", to: "${toDate}") {`;
-  }
-
-  const body = {
-    query: `query {
-              user(login: "${username}") {
-                name
-                ${query}
-                  contributionCalendar {
-                    colors
-                    totalContributions
-                    weeks {
-                      contributionDays {
-                        color
-                        contributionCount
-                        date
-                        weekday
-                      }
-                      firstDay
-                    }
-                  }
-                }
-              }
-            }`,
-  };
-  const response = await fetch("https://api.github.com/graphql", {
-    method: "POST",
-    body: JSON.stringify(body),
-    headers: headers,
-  });
-  const data = await response.json();
-  return data;
-}
-
 const currentYear = new Date().getFullYear();
 
 const weeks: Weeks[] = [];
 
-weeks.push(
-  ...(
-    await getContributions(
-      import.meta.env.PRIVATE_GITHUB_TOKEN,
-      "Meldiron",
-      currentYear - 4,
-    )
-  ).data.user.contributionsCollection.contributionCalendar.weeks,
-);
-
-weeks.push(
-  ...(
-    await getContributions(
-      import.meta.env.PRIVATE_GITHUB_TOKEN,
-      "Meldiron",
-      currentYear - 3,
-    )
-  ).data.user.contributionsCollection.contributionCalendar.weeks,
-);
-
-weeks.push(
-  ...(
-    await getContributions(
-      import.meta.env.PRIVATE_GITHUB_TOKEN,
-      "Meldiron",
-      currentYear - 2,
-    )
-  ).data.user.contributionsCollection.contributionCalendar.weeks,
-);
-
-weeks.push(
-  ...(
-    await getContributions(
-      import.meta.env.PRIVATE_GITHUB_TOKEN,
-      "Meldiron",
-      currentYear - 1,
-    )
-  ).data.user.contributionsCollection.contributionCalendar.weeks,
-);
-
-weeks.push(
-  ...(
-    await getContributions(
-      import.meta.env.PRIVATE_GITHUB_TOKEN,
-      "Meldiron",
-      currentYear,
-    )
-  ).data.user.contributionsCollection.contributionCalendar.weeks,
-);
+// Graph.astro shows last 5 years — filter weeks accordingly
+const fiveYearsAgo = `${currentYear - 4}-01-01`;
+for (const week of githubData.weeks as Week[]) {
+  if (week.firstDay >= fiveYearsAgo) {
+    weeks.push(week as any);
+  }
+}
 
 const colorData: any = {};
 const today = new Date().toISOString().split("T")[0];

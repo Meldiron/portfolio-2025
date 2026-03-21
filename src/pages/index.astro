@@ -10,6 +10,7 @@ import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
 import AIButtonPill from "../components/AIButtonPill.astro";
+import GitHubTimeline from "../components/GitHubTimeline.astro";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -28,6 +29,10 @@ posts.sort((a, b) => {
   return dateB - dateA;
 });
 posts.splice(2);
+for (const post of posts) {
+  const { remarkPluginFrontmatter } = await post.render();
+  post.data.readingTime = remarkPluginFrontmatter.minutesRead;
+}
 
 const tools = [];
 for (const category of homePageContent.techstack) {
@@ -188,8 +193,10 @@ for (const category of homePageContent.techstack) {
                 "." +
                 post.data.pubDate.getFullYear()}{" "}
               ·{" "}
-              {post.data.external && (
+              {post.data.external ? (
                 <span class="text-[#ffffff]">Appwrite</span>
+              ) : (
+                <span>{post.data.readingTime}</span>
               )}
             </p>
             <div>
@@ -384,6 +391,14 @@ for (const category of homePageContent.techstack) {
         </p>
       </div>
     </div>
+  </section>
+
+  <GitHubTimeline />
+
+  <section class="max-w-3xl mx-auto px-6 my-24">
+    <p class="text-center opacity-100 italic text-4xl font-semibold leading-relaxed">
+      <span class="text-5xl not-italic leading-none opacity-50">&ldquo;</span>Never underestimate the power to make extraordinary things from the smallest of beginnings.<span class="text-5xl not-italic leading-none opacity-50">&rdquo;</span>
+    </p>
   </section>
 </Layout>
 
