@@ -1,0 +1,38 @@
+---
+/**
+ * Design A: Glass cards in a stack
+ * Each role is a glass card with logo, title, company, and date.
+ * Clean, minimal, no timeline — just stacked cards.
+ */
+import { Image } from "astro:assets";
+import type { ResumeItem } from "../types/config";
+
+interface Props {
+  items: ResumeItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="space-y-3">
+  {items.map((item) => (
+    <a
+      href={item.company.url}
+      target="_blank"
+      class="group flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.04] hover:border-white/[0.12] backdrop-blur-3xl transition-all duration-200"
+    >
+      <Image
+        src={item.company.image}
+        alt={item.company.name}
+        width={44}
+        height={44}
+        class="rounded-lg w-[44px] h-[44px] object-contain flex-shrink-0 bg-white/[0.05] p-1.5"
+      />
+      <div class="flex-1 min-w-0">
+        <h3 class="font-medium">{item.title}</h3>
+        <p class="text-sm opacity-50">{item.company.name}</p>
+      </div>
+      <p class="text-xs opacity-40 whitespace-nowrap flex-shrink-0">{item.date}</p>
+    </a>
+  ))}
+</div>

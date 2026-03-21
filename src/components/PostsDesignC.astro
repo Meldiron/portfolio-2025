@@ -1,0 +1,65 @@
+---
+/**
+ * Design C: Feature card + compact list
+ * First post is a large featured card with image. Remaining posts
+ * are compact rows below it.
+ */
+interface Props {
+  posts: any[];
+}
+const { posts } = Astro.props;
+const [featured, ...rest] = posts;
+---
+
+<div class="space-y-3">
+  <!-- Featured post -->
+  <a
+    href={featured.data.external ? featured.data.external : `/blog/${featured.slug}`}
+    target={featured.data.external ? "_blank" : "_self"}
+    class="group block rounded-xl bg-white/[0.02] border border-white/[0.08] overflow-hidden hover:bg-white/[0.04] hover:border-white/[0.15] backdrop-blur-3xl transition-all duration-200"
+  >
+    <div class="relative h-[180px] overflow-hidden">
+      <img
+        src={featured.data.image.url}
+        alt={featured.data.image.alt}
+        width={672}
+        height={180}
+        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+      <div class="absolute bottom-0 left-0 p-5 featured-overlay-text">
+        <p class="text-xs font-mono mb-1.5" style="color: rgba(255,255,255,0.6);">
+          {featured.data.pubDate.getDate()}.{featured.data.pubDate.getMonth() + 1}.{featured.data.pubDate.getFullYear()}
+          {" · "}
+          {featured.data.external ? "Appwrite" : featured.data.readingTime}
+        </p>
+        <h3 class="font-medium text-lg" style="color: #ffffff;">{featured.data.title}</h3>
+      </div>
+    </div>
+  </a>
+
+  <!-- Rest of posts -->
+  {rest.map((post) => (
+    <a
+      href={post.data.external ? post.data.external : `/blog/${post.slug}`}
+      target={post.data.external ? "_blank" : "_self"}
+      class="group flex items-center gap-4 p-3 rounded-xl bg-white/[0.01] border border-white/[0.05] hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-200"
+    >
+      <img
+        src={post.data.image.url}
+        alt={post.data.image.alt}
+        width={48}
+        height={48}
+        class="rounded-lg w-[48px] h-[48px] object-cover flex-shrink-0"
+      />
+      <div class="flex-1 min-w-0">
+        <h3 class="font-medium group-hover:text-[var(--text)] transition-colors line-clamp-1">{post.data.title}</h3>
+        <p class="text-xs opacity-40 font-mono mt-0.5">
+          {post.data.pubDate.getDate()}.{post.data.pubDate.getMonth() + 1}.{post.data.pubDate.getFullYear()}
+          {" · "}
+          {post.data.external ? "Appwrite" : post.data.readingTime}
+        </p>
+      </div>
+    </a>
+  ))}
+</div>

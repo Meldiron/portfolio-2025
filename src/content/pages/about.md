@@ -2,7 +2,7 @@
 
 I started programming in 5th grade, and I built a web app for tracking homework. As ugly and buggy as it was, I will never stop being proud of this monstrosity. Soon after, I learned the basics of frontend, backend, and databases - which allowed me to build a [PHP](https://www.php.net/)-based social platform at the age of 14.
 
-![SharePark](/sharepark.png)
+<img src="/sharepark.png" alt="SharePark" width="1366" height="660" />
 
 _The biggest challenge I faced was querying a database for users that were inactive for more than 5 minutes. I simply couldn't comprehend `user.activeAt >= now - 5min`, and it took me multiple weeks to implement this._
 
@@ -12,13 +12,13 @@ Websites weren't my thing, so I switched to gaming and developed many addons, mo
 
 As silly as it sounds, even Minecraft servers got a lot of networking complexity under the hood. My greatest achievement was a proxy on top of auto-scaling stateless instances of servers using [CloudNet](https://github.com/CloudNetService/CloudNet), allowing support for as many players as imaginable (for me and all my 3 friends).
 
-![Minecraft Cloud](/cloud.png)
+<img src="/cloud.png" alt="Minecraft Cloud" width="1436" height="900" />
 
 ---
 
 Software slowly became boring, and I became interested in microcontrollers. [Arduino](https://www.arduino.cc/) and [Raspberry Pi](https://www.raspberrypi.com/) gave me a basic understanding of the Internet of Things, and allowed me to automate my homeworks for technical drawing by making a plotter drawing machine.
 
-![LEDs](/led.jpg)
+<img src="/led.jpg" alt="LEDs" width="2000" height="1120" />
 
 _It took me multiple dead SD cards and many burned LEDs to understand the basics of current, voltage, and resistance. While not relevant in my career path, knowing electronics allows me to understand the boundaries of technologies and how to connect them._
 
@@ -34,7 +34,7 @@ My very first work experience was a 1-year part-time job building an e-commerce 
 
 This was the most stressful time of my career. Not only did I face many programming challenges, it was also my first time building in a collaborative team, under pressure of deadlines, and the weight of responsibilities to deliver features to customers. It feels boring talking about it now as an adult, but my teenage self had a hard time.
 
-![E-commerce database](/database.png)
+<img src="/database.png" alt="E-commerce database" width="3374" height="1712" />
 
 _The most interesting problem I faced was dealing with large nested category trees. To prevent recursive search through the database, I implemented [nested sets](https://en.wikipedia.org/wiki/Nested_set_model). Making it fast and memory-efficient wasn't an easy task for a self-taught developer who had never heard of [big O notation](https://en.wikipedia.org/wiki/Big_O_notation) before._
 
@@ -46,7 +46,7 @@ I chose to use [Appwrite](https://appwrite.io/), since it was open-sourced, and 
 
 It didn't take long before I started contributing to the community, and later to the source code as well. A magical thing happened when I made my first [pull request](https://github.com/appwrite/appwrite/pull/1308) - removing random 5-second slowness in serverless functions. The founder of Appwrite reached out to me with a job interview offer and an opportunity to become a core member of Appwrite with a full-time contract.
 
-![Function slowness](/slowness.png)
+<img src="/slowness.png" alt="Function slowness" width="1994" height="1362" />
 
 <!-- A secret for my girlfriend Anet, I love you! -->
 

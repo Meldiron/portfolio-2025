@@ -1,0 +1,33 @@
+---
+/**
+ * Design A: Flat pills / tags
+ * All techs shown as inline pills grouped by category.
+ * Compact, scannable, no cards.
+ */
+import { Icon } from "astro-icon/components";
+import type { HomePageContent } from "../types/config";
+
+interface Props {
+  techstack: HomePageContent["techstack"];
+}
+
+const { techstack } = Astro.props;
+---
+
+<div class="space-y-6">
+  {techstack.map((category) => (
+    <div>
+      <h3 class="text-sm opacity-40 uppercase tracking-wider mb-3">{category.name}</h3>
+      <div class="flex flex-wrap gap-2">
+        {category.items.map((item) => (
+          <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] text-sm hover:bg-white/[0.06] hover:border-white/[0.1] transition-all duration-200">
+            {item.icon !== "__ASTRO__" && (
+              <Icon class={item.invert ? "invert" : ""} name={item.icon} width={16} height={16} />
+            )}
+            {item.name}
+          </span>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

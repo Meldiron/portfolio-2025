@@ -5,12 +5,15 @@ import { homePageContent, aboutPageContent } from "../config";
 import Link from "../components/Link.astro";
 import Graph from "../components/Graph.astro";
 import SocialLinkBox from "../components/SocialLinkBox.astro";
-import ResumeItem from "../components/ResumeItem.astro";
+import ConnectDesignA from "../components/ConnectDesignA.astro";
+import CareerDesignA from "../components/CareerDesignA.astro";
 import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
 import AIButtonPill from "../components/AIButtonPill.astro";
 import GitHubTimeline from "../components/GitHubTimeline.astro";
+import PostsDesignC from "../components/PostsDesignC.astro";
+import TechDesignA from "../components/TechDesignA.astro";
 
 const projects = await getCollection("projects");
 const totalProjects = projects.length;
@@ -19,7 +22,7 @@ projects.sort((a, b) => {
   const dateB = new Date(b.data.pubDate).getTime();
   return dateB - dateA;
 });
-projects.splice(2);
+projects.splice(4);
 
 const posts = await getCollection("posts");
 const totalArticles = posts.length;
@@ -28,7 +31,7 @@ posts.sort((a, b) => {
   const dateB = new Date(b.data.pubDate).getTime();
   return dateB - dateA;
 });
-posts.splice(2);
+posts.splice(5);
 for (const post of posts) {
   const { remarkPluginFrontmatter } = await post.render();
   post.data.readingTime = remarkPluginFrontmatter.minutesRead;
@@ -118,176 +121,133 @@ for (const category of homePageContent.techstack) {
     </div>
   </section>
 
-  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0 sm:sticky sm:top-6 sm:self-start">Career path</h2>
-    <div>
-      <div class="mb-6">
-        <p>
-          Since the day one I worked remotely, which made me disciplined,
-          open-minded, and time-flexible individual.
-        </p>
-      </div>
-      <div class="grid grid-cols-1 group">
-        {aboutPageContent.work.items.map((item) => <ResumeItem {...item} />)}
-      </div>
-      <div class="mt-4">
-        <Link text="Download my CV" href="/CV_Matej_Baco.pdf" external={true} />
-      </div>
+  <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-2 text-2xl text-[white]">Career path</h2>
+    <p class="mb-8 text-white/50 text-sm">Since day one I worked remotely, which made me disciplined, open-minded, and time-flexible.</p>
+    <CareerDesignA items={aboutPageContent.work.items} />
+    <div class="mt-4">
+      <Link text="Download my CV" href="/CV_Matej_Baco.pdf" external={true} />
     </div>
   </section>
 
-  <section class="max-w-2xl mx-auto px-6">
+  <section class="max-w-2xl mx-auto px-6" x-data="{ current: 0 }">
     <h2 class="mb-8 text-2xl text-[white]">Latest projects</h2>
-    <div class="grid grid-cols-1 gap-3 mb-4">
-      {
-        projects.map((project) => (
-          <a
-            class="p-4 rounded-xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl shadow-lg shadow-white/[0.01] flex items-center gap-3 hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-200"
-            href={`/projects/${project.slug}`}
-            target="_self"
-          >
-            <div class="rounded-lg flex-shrink-0 p-2 bg-white/10">
-              <img
-                src={project.data.image.url}
-                alt={project.data.image.alt}
-                width={30}
-                height={30}
-              />
-            </div>
-            <div class="w-full">
-              <p class="text-lg font-medium">{project.data.title}</p>
-              <p class="mt-0.5 text-white/50 text-sm">
-                {project.data.description}
-              </p>
-            </div>
-            <div class="rotate-45 opacity-40">
-              <Icon name="mdi:arrow-up" />
-            </div>
-          </a>
-        ))
-      }
+
+    <!-- Carousel -->
+    <div class="relative mb-4">
+      <div id="project-carousel" class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 scroll-smooth project-carousel" style="scroll-padding-left: 0px;">
+        {
+          projects.map((project) => (
+            <a
+              href={`/projects/${project.slug}`}
+              target="_self"
+              class="group flex-shrink-0 w-[240px] sm:w-[300px] snap-start rounded-xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-3xl overflow-hidden hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-200"
+            >
+              {project.data.cover && (
+                <div class="relative h-[160px] overflow-hidden">
+                  <img
+                    src={project.data.cover.url}
+                    alt={project.data.cover.alt}
+                    width={320}
+                    height={160}
+                    class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                </div>
+              )}
+              <div class="p-4">
+                <div class="flex items-center gap-2.5 mb-2">
+                  <img
+                    src={project.data.image.url}
+                    alt={project.data.image.alt}
+                    width={24}
+                    height={24}
+                    class="rounded flex-shrink-0"
+                  />
+                  <h3 class="font-medium">{project.data.title}</h3>
+                </div>
+                <p class="text-sm text-white/50 line-clamp-2">{project.data.description}</p>
+              </div>
+            </a>
+          ))
+        }
+        <!-- View all CTA card -->
+        <a
+          href="/projects"
+          class="group flex-shrink-0 w-[240px] sm:w-[300px] snap-start rounded-xl bg-white/[0.02] border border-white/[0.06] backdrop-blur-3xl overflow-hidden hover:bg-white/[0.04] hover:border-white/[0.12] transition-all duration-200 flex flex-col items-center justify-center gap-3"
+        >
+          <div class="w-12 h-12 rounded-full bg-white/[0.05] flex items-center justify-center group-hover:bg-white/[0.1] transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 opacity-50">
+              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+            </svg>
+          </div>
+          <p class="text-sm opacity-50 group-hover:opacity-80 transition-opacity">View all {totalProjects} projects</p>
+        </a>
+      </div>
+
+      <!-- Desktop arrows: left/right of carousel -->
+      <button
+        id="carousel-prev"
+        class="carousel-arrow hidden md:flex absolute -left-14 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl items-center justify-center hover:bg-[var(--glass-hover)] transition-all z-10"
+        aria-label="Previous project"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button
+        id="carousel-next"
+        class="carousel-arrow hidden md:flex absolute -right-14 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl items-center justify-center hover:bg-[var(--glass-hover)] transition-all z-10"
+        aria-label="Next project"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
     </div>
-    <Link
-      text={`View all  ${totalProjects} projects`}
-      href="/projects"
-      external={false}
-    />
+
+    <!-- Mobile arrows: centered below cards -->
+    <div class="flex md:hidden justify-center gap-3 mb-4">
+      <button
+        id="carousel-prev-mobile"
+        class="carousel-arrow w-9 h-9 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl flex items-center justify-center hover:bg-[var(--glass-hover)] transition-all"
+        aria-label="Previous project"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
+      <button
+        id="carousel-next-mobile"
+        class="carousel-arrow w-9 h-9 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-xl flex items-center justify-center hover:bg-[var(--glass-hover)] transition-all"
+        aria-label="Next project"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="-mt-3">
+        <Link
+          text={`View all ${totalProjects} projects`}
+          href="/projects"
+          external={false}
+        />
+    </div>
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Latest posts</h2>
-    <div class="grid grid-cols-1 gap-6 mb-4">
-      {
-        posts.map((post) => (
-          <a
-            class="group block -mx-4 px-4 py-3 -my-3 rounded-xl hover:bg-white/[0.03] hover:backdrop-blur-3xl hover:border-white/[0.05] border border-transparent transition-all duration-200"
-            href={
-              post.data.external ? post.data.external : `/blog/${post.slug}`
-            }
-            target={post.data.external ? "_blank" : "_self"}
-          >
-            <div class="flex items-center gap-3 mb-1.5">
-              <p class="text-white/30 text-xs font-mono">
-                {post.data.pubDate.getDate() +
-                  "." +
-                  (post.data.pubDate.getMonth() + 1) +
-                  "." +
-                  post.data.pubDate.getFullYear()}
-              </p>
-              <div class="h-px flex-1 bg-[var(--glass-border)]"></div>
-              <p class="text-xs text-white/30 font-mono">
-                {post.data.external ? (
-                  <span class="text-white/50">Appwrite</span>
-                ) : (
-                  <span>{post.data.readingTime}</span>
-                )}
-              </p>
-            </div>
-            <h3 class="font-medium text-lg group-hover:text-[var(--text)] transition-colors">{post.data.title}</h3>
-            <p class="text-sm text-white/40 mt-1 leading-relaxed">
-              {post.data.description}
-            </p>
-          </a>
-        ))
-      }
+    <PostsDesignC posts={posts} />
+    <div class="mt-4">
+      <Link text={`View all ${totalArticles} articles`} href="/blog" external={false} />
     </div>
-    <Link
-      text={`View all ${totalArticles} articles`}
-      href="/blog"
-      external={false}
-    />
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
     <h2 class="mb-8 text-2xl text-[white]">Tech experience</h2>
-
-    <div class="space-y-8">
-      {
-        homePageContent.techstack.map((item) => (
-          <div>
-            <h3 class="mb-3 text-lg text-white/50 font-medium">
-              {item.name}
-            </h3>
-
-            <div class="grid w-full grid-cols-2 xxs:grid-cols-3 xs:grid-cols-4 md:grid-cols-5 gap-2">
-              {item.items.map((item) => (
-                <button class="group relative col-span-1 overflow-hidden">
-                  <div class="relative justify-center p-3 px-3 rounded-xl bg-white/[0.01] border border-white/[0.05] backdrop-blur-3xl shadow-lg shadow-white/[0.01] flex items-center gap-2 overflow-hidden hover:bg-white/[0.03] hover:border-white/[0.1] transition-all duration-200">
-
-                    <div class="flex-strink-0 group-hover:opacity-0 group-hover:ml-[-25px] transition-all duration-500">
-                      {item.icon === "__ASTRO__" && (
-                        <svg
-                          width={20}
-                          height={20}
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 85 107"
-                        >
-                          <path
-                            fill="#fff"
-                            d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
-                          />
-                          <path
-                            fill="url(#astro_icon_dark-a)"
-                            d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
-                          />
-                          <path
-                            fill="#fff"
-                            d="M0 69.587s14.314-6.973 28.668-6.973L39.49 29.12c.405-1.62 1.588-2.72 2.924-2.72 1.335 0 2.518 1.1 2.924 2.72L56.16 62.614c17 0 28.668 6.973 28.668 6.973S60.514 3.352 60.467 3.219C59.769 1.261 58.591 0 57.003 0H27.827c-1.588 0-2.718 1.261-3.464 3.22C24.311 3.35 0 69.586 0 69.586Z"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="astro_icon_dark-a"
-                              x1="22.47"
-                              x2="69.145"
-                              y1="107"
-                              y2="84.947"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="#D83333" />
-                              <stop offset="1" stop-color="#F041FF" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
-                      )}
-                      {item.icon !== "__ASTRO__" && (
-                        <Icon
-                          class={`${item.invert ? "invert" : ""}`}
-                          name={item.icon}
-                          width={20}
-                          height={20}
-                        />
-                      )}
-                    </div>
-                    <p class="text-sm line-clamp-1">{item.name}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        ))
-      }
-    </div>
+    <TechDesignA techstack={homePageContent.techstack} />
   </section>
 
   <section class="max-w-2xl mx-auto px-6">
@@ -310,88 +270,9 @@ for (const category of homePageContent.techstack) {
     </div>
   </section>
 
-  <section class="max-w-2xl mx-auto px-6 sm:flex sm:gap-16">
-    <h2 class="mb-8 text-lg sm:mb-0 opacity-60 flex-shrink-0 sm:sticky sm:top-6 sm:self-start">Let's connect</h2>
-    <div>
-      <div class="mb-6">
-        Reach out to me to collaborate on a fun project, build an integration,
-        write an article, or just to say hi.
-      </div>
-      <div class="grid grid-cols-2 gap-2 group">
-        {
-          aboutPageContent.connect.links.map((item) => (
-            <SocialLinkBox {...item} />
-          ))
-        }
-      </div>
-      <div class="mt-6">
-        You can also leave me a message and I'll get in touch with you. Let's do
-        something amazing together!
-      </div>
-      <div>
-        <form
-          class="bg-white/[0.02] mt-4 p-4 rounded-xl border border-white/[0.08] backdrop-blur-3xl flex flex-col gap-3"
-          action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          <div
-            id="contact-success"
-            style="display: none;"
-            class="bg-green-500/10 rounded-xl p-3 border border-green-500/20"
-          >
-            <p class="text-green-200 font-semibold text-center">
-              Thanks for your message!
-            </p>
-          </div>
-
-          <div>
-            <p class="opacity-60 text-sm mb-2">E-mail address:</p>
-            <input
-              required
-              type="email"
-              class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"
-              name="sender"
-              placeholder="you@example.com"
-            />
-          </div>
-
-          <div>
-            <p class="opacity-60 text-sm mb-2">Message:</p>
-            <textarea
-              rows="4"
-              required
-              class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"
-              name="message"
-              placeholder="Enter your text..."></textarea>
-          </div>
-
-          <div class="-mt-1.5">
-            <cap-widget
-              data-cap-api-endpoint="https://formbin.almostapps.eu/captcha/67b1fb59002fe3c932ff/"
-            ></cap-widget>
-          </div>
-
-          <button
-            type="submit"
-            class="bg-white/[0.01] py-2.5 rounded-xl text-white border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.15] backdrop-blur-3xl transition-all duration-200">Send</button
-          >
-        </form>
-        <p class="mt-3 text-sm mb-2 text-center">
-          <span class="opacity-60 inline-block">Powered by</span>
-          <a href="https://formbin.almostapps.eu/" target="_blank">
-            <img
-              src="/formbin.svg"
-              class="inline-block ml-1 mr-1 transform translate-y-[-2px]"
-              width="12"
-            /><span class="inline-block text-[#F06225]">FormBin</span></a
-          >
-          <span class="-ml-1 opacity-60 inline-block"
-            >, one of my side projects.</span
-          >
-        </p>
-      </div>
-    </div>
+  <section class="max-w-2xl mx-auto px-6">
+    <h2 class="mb-8 text-2xl text-[white]">Let's connect</h2>
+    <ConnectDesignA links={aboutPageContent.connect.links} />
   </section>
 
   <GitHubTimeline />
@@ -418,4 +299,54 @@ for (const category of homePageContent.techstack) {
       window.location.pathname + window.location.search,
     );
   }
+
+  // Project carousel navigation
+  function initCarousel() {
+    const carousel = document.getElementById("project-carousel");
+    if (!carousel) return;
+
+    const prevBtns = [document.getElementById("carousel-prev"), document.getElementById("carousel-prev-mobile")];
+    const nextBtns = [document.getElementById("carousel-next"), document.getElementById("carousel-next-mobile")];
+
+    const cardWidth = carousel.querySelector("a")?.offsetWidth ?? 320;
+    const scrollAmount = cardWidth + 16;
+
+    function updateArrows() {
+      const atStart = carousel!.scrollLeft <= 5;
+      const atEnd = carousel!.scrollLeft + carousel!.clientWidth >= carousel!.scrollWidth - 5;
+
+      for (const btn of prevBtns) {
+        if (!btn) continue;
+        btn.style.opacity = atStart ? "0.3" : "1";
+        btn.style.pointerEvents = atStart ? "none" : "auto";
+      }
+      for (const btn of nextBtns) {
+        if (!btn) continue;
+        btn.style.opacity = atEnd ? "0.3" : "1";
+        btn.style.pointerEvents = atEnd ? "none" : "auto";
+      }
+    }
+
+    for (const btn of prevBtns) {
+      btn?.addEventListener("click", () => {
+        carousel.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+    }
+    for (const btn of nextBtns) {
+      btn?.addEventListener("click", () => {
+        carousel.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+    }
+
+    carousel.addEventListener("scroll", updateArrows, { passive: true });
+    updateArrows();
+  }
+
+  initCarousel();
+  document.addEventListener("astro:page-load", initCarousel);
 </script>
+
+<style>
+  .project-carousel::-webkit-scrollbar { display: none; }
+  .project-carousel { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

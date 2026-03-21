@@ -1,0 +1,55 @@
+---
+/**
+ * Design A: Inline social icons + compact form
+ * Social links as a horizontal row of icon buttons.
+ * Form below in a single glass card. Clean and tight.
+ */
+import { Icon } from "astro-icon/components";
+import type { SocialLink } from "../types/config";
+
+interface Props {
+  links: SocialLink[];
+}
+const { links } = Astro.props;
+---
+
+<div>
+  <p class="text-white/50 mb-6">Reach out to collaborate, write an article, or just say hi.</p>
+
+  <div class="flex flex-wrap items-center gap-2 mb-8">
+    {links.map((link) => (
+      <a
+        href={link.url}
+        target={link.external ? "_blank" : "_self"}
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200 text-sm"
+      >
+        <Icon name={link.icon} width={18} height={18} />
+        {link.title}
+      </a>
+    ))}
+  </div>
+
+  <form
+    class="bg-white/[0.02] p-5 rounded-xl border border-white/[0.08] backdrop-blur-3xl flex flex-col gap-3"
+    action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
+    method="POST"
+    enctype="multipart/form-data"
+  >
+    <div id="contact-success" style="display: none;" class="bg-green-500/10 rounded-xl p-3 border border-green-500/20">
+      <p class="text-green-200 font-semibold text-center">Thanks for your message!</p>
+    </div>
+    <p class="text-sm opacity-50 mb-1">Or leave a message directly:</p>
+    <input required type="email" name="sender" placeholder="you@example.com" class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl" />
+    <textarea rows="3" required name="message" placeholder="Your message..." class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"></textarea>
+    <div class="-mt-1.5">
+      <cap-widget data-cap-api-endpoint="https://formbin.almostapps.eu/captcha/67b1fb59002fe3c932ff/"></cap-widget>
+    </div>
+    <button type="submit" class="bg-white/[0.01] py-2.5 rounded-xl text-white border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.15] backdrop-blur-3xl transition-all duration-200">Send</button>
+  </form>
+  <p class="mt-3 text-sm mb-2 text-center">
+    <span class="opacity-60 inline-block">Powered by</span>
+    <a href="https://formbin.almostapps.eu/" target="_blank">
+      <img src="/formbin.svg" class="inline-block ml-1 mr-1 transform translate-y-[-2px]" width="12" /><span class="inline-block text-[#F06225]">FormBin</span></a>
+    <span class="-ml-1 opacity-60 inline-block">, one of my side projects.</span>
+  </p>
+</div>

@@ -99,11 +99,11 @@ const jsonLd = {
       src="https://cloud.umami.is/script.js"
       data-website-id="9cd0e69d-273d-4bbb-88eb-4f10a5019bcd"></script>
   </head>
-  <body class="relative overflow-x-hidden">
+  <body class="relative" style="overflow-x: clip;">
     <!-- Ambient mesh gradient (split for independent X offset) -->
     <div id="ambient-mesh" class="pointer-events-none fixed inset-0 z-0 overflow-hidden opacity-0">
-      <div id="ambient-blue" class="absolute inset-0" style="background: radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59, 130, 246, 0.08), transparent), radial-gradient(ellipse 50% 60% at 30% 80%, rgba(59, 130, 246, 0.04), transparent);"></div>
-      <div id="ambient-pink" class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 80% 20%, rgba(236, 72, 153, 0.06), transparent), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(139, 92, 246, 0.05), transparent);"></div>
+      <div id="ambient-blue" class="absolute inset-0" style="background: radial-gradient(ellipse 80% 50% at 35% 40%, rgba(59, 130, 246, 0.08), transparent), radial-gradient(ellipse 50% 60% at 40% 70%, rgba(59, 130, 246, 0.04), transparent);"></div>
+      <div id="ambient-pink" class="absolute inset-0" style="background: radial-gradient(ellipse 60% 80% at 65% 25%, rgba(236, 72, 153, 0.06), transparent), radial-gradient(ellipse 70% 50% at 60% 60%, rgba(139, 92, 246, 0.05), transparent);"></div>
     </div>
 
     <!-- Noise texture overlay -->
@@ -115,17 +115,20 @@ const jsonLd = {
         <nav class="px-1 py-1 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-3xl shadow-lg shadow-black/20">
           <ul class="flex items-center gap-0.5">
             {
-              navBarLinks.map((link) => (
-                <li>
-                  <a
-                    class="block px-4 py-1.5 text-sm rounded-full text-[var(--text)] opacity-60 hover:opacity-100 hover:bg-[var(--glass-hover)] transition-all"
-                    href={link.url}
-                    target={link.external ? "_blank" : "_self"}
-                  >
-                    {link.title}
-                  </a>
-                </li>
-              ))
+              navBarLinks.map((link) => {
+                const isActive = link.url === "/" ? Astro.url.pathname === "/" : Astro.url.pathname.startsWith(link.url);
+                return (
+                  <li>
+                    <a
+                      class={`block px-4 py-1.5 text-sm rounded-full text-[var(--text)] transition-all ${isActive ? "opacity-100 bg-[var(--glass-hover)]" : "opacity-60 hover:opacity-100 hover:bg-[var(--glass-hover)]"}`}
+                      href={link.url}
+                      target={link.external ? "_blank" : "_self"}
+                    >
+                      {link.title}
+                    </a>
+                  </li>
+                );
+              })
             }
           </ul>
         </nav>
@@ -162,7 +165,7 @@ const jsonLd = {
         // xOffset: blue shifts left by this amount, pink shifts right
         const keyframes = [
           [0, 0, 0],
-          [700, 1, 0],
+          [300, 1, 0],
           [1000, 1, 200],
           [1500, 1, 0],
           [2000, 1, 300],
@@ -223,11 +226,11 @@ const jsonLd = {
         const pinkEl = document.getElementById("ambient-pink");
         if (blueEl && pinkEl) {
           if (theme === "light") {
-            blueEl.style.background = "radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59, 130, 246, 0.15), transparent), radial-gradient(ellipse 50% 60% at 30% 80%, rgba(59, 130, 246, 0.08), transparent)";
-            pinkEl.style.background = "radial-gradient(ellipse 60% 80% at 80% 20%, rgba(236, 72, 153, 0.12), transparent), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(139, 92, 246, 0.1), transparent)";
+            blueEl.style.background = "radial-gradient(ellipse 80% 50% at 35% 40%, rgba(59, 130, 246, 0.15), transparent), radial-gradient(ellipse 50% 60% at 40% 70%, rgba(59, 130, 246, 0.08), transparent)";
+            pinkEl.style.background = "radial-gradient(ellipse 60% 80% at 65% 25%, rgba(236, 72, 153, 0.12), transparent), radial-gradient(ellipse 70% 50% at 60% 60%, rgba(139, 92, 246, 0.1), transparent)";
           } else {
-            blueEl.style.background = "radial-gradient(ellipse 80% 50% at 20% 40%, rgba(59, 130, 246, 0.08), transparent), radial-gradient(ellipse 50% 60% at 30% 80%, rgba(59, 130, 246, 0.04), transparent)";
-            pinkEl.style.background = "radial-gradient(ellipse 60% 80% at 80% 20%, rgba(236, 72, 153, 0.06), transparent), radial-gradient(ellipse 70% 50% at 75% 70%, rgba(139, 92, 246, 0.05), transparent)";
+            blueEl.style.background = "radial-gradient(ellipse 80% 50% at 35% 40%, rgba(59, 130, 246, 0.08), transparent), radial-gradient(ellipse 50% 60% at 40% 70%, rgba(59, 130, 246, 0.04), transparent)";
+            pinkEl.style.background = "radial-gradient(ellipse 60% 80% at 65% 25%, rgba(236, 72, 153, 0.06), transparent), radial-gradient(ellipse 70% 50% at 60% 60%, rgba(139, 92, 246, 0.05), transparent)";
           }
         }
       }
@@ -302,6 +305,7 @@ const jsonLd = {
     font-family: "Inter", sans-serif;
     background: var(--bg);
     transition: background 0.3s ease;
+    overflow-x: clip;
   }
 
   * {
