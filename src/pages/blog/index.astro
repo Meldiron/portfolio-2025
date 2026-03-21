@@ -31,7 +31,7 @@ for (const post of posts) {
               post.data.external ? post.data.external : `/blog/${post.slug}`
             }
             target={post.data.external ? "_blank" : "_self"}
-            class={`group relative sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 rounded-xl p-4 backdrop-blur-3xl transition-all duration-200 ${post.data.highlight || index === 0 ? "bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] hover:border-white/[0.15]" : "bg-white/[0.01] border border-white/[0.03] hover:bg-white/[0.03] hover:border-white/[0.1]"}`}
+            class={`group relative sm:flex sm:flex-row-reverse sm:justify-between sm:gap-6 rounded-xl p-4 liquid-glass transition-all duration-200`}
           >
             <Image
               src={post.data.image.url}

@@ -112,7 +112,7 @@ const jsonLd = {
     <div class="relative z-[2]">
     <header class="fixed top-4 left-0 right-0 z-50 flex justify-center pointer-events-none">
       <div class="pointer-events-auto flex items-center gap-2">
-        <nav class="px-1 py-1 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-3xl shadow-lg shadow-black/20">
+        <nav class="px-1 py-1 rounded-full liquid-glass">
           <ul class="flex items-center gap-0.5">
             {
               navBarLinks.map((link) => {
@@ -134,7 +134,7 @@ const jsonLd = {
         </nav>
         <button
           id="theme-toggle"
-          class="w-8 h-8 rounded-full bg-[var(--glass-bg)] border border-[var(--glass-border)] backdrop-blur-3xl shadow-lg shadow-black/20 flex items-center justify-center hover:bg-[var(--glass-hover)] transition-all"
+          class="w-8 h-8 rounded-full liquid-glass flex items-center justify-center"
           aria-label="Toggle theme"
         >
           <svg id="icon-sun" class="w-4 h-4 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -275,6 +275,10 @@ const jsonLd = {
     --cap-border: rgba(255, 255, 255, 0.1);
     --cap-spinner: rgba(255, 255, 255, 0.5);
     --cap-spinner-bg: rgba(255, 255, 255, 0.1);
+    --liquid-glass-bg: rgba(255, 255, 255, 0.06);
+    --liquid-glass-border: rgba(255, 255, 255, 0.12);
+    --liquid-glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 4px 24px rgba(0, 0, 0, 0.2);
+    --liquid-glass-shine: rgba(255, 255, 255, 0.08);
     color-scheme: dark;
   }
 
@@ -298,6 +302,10 @@ const jsonLd = {
     --cap-spinner: rgba(0, 0, 0, 0.4);
     --cap-spinner-bg: rgba(0, 0, 0, 0.08);
     --grid-stroke: #000000;
+    --liquid-glass-bg: rgba(255, 255, 255, 0.25);
+    --liquid-glass-border: rgba(255, 255, 255, 0.5);
+    --liquid-glass-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 4px 24px rgba(0, 0, 0, 0.06);
+    --liquid-glass-shine: rgba(255, 255, 255, 0.3);
     color-scheme: light;
   }
 
@@ -306,6 +314,20 @@ const jsonLd = {
     background: var(--bg);
     transition: background 0.3s ease;
     overflow-x: clip;
+  }
+
+  /* Liquid glass: low blur + saturation + inset glow */
+  .liquid-glass {
+    background: var(--liquid-glass-bg);
+    border: 1px solid var(--liquid-glass-border);
+    box-shadow: var(--liquid-glass-shadow);
+    -webkit-backdrop-filter: blur(3px) saturate(180%);
+    backdrop-filter: blur(3px) saturate(180%);
+    transition: all 0.2s ease;
+  }
+  .liquid-glass:hover {
+    background: color-mix(in srgb, var(--liquid-glass-bg), var(--liquid-glass-shine));
+    border-color: color-mix(in srgb, var(--liquid-glass-border) 80%, white);
   }
 
   * {

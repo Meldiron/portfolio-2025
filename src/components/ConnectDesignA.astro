@@ -21,7 +21,7 @@ const { links } = Astro.props;
       <a
         href={link.url}
         target={link.external ? "_blank" : "_self"}
-        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/[0.03] border border-white/[0.06] hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200 text-sm"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full liquid-glass transition-all duration-200 text-sm"
       >
         <Icon name={link.icon} width={18} height={18} />
         {link.title}
@@ -30,7 +30,7 @@ const { links } = Astro.props;
   </div>
 
   <form
-    class="bg-white/[0.02] p-5 rounded-xl border border-white/[0.08] backdrop-blur-3xl flex flex-col gap-3"
+    class="liquid-glass p-5 rounded-xl flex flex-col gap-3"
     action="https://formbin.almostapps.eu/s/67b1fb59002fe3c932ff"
     method="POST"
     enctype="multipart/form-data"
@@ -39,12 +39,12 @@ const { links } = Astro.props;
       <p class="text-green-200 font-semibold text-center">Thanks for your message!</p>
     </div>
     <p class="text-sm opacity-50 mb-1">Or leave a message directly:</p>
-    <input required type="email" name="sender" placeholder="you@example.com" class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl" />
-    <textarea rows="3" required name="message" placeholder="Your message..." class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 backdrop-blur-3xl"></textarea>
+    <input required type="email" name="sender" placeholder="you@example.com" class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 " />
+    <textarea rows="3" required name="message" placeholder="Your message..." class="focus:outline-none focus:border-white/20 w-full px-4 py-2.5 bg-white/[0.01] border border-white/[0.05] text-white rounded-xl placeholder-white/30 "></textarea>
     <div class="-mt-1.5">
       <cap-widget data-cap-api-endpoint="https://formbin.almostapps.eu/captcha/67b1fb59002fe3c932ff/"></cap-widget>
     </div>
-    <button type="submit" class="bg-white/[0.01] py-2.5 rounded-xl text-white border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.15] backdrop-blur-3xl transition-all duration-200">Send</button>
+    <button type="submit" class="bg-white/[0.01] py-2.5 rounded-xl text-white border border-white/[0.05] hover:bg-white/[0.06] hover:border-white/[0.15]  transition-all duration-200">Send</button>
   </form>
   <p class="mt-3 text-sm mb-2 text-center">
     <span class="opacity-60 inline-block">Powered by</span>
