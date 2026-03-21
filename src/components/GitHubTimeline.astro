@@ -35,12 +35,12 @@ type MonthData = {
   prs: PR[];
 };
 
-function getColor(count: number): string {
-  if (count >= 15) return "#39d353";
-  if (count >= 10) return "#26a641";
-  if (count >= 5) return "#006d32";
-  if (count >= 1) return "#0e4429";
-  return "rgba(255, 255, 255, 0.05)";
+function getColorClass(count: number): string {
+  if (count >= 15) return "contrib-4";
+  if (count >= 10) return "contrib-3";
+  if (count >= 5) return "contrib-2";
+  if (count >= 1) return "contrib-1";
+  return "contrib-0";
 }
 
 const today = new Date().toISOString().split("T")[0];
@@ -85,7 +85,7 @@ for (const week of dedupedWeeks) {
     if (day.date < startDate || day.date > today) continue;
     const d = new Date(day.date);
     const month = getOrCreateMonth(d);
-    month.days.push({ color: getColor(day.contributionCount), date: day.date, count: day.contributionCount });
+    month.days.push({ color: getColorClass(day.contributionCount), date: day.date, count: day.contributionCount });
     month.totalContributions += day.contributionCount;
   }
 }
@@ -133,8 +133,7 @@ const totalPRs = (githubData.prs as PR[]).length;
           <div class="flex-shrink-0 grid grid-cols-4 gap-1.5 pt-0.5">
             {month.days.map((day) => (
               <div
-                class="timeline-square w-5 h-5 rounded"
-                style={`background-color: ${day.color}`}
+                class={`timeline-square w-5 h-5 rounded ${day.color}`}
                 data-date={new Date(day.date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}
                 data-count={day.count}
               />
