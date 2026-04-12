@@ -275,9 +275,17 @@ if (!isShowcase) {
             return;
           }
 
-          img.setAttribute("data-pswp-src", img.src);
-          img.setAttribute("data-pswp-width", img.naturalWidth + "");
-          img.setAttribute("data-pswp-height", img.naturalHeight + "");
+          function setPswpAttrs(el: HTMLImageElement) {
+            el.setAttribute("data-pswp-src", el.src);
+            el.setAttribute("data-pswp-width", el.naturalWidth + "");
+            el.setAttribute("data-pswp-height", el.naturalHeight + "");
+          }
+
+          if (img.complete && img.naturalWidth > 0) {
+            setPswpAttrs(img);
+          } else {
+            img.addEventListener("load", () => setPswpAttrs(img), { once: true });
+          }
         });
 
         lightbox.init();
@@ -304,9 +312,18 @@ if (!isShowcase) {
 
         document.querySelectorAll(".showcase-gallery img").forEach((img) => {
           if (!(img instanceof HTMLImageElement)) return;
-          img.setAttribute("data-pswp-src", img.src);
-          img.setAttribute("data-pswp-width", img.naturalWidth + "");
-          img.setAttribute("data-pswp-height", img.naturalHeight + "");
+
+          function setPswpAttrs(el: HTMLImageElement) {
+            el.setAttribute("data-pswp-src", el.src);
+            el.setAttribute("data-pswp-width", el.naturalWidth + "");
+            el.setAttribute("data-pswp-height", el.naturalHeight + "");
+          }
+
+          if (img.complete && img.naturalWidth > 0) {
+            setPswpAttrs(img);
+          } else {
+            img.addEventListener("load", () => setPswpAttrs(img), { once: true });
+          }
         });
 
         lightbox.init();
