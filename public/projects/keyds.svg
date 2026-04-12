@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <g fill="#10b981">
+    <!-- Key ring as donut (outer arc CW, inner arc CCW = fill-rule evenodd hole) -->
+    <path fill-rule="evenodd" d="
+      M256 68
+      a80 80 0 1 1 0 160
+      a80 80 0 1 1 0-160
+      Z
+      M256 100
+      a48 48 0 1 0 0 96
+      a48 48 0 1 0 0-96
+      Z
+    "/>
+
+    <!-- Key hole dot -->
+    <circle cx="256" cy="148" r="16"/>
+
+    <!-- Key shaft -->
+    <rect x="240" y="216" width="32" height="120"/>
+
+    <!-- Key teeth -->
+    <rect x="272" y="252" width="32" height="20" rx="3"/>
+    <rect x="272" y="288" width="42" height="20" rx="3"/>
+
+    <!-- Arrow head -->
+    <polygon points="256,420 196,336 232,336 280,336 316,336"/>
+  </g>
+</svg>

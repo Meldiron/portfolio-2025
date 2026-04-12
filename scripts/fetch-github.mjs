@@ -10,6 +10,11 @@ const TOKEN = process.env.PRIVATE_GITHUB_TOKEN;
 const USERNAME = "Meldiron";
 const START_DATE = "2021-08-01";
 
+// Ignore the current (incomplete) month — only include data up to the end of last month
+const now = new Date();
+const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0); // day 0 = last day of prev month
+const CUTOFF_DATE = `${endOfLastMonth.getFullYear()}-${String(endOfLastMonth.getMonth() + 1).padStart(2, "0")}-${String(endOfLastMonth.getDate()).padStart(2, "0")}`;
+
 if (!TOKEN) {
   console.error("PRIVATE_GITHUB_TOKEN is not set");
   process.exit(1);
@@ -116,13 +121,17 @@ async function fetchPRsForRange(from, to) {
 async function getAllPRs() {
   const allPRs = [];
   const startYear = parseInt(START_DATE.split("-")[0], 10);
-  const currentYear = new Date().getFullYear();
+  const cutoffYear = parseInt(CUTOFF_DATE.split("-")[0], 10);
 
-  for (let year = startYear; year <= currentYear; year++) {
+  for (let year = startYear; year <= cutoffYear; year++) {
     const from = year === startYear ? START_DATE : `${year}-01-01`;
-    const to = year === currentYear
-      ? new Date().toISOString().split("T")[0]
-      : `${year}-12-31`;
+    const to = year === cutoffYear
+      ? CUTOFF_DATE
+      : year < cutoffYear
+        ? `${year}-12-31`
+        : null;
+
+    if (to === null) break; // year is past the cutoff
 
     console.log(`  ${from} .. ${to} ...`);
     const prs = await fetchPRsForRange(from, to);
@@ -134,20 +143,28 @@ async function getAllPRs() {
 }
 
 async function main() {
-  const currentYear = new Date().getFullYear();
-
-  // Fetch contributions
-  console.log("Fetching contributions...");
+  // Fetch contributions (up to CUTOFF_DATE, ignoring current month)
+  console.log(`Fetching contributions (cutoff: ${CUTOFF_DATE})...`);
   const allWeeks = [];
   const seenFirstDays = new Set();
+  const cutoffYear = parseInt(CUTOFF_DATE.split("-")[0], 10);
 
-  for (let year = 2021; year <= currentYear; year++) {
+  for (let year = 2021; year <= cutoffYear; year++) {
     console.log(`  Year ${year}...`);
     const weeks = await getContributions(year);
     for (const week of weeks) {
       if (!seenFirstDays.has(week.firstDay)) {
         seenFirstDays.add(week.firstDay);
-        allWeeks.push(week);
+        // Filter out contribution days past the cutoff
+        const filtered = {
+          ...week,
+          contributionDays: week.contributionDays.filter(
+            (day) => day.date <= CUTOFF_DATE
+          ),
+        };
+        if (filtered.contributionDays.length > 0) {
+          allWeeks.push(filtered);
+        }
       }
     }
   }
