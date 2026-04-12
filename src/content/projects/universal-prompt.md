@@ -20,7 +20,7 @@ labels:
   - { name: "TypeScript", url: "https://www.typescriptlang.org/" }
 screenshots:
   - url: "/projects/universal-prompt/hero.png"
-    caption: "Hero section with a list of all supported AI platforms. Just below, the main application component — a textarea to write a shareable prompt in. Alternatively, a quick CTA to pre-fill the prompt with sample text."
+    caption: "Hero section with a list of all supported AI platforms. Just below, the main application component - a textarea to write a shareable prompt in. Alternatively, a quick CTA to pre-fill the prompt with sample text."
   - url: "/projects/universal-prompt/prompt-models.png"
     caption: "Deep links to all AI platforms for the prompt the user entered, with the ability to quickly copy them."
   - url: "/projects/universal-prompt/prompt-favourite.png"

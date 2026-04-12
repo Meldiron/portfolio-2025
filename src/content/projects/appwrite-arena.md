@@ -1,7 +1,7 @@
 ---
 title: "Appwrite Arena"
 pubDate: 2026-02-28 #Y-M-D
-description: "Compare AI models side by side with structured benchmarks covering coding, reasoning, and creative tasks — all focused on Appwrite."
+description: "Compare AI models side by side with structured benchmarks covering coding, reasoning, and creative tasks - all focused on Appwrite."
 github: "appwrite/arena"
 demo: "arena.appwrite.io"
 image: { url: "/projects/appwrite-arena.svg", alt: "Appwrite Arena" }
