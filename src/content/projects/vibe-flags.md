@@ -2,7 +2,7 @@
 title: "Vibe Flags"
 pubDate: 2026-04-05 #Y-M-D
 description: "Feature flags for vibes. No server. No config. No build step."
-github: "https://github.com/Meldiron/vibe-flags"
+github: "Meldiron/vibe-flags"
 demo: "https://vibe-flags.appwrite.network/"
 image: { url: "/projects/vibe-flags.svg", alt: "Vibe Flags" }
 cover:
