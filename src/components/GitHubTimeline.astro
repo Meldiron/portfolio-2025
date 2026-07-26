@@ -147,39 +147,7 @@ const totalPRs = (githubData.prs as PR[]).length;
                 ` · ${month.prs.length} pull request${month.prs.length !== 1 ? "s" : ""}`}
             </p>
 
-            {month.prs.length > 0 && i === 0 && (
-              <div class="mt-2">
-                <button
-                  x-show="!showAllPRs"
-                  @click="showAllPRs = true"
-                  class="text-xs opacity-40 hover:opacity-70 transition-opacity mb-4 -translate-y-2"
-                >
-                  Show all {month.prs.length} pull request{month.prs.length !== 1 ? "s" : ""}
-                </button>
-                <div x-show="showAllPRs" class="space-y-1.5">
-                  {month.prs.map((pr) => (
-                    <a
-                      href={pr.url}
-                      target="_blank"
-                      class="text-xs flex items-start gap-1 opacity-60 hover:opacity-100 transition-opacity"
-                    >
-                      <span class="opacity-60 flex-shrink-0 mt-px">
-                        {pr.repo.split('/')[1]} #{pr.url.split("/").pop()}
-                      </span>
-                      <span class="truncate">{pr.title}</span>
-                    </a>
-                  ))}
-                  <button
-                    @click="showAllPRs = false"
-                    class="text-xs opacity-40 hover:opacity-70 mt-2 transition-opacity"
-                  >
-                    Show less
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {month.prs.length > 0 && i > 0 && (
+            {month.prs.length > 0 && (
               <div class="mt-2">
                 <div class="space-y-1.5">
                   {month.prs.slice(0, month.visiblePRs).map((pr) => (

@@ -10,10 +10,9 @@ const TOKEN = process.env.PRIVATE_GITHUB_TOKEN;
 const USERNAME = "Meldiron";
 const START_DATE = "2021-08-01";
 
-// Ignore the current (incomplete) month — only include data up to the end of last month
+// Include everything up to and including today
 const now = new Date();
-const endOfLastMonth = new Date(now.getFullYear(), now.getMonth(), 0); // day 0 = last day of prev month
-const CUTOFF_DATE = `${endOfLastMonth.getFullYear()}-${String(endOfLastMonth.getMonth() + 1).padStart(2, "0")}-${String(endOfLastMonth.getDate()).padStart(2, "0")}`;
+const CUTOFF_DATE = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
 
 if (!TOKEN) {
   console.error("PRIVATE_GITHUB_TOKEN is not set");
