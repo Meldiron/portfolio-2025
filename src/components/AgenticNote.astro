@@ -4,12 +4,13 @@ import { agenticNote } from "../config";
 
 interface Props {
   questionnaireUrl?: string;
+  class?: string;
 }
 
-const { questionnaireUrl } = Astro.props;
+const { questionnaireUrl, class: className } = Astro.props;
 ---
 
-<section class="px-6 mx-auto max-w-3xl w-full mt-16">
+<section class:list={["px-6 mx-auto max-w-3xl w-full", className]}>
   <div class="rounded-xl liquid-glass px-5 py-4">
     <div class="flex items-start gap-3">
       <div class="mt-0.5 rounded-lg bg-violet-500/15 p-1.5">

@@ -18,6 +18,9 @@ const isShowcase = entry.data.pageLayout === "showcase";
 const questionnaire = (await getCollection("questionnaires")).find(
   (q) => q.data.project === entry.slug
 );
+const questionnaireUrl = questionnaire
+  ? `/projects/${entry.slug}/questionnaire`
+  : undefined;
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -141,6 +144,10 @@ if (!isShowcase) {
           </section>
         )}
 
+        {entry.data.agentic && (
+          <AgenticNote questionnaireUrl={questionnaireUrl} class="!mt-6" />
+        )}
+
         {entry.body.trim().length > 0 && (
           <section class="px-6 mx-auto max-w-3xl w-full mb-8">
             <article class="prose-neutral prose prose-invert prose-p:text-white/70 prose-p:text-lg">
@@ -196,6 +203,10 @@ if (!isShowcase) {
       </>
     ) : (
       <>
+        {entry.data.agentic && (
+          <AgenticNote questionnaireUrl={questionnaireUrl} class="!mt-0" />
+        )}
+
         <section class="px-6 mx-auto max-w-3xl w-full">
           <div class="liquid-glass rounded-xl px-6 py-6 w-full">
             <h3 class="text-lg mb-3 font-semibold">Table of Contents</h3>
@@ -218,16 +229,6 @@ if (!isShowcase) {
           </article>
         </section>
       </>
-    )
-  }
-
-  {
-    entry.data.agentic && (
-      <AgenticNote
-        questionnaireUrl={
-          questionnaire ? `/projects/${entry.slug}/questionnaire` : undefined
-        }
-      />
     )
   }
 </Layout>
