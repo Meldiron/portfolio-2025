@@ -25,6 +25,10 @@ The third-party side is where the OAuth2 server comes in. I imagined the client 
 
 It also served as a test for [Auth UI 2](https://getauthui.appwrite.network), my new drop-in sign-in library for Appwrite, which I had published just four days earlier.
 
+Shoebox is the demo app in [Turn your app into an identity provider with OAuth 2.1](https://www.youtube.com/watch?v=wNHJdfQ9BW4), a video on Appwrite's YouTube channel:
+
+<iframe src="https://www.youtube-nocookie.com/embed/wNHJdfQ9BW4" title="Turn your app into an identity provider with OAuth 2.1" style="width: 100%; aspect-ratio: 16 / 9; border: 0; border-radius: 1rem;" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe>
+
 ## Technologies
 
 - Astro with a single React island
