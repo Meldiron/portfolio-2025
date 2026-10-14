@@ -11,6 +11,7 @@ cover:
     alt: "Investment Playground Thumbnail",
   }
 pageLayout: "showcase"
+agentic: true
 labels:
   - { name: "Vanilla JS" }
   - { name: "D3.js", url: "https://d3js.org/" }

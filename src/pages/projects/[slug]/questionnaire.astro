@@ -1,0 +1,63 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { getCollection, getEntry } from "astro:content";
+import { Icon } from "astro-icon/components";
+
+export async function getStaticPaths() {
+  const questionnaires = await getCollection("questionnaires");
+  return questionnaires.map((questionnaire) => ({
+    params: { slug: questionnaire.data.project },
+    props: { questionnaire },
+  }));
+}
+
+const { questionnaire } = Astro.props;
+const project = await getEntry("projects", questionnaire.data.project);
+const { Content } = await questionnaire.render();
+---
+
+<Layout
+  seo={{
+    title: `${questionnaire.data.title}: questions & answers`,
+    description: `The questions an agent asked me before writing the ${questionnaire.data.title} case study, and my raw answers.`,
+    image: project?.data.image.url ?? "/logo.webp",
+  }}
+>
+  <section class="mt-14 max-w-3xl mx-auto px-6">
+    <a
+      href={`/projects/${questionnaire.data.project}`}
+      class="inline-flex gap-1 items-center mb-6 w-[fit-content] text-white/80 border-white/[0.1] hover:border-white/[0.2] hover:bg-white/[0.05] border rounded-lg text-sm py-0.5 px-2 transition-all"
+    >
+      <Icon name="mdi:arrow-left" size={14} /> Back to the case study
+    </a>
+
+    {
+      project && (
+        <img
+          src={project.data.image.url}
+          alt={project.data.image.alt}
+          width={30}
+          height={30}
+          class="mb-4"
+        />
+      )
+    }
+
+    <h1 class="font-bold text-3xl mb-4">
+      {questionnaire.data.title}: questions & answers
+    </h1>
+    <p class="text-white/50 mb-10">
+      Answered on {
+        questionnaire.data.answeredAt.toLocaleDateString("en-GB", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        })
+      }
+    </p>
+
+    <article class="questionnaire min-w-full w-full prose-neutral prose prose-invert prose-a:text-blue-300 prose-a:underline-offset-4 prose-h2:mt-12 prose-h2:mb-3 prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-2 prose-p:text-white/70 prose-ul:text-white/70 prose-em:text-white/40 prose-strong:text-white/90">
+      <Content />
+    </article>
+  </section>
+</Layout>

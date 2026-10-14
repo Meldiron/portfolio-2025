@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AgenticNote from "../../components/AgenticNote.astro";
 import { getEntry, getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
@@ -14,6 +15,9 @@ if (!entry) {
 
 const { Content, headings } = await entry.render();
 const isShowcase = entry.data.pageLayout === "showcase";
+const questionnaire = (await getCollection("questionnaires")).find(
+  (q) => q.data.project === entry.slug
+);
 
 export async function getStaticPaths() {
   const projects = await getCollection("projects");
@@ -214,6 +218,16 @@ if (!isShowcase) {
           </article>
         </section>
       </>
+    )
+  }
+
+  {
+    entry.data.agentic && (
+      <AgenticNote
+        questionnaireUrl={
+          questionnaire ? `/projects/${entry.slug}/questionnaire` : undefined
+        }
+      />
     )
   }
 </Layout>

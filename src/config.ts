@@ -269,6 +269,13 @@ export const projectsPageContent: ProjectPageContent = {
   },
 };
 
+// Note at the end of case studies made with agents (`agentic: true` in frontmatter)
+export const agenticNote = {
+  title: "Made with agents, built on experience",
+  body: "Put together with agentic automation, but the story is human. Every decision, struggle, and lesson here comes from my own answers and experience. Agents made sure no detail was forgotten and every screenshot is fresh.",
+  questionnaireLabel: "Read the questions and my answers",
+};
+
 // Blog (/blog)
 export const blogPageContent: BlogPageContent = {
   seo: {
