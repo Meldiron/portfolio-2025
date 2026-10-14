@@ -9,6 +9,9 @@ import alpinejs from "@astrojs/alpinejs";
 // https://astro.build/config
 export default defineConfig({
   site: "https://www.matejbaco.eu",
+  redirects: {
+    "/projects/investment-playground": "/projects/because-life-happens",
+  },
   integrations: [
     sitemap({
       changefreq: "weekly",
