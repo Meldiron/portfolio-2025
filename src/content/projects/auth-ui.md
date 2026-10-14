@@ -3,10 +3,13 @@ title: "Auth UI"
 pubDate: 2024-05-11 #Y-M-D
 description: "Fully customizable login flow for any applications."
 github: "Meldiron/authui"
-demo: "authui.site"
+demo: ""
+demoNote: "Demo offline"
 image: { url: "/projects/auth-ui.png", alt: "Auth UI" }
 cover: { url: "/projects/auth-ui-thumbnail.png", alt: "Thumbnail" }
 ---
+
+> Auth UI is now 2.0, rebuilt as web components that run on your own domain. [Read the Auth UI 2.0 case study](/projects/auth-ui-2).
 
 ## Vision
 

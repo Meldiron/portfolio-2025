@@ -56,9 +56,9 @@ projects.sort((a, b) => {
                     {project.data.demo}
                   </a>
                 ) : (
-                  <span class="private-badge inline-flex mr-1 gap-1.5 items-center mb-2 w-[fit-content] border border-dashed rounded-lg text-sm py-0.5 px-2 cursor-default select-none" title="Demo is not publicly available">
+                  <span class="private-badge inline-flex mr-1 gap-1.5 items-center mb-2 w-[fit-content] border border-dashed rounded-lg text-sm py-0.5 px-2 cursor-default select-none" title={project.data.demoNote ? "Demo is no longer available" : "Demo is not publicly available"}>
                     <Icon name="mdi:link-variant" size={14} />
-                    Confidential URL
+                    {project.data.demoNote ?? "Confidential URL"}
                   </span>
                 )}
               </div>

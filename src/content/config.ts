@@ -23,6 +23,8 @@ const projectsCollection = defineCollection({
     title: z.string(),
     github: z.string().optional(),
     demo: z.string().optional(),
+    // Shown instead of "Confidential URL" when a demo is no longer available
+    demoNote: z.string().optional(),
     pubDate: z.date(),
     description: z.string(),
     cover: z
