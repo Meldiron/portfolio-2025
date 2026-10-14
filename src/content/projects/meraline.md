@@ -82,11 +82,11 @@ Settings follow the look of macOS System Settings. The Usage pane counts questio
 
 To launch Meraline, I made a 96-second trailer. I chose Remotion because the agent was confident with it. It could make a full first draft, and I then kept improving the edit with my own experience. The film is cut to a 116 BPM soundtrack, with scene lengths measured in beats, so every cut lands on the music. The footage was recorded from the real app: scripts drove the mouse and keyboard, and ScreenCaptureKit recorded only Meraline's windows, so the menu bar and notifications never appear.
 
-I shared the trailer and later updates in three X threads, each opening with a video:
+I shared the launch and the two biggest updates in three X threads, each opening with a video:
 
-- [September 26](https://x.com/meldiron/status/2103925364766695512), the day the trailer was finished
-- [September 29](https://x.com/meldiron/status/2105038700082319801), the day Decision mode shipped
-- [October 3](https://x.com/meldiron/status/2106351089477890186), the day Live decisions got its promo clip
+- [The launch with the trailer](https://x.com/meldiron/status/2103925364766695512), September 26: "I made Meraline, a tiny Mac app for quick AI questions."
+- [Decision mode](https://x.com/meldiron/status/2105038700082319801), September 29: "Meraline now decides."
+- [Live decisions](https://x.com/meldiron/status/2106351089477890186), October 3: "AI is making you lazy. So Meraline now does the opposite."
 
 ## Retrospective
 
