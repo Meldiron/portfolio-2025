@@ -11,6 +11,8 @@ export default defineConfig({
   site: "https://www.matejbaco.eu",
   redirects: {
     "/projects/investment-playground": "/projects/because-life-happens",
+    "/projects/card-jigsaw-world": "/projects/carden",
+    "/projects/card-jigsaw-world/questionnaire": "/projects/carden/questionnaire",
   },
   integrations: [
     sitemap({

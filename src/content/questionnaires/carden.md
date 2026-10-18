@@ -1,6 +1,6 @@
 ---
-project: "card-jigsaw-world"
-title: "Card Jigsaw World"
+project: "carden"
+title: "Carden"
 answeredAt: 2026-10-14
 ---
 
