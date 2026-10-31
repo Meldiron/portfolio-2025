@@ -5,11 +5,7 @@ description: "Ask AI anything from ⌥ Space in any Mac app, then let it go."
 github: "Meldiron/meraline"
 demo: "github.com/Meldiron/meraline/releases/latest"
 image: { url: "/projects/meraline.png", alt: "Meraline" }
-cover:
-  {
-    url: "/projects/meraline-thumbnail.png",
-    alt: "Meraline Thumbnail",
-  }
+cover: { url: "/projects/illustrations/meraline.webp", alt: "A dark Option key with a glowing magenta Option symbol and a small smiling sparkle on its corner" }
 agentic: true
 ---
 

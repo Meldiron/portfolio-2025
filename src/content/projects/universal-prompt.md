@@ -5,11 +5,7 @@ description: "Write your prompt once. Get instant deep links to open it in ChatG
 github: "Meldiron/universal-prompt"
 demo: "universal-prompt.appwrite.network"
 image: { url: "/projects/universal-prompt.svg", alt: "Universal Prompt" }
-cover:
-  {
-    url: "/projects/universal-prompt-thumbnail.png",
-    alt: "Universal Prompt Thumbnail",
-  }
+cover: { url: "/projects/illustrations/universal-prompt.webp", alt: "A white speech bubble with a glowing cursor and three small bubbles trailing off" }
 pageLayout: "showcase"
 labels:
   - { name: "React", url: "https://react.dev/" }

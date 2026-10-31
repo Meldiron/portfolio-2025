@@ -5,11 +5,7 @@ description: "Internal management and distribution platform for drop-shipping so
 github: ""
 demo: ""
 image: { url: "/projects/keyds.svg", alt: "KeyDS" }
-cover:
-  {
-    url: "/projects/keyds-thumbnail.png",
-    alt: "KeyDS Thumbnail",
-  }
+cover: { url: "/projects/illustrations/keyds.webp", alt: "A dark key with a glowing green inlay along its blade and a licence code tag" }
 pageLayout: "showcase"
 labels:
   - { name: "TanStack Start", url: "https://tanstack.com/start" }

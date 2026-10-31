@@ -5,11 +5,7 @@ description: "A game-like playground showing what investments promise at 65 vers
 github: "Meldiron/because-life-happens"
 demo: "because-life-happens.appwrite.network"
 image: { url: "/projects/because-life-happens.svg", alt: "Because Life Happens" }
-cover:
-  {
-    url: "/projects/because-life-happens-thumbnail.png",
-    alt: "Because Life Happens Thumbnail",
-  }
+cover: { url: "/projects/illustrations/because-life-happens.webp", alt: "A white piggy bank with a crack down its side and a pink coin flipping above it" }
 pageLayout: "showcase"
 agentic: true
 labels:

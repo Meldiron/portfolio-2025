@@ -5,11 +5,7 @@ description: "A minimal private photo gallery, built to demo Appwrite's OAuth2 s
 github: "Meldiron/shoebox"
 demo: "shoebox.appwrite.network"
 image: { url: "/projects/shoebox.svg", alt: "Shoebox" }
-cover:
-  {
-    url: "/projects/shoebox-thumbnail.png",
-    alt: "Shoebox Thumbnail",
-  }
+cover: { url: "/projects/illustrations/shoebox.webp", alt: "An open white shoebox with photo prints standing inside" }
 agentic: true
 ---
 

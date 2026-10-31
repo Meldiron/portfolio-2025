@@ -5,7 +5,7 @@ description: "Simple and powerful backend for your HTML forms."
 github: "Meldiron/form-bin"
 demo: "formbin.almostapps.eu"
 image: { url: "/projects/formbin.png", alt: "FormBin" }
-cover: { url: "/projects/formbin-thumbnail.png", alt: "Thumbnail" }
+cover: { url: "/projects/illustrations/formbin.webp", alt: "An arch-shaped bin with a dark front and a form being posted into its glowing slot" }
 ---
 
 ## Vision

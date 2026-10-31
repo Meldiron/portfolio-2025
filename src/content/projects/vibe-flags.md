@@ -5,11 +5,7 @@ description: "Feature flags for vibes. No server. No config. No build step."
 github: "Meldiron/vibe-flags"
 demo: "https://vibe-flags.appwrite.network/"
 image: { url: "/projects/vibe-flags.svg", alt: "Vibe Flags" }
-cover:
-  {
-    url: "/projects/vibe-flags-thumbnail.png",
-    alt: "Vibe Flags Thumbnail",
-  }
+cover: { url: "/projects/illustrations/vibe-flags.webp", alt: "A white toggle switch turned on, with a small flag planted in its knob" }
 pageLayout: "showcase"
 labels:
   - { name: "Lit", url: "https://lit.dev/" }

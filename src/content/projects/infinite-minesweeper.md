@@ -5,11 +5,7 @@ description: "Minesweeper on a grid with no edges. Clear 8×8 sectors, survive o
 github: "Meldiron/infinite-minesweeper"
 demo: "minesweeper.almostapps.eu"
 image: { url: "/projects/infinite-minesweeper.svg", alt: "Infinite Minesweeper" }
-cover:
-  {
-    url: "/projects/infinite-minesweeper-thumbnail.png",
-    alt: "Infinite Minesweeper Thumbnail",
-  }
+cover: { url: "/projects/illustrations/infinite-minesweeper.webp", alt: "A dark sea mine with a glowing core and a red flag planted on top" }
 agentic: true
 ---
 

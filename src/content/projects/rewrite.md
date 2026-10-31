@@ -5,7 +5,7 @@ description: "Practice typing by rewriting books as you read them."
 github: "meldiron/rewrite"
 demo: "rewrite.almostapps.eu"
 image: { url: "/projects/rewrite.png", alt: "Logo" }
-cover: { url: "/projects/rewrite-thumbnail.png", alt: "Thumbnail" }
+cover: { url: "/projects/illustrations/rewrite.webp", alt: "An open book with its first line highlighted in green as it is retyped" }
 ---
 
 ## Vision

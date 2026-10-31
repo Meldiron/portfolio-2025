@@ -5,11 +5,7 @@ description: "Create and share pixel games with your friends, colleagues, and co
 github: "Meldiron/odyc-play"
 demo: "odyc.appwrite.network"
 image: { url: "/projects/odyc-play.svg", alt: "Odyc Play" }
-cover:
-  {
-    url: "/projects/odyc-play-thumbnail.png",
-    alt: "Odyc Play Thumbnail",
-  }
+cover: { url: "/projects/illustrations/odyc-play.webp", alt: "A pink voxel flamingo standing on one leg on a lit game tile" }
 agentic: true
 ---
 

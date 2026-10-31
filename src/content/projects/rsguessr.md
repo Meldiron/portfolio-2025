@@ -5,11 +5,7 @@ description: "GeoGuessr, but RuneScape 3. Look at a screenshot and guess where i
 github: "Meldiron/rsguessr"
 demo: "rsguessr.appwrite.network"
 image: { url: "/projects/rsguessr.png", alt: "RSGuessr" }
-cover:
-  {
-    url: "/projects/rsguessr-thumbnail.png",
-    alt: "RSGuessr Thumbnail",
-  }
+cover: { url: "/projects/illustrations/rsguessr.webp", alt: "A white map pin with a gold dot, standing on a round map with engraved contour lines" }
 agentic: true
 ---
 

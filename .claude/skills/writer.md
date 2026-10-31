@@ -2,6 +2,8 @@
 
 Use this skill when writing or editing `*.md` files in `src/content/`.
 
+Adding a whole new project (research, questionnaire, screenshots, the 3D banner, publishing) follows `.claude/skills/add-project/SKILL.md`, which uses this skill for the text.
+
 ## Rules
 
 ### 1. Follow the structure of nearby markdown files

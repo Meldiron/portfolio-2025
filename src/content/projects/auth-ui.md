@@ -6,7 +6,7 @@ github: "Meldiron/authui"
 demo: ""
 demoNote: "Demo offline"
 image: { url: "/projects/auth-ui.png", alt: "Auth UI" }
-cover: { url: "/projects/auth-ui-thumbnail.png", alt: "Thumbnail" }
+cover: { url: "/projects/illustrations/auth-ui.webp", alt: "A white ID badge on a lanyard clip with a glowing chip" }
 ---
 
 > Auth UI is now 2.0, rebuilt as web components that run on your own domain. [Read the Auth UI 2.0 case study](/projects/auth-ui-2).

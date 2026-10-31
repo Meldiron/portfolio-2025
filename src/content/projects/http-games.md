@@ -5,8 +5,7 @@ description: "Play games by sending REST API requests."
 github: "Meldiron/http-games"
 demo: "http-games.almostapps.eu"
 image: { url: "/projects/http-games.png", alt: "HTTP Games" }
-cover:
-  { url: "/projects/http-games-thumbnail.png", alt: "HTTP Games Thumbnail" }
+cover: { url: "/projects/illustrations/http-games.webp", alt: "A grey game controller with one glowing button and a POST /move tag" }
 ---
 
 ## Vision

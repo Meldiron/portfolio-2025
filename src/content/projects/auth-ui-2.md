@@ -5,7 +5,7 @@ description: "Drop-in authentication UI for Appwrite. One script tag, every sign
 github: "Meldiron/getauthui"
 demo: "getauthui.appwrite.network"
 image: { url: "/projects/auth-ui-2.svg", alt: "Auth UI 2.0" }
-cover: { url: "/projects/auth-ui-2-thumbnail.png", alt: "Auth UI 2.0 Thumbnail" }
+cover: { url: "/projects/illustrations/auth-ui-2.webp", alt: "A dark shield with a glowing violet check mark, next to an authui-sign-in tag" }
 agentic: true
 ---
 

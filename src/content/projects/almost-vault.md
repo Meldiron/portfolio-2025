@@ -5,7 +5,7 @@ description: "Quickly share passwords and secrets with anyone."
 github: "Meldiron/almost-vault"
 demo: "almost-vault.appwrite.network"
 image: { url: "/projects/almost-vault.png", alt: "Almost Vault" }
-cover: { url: "/projects/almost-vault-thumbnail.png", alt: "Thumbnail" }
+cover: { url: "/projects/illustrations/almost-vault.webp", alt: "A dark padlock with its shackle swung open and a glowing red keyhole" }
 ---
 
 ## Vision

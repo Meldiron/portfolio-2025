@@ -5,11 +5,7 @@ description: "Compare AI models side by side with structured benchmarks covering
 github: "appwrite/arena"
 demo: "arena.appwrite.io"
 image: { url: "/projects/appwrite-arena.svg", alt: "Appwrite Arena" }
-cover:
-  {
-    url: "/projects/appwrite-arena-thumbnail.png",
-    alt: "Appwrite Arena Thumbnail",
-  }
+cover: { url: "/projects/illustrations/appwrite-arena.webp", alt: "A three-step podium with a glowing pink cube on the top step" }
 pageLayout: "showcase"
 labels:
   - { name: "TanStack Start", url: "https://tanstack.com/start" }

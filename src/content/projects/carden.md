@@ -5,11 +5,7 @@ description: "Your calm picture puzzle, for iPhone and the web. Swap cards aroun
 github: "Meldiron/carden"
 demo: "carden.appwrite.network"
 image: { url: "/projects/carden.png", alt: "Carden" }
-cover:
-  {
-    url: "/projects/carden-thumbnail.png",
-    alt: "Carden Thumbnail",
-  }
+cover: { url: "/projects/illustrations/carden.webp", alt: "A white playing card with an amber lotus in a bowl, on top of a small deck" }
 agentic: true
 ---
 

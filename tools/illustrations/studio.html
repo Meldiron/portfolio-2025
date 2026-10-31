@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Illustration studio</title>
+<script type="importmap">{ "imports": { "three": "/vendor/three/build/three.module.js", "three/addons/": "/vendor/three/examples/jsm/" } }</script>
+<style>
+  @font-face { font-family: Inter; src: url(/public/fonts/InterVariable.woff2) format('woff2'); font-weight: 100 900; }
+  html, body { margin: 0; background: #0b0b0c; color: #ccc; font: 14px Inter, sans-serif; }
+  canvas { display: block; }
+  .grid { display: grid; grid-template-columns: repeat(2, 800px); gap: 26px 22px; padding: 22px; }
+  .grid img { display: block; width: 800px; border-radius: 10px; }
+  .grid img + img { margin-top: 8px; height: 203px; object-fit: cover; }
+  .grid h3 { margin: 0 0 8px; font-weight: 600; font-size: 14px; }
+</style>
+</head>
+<body>
+<script type="module">
+  // ?p=<slug>&w=1600&h=840&dpr=2   render one frame into a canvas (used by export.mjs)
+  // ?only=a,b                       overview of covers and strips, rendered one after another
+  import { renderScene, composeFrame } from './engine.js';
+  const q = new URLSearchParams(location.search);
+  if (q.get('fk')) globalThis.__focusK = +q.get('fk');
+  await document.fonts.load('600 40px Inter');
+  try {
+    if (q.get('p')) {
+      // load the one scene directly, so a broken scene elsewhere cannot stop this render
+      const base = (await import(`./scenes/${q.get('p')}.js?t=${Date.now()}`)).default;
+      // ?v=stage+echo+cast tries the optional treatments on a scene without editing it
+      const flags = { stage: { stage: true }, echo: { echo: true }, cast: { useCast: true }, wash: { wash: true }, horizon: { horizon: true }, horizonfull: { horizon: true, horizonFull: true }, lights: { lights: true } };
+      const p = { ...base, ...Object.assign({}, ...(q.get('v') ?? '').split('+').filter(Boolean).map((k) => flags[k] ?? {})) };
+      const c = document.createElement('canvas'); document.body.append(c);
+      const [W, H, dpr, surface] = [+(q.get('w') ?? 1600), +(q.get('h') ?? 840), +(q.get('dpr') ?? 2), q.get('surface') ?? undefined];
+      await renderScene(c, p, W, H, dpr, surface);
+      document.body.append(await composeFrame(c, p, W, H, dpr, surface ?? (W / H > 2.6 ? 'strip' : W < 700 ? 'card' : 'cover')));
+    } else if (q.has('only') || q.has('all')) {
+      const { PROJECTS } = await import('./scenes/index.js');
+      const only = q.get('only')?.split(',').filter(Boolean);
+      const grid = document.createElement('div'); grid.className = 'grid'; document.body.append(grid);
+      for (const p of PROJECTS.filter((x) => !only?.length || only.includes(x.slug))) {
+        const item = document.createElement('div'); item.innerHTML = `<h3>${p.title}</h3>`; grid.append(item);
+        for (const [w, h] of [[800, 420], [800, 203]]) {
+          const c = document.createElement('canvas');
+          const r = await renderScene(c, p, w, h, 2);
+          const img = new Image(); img.src = c.toDataURL('image/png'); item.append(img);
+          r.dispose(); r.renderer.forceContextLoss();
+        }
+      }
+    }
+    window.__done = true;
+  } catch (e) { window.__error = String(e.stack || e); window.__done = true; }
+</script>
+</body>
+</html>

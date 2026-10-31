@@ -7,6 +7,7 @@ import Graph from "../components/Graph.astro";
 import ConnectDesignA from "../components/ConnectDesignA.astro";
 import CareerDesignA from "../components/CareerDesignA.astro";
 import { getCollection } from "astro:content";
+import { bannerSize } from "../lib/banner";
 import CommunityStampsBoard from "../components/CommunityStampsBoard.astro";
 import AIButtonPill from "../components/AIButtonPill.astro";
 import GitHubTimeline from "../components/GitHubTimeline.astro";
@@ -144,11 +145,13 @@ for (const category of homePageContent.techstack) {
               {project.data.cover && (
                 <div class="relative h-[160px] overflow-hidden">
                   <img
-                    src={project.data.cover.url}
+                    src={bannerSize(project.data.cover.url, "card")}
                     alt={project.data.cover.alt}
-                    width={320}
+                    width={300}
                     height={160}
-                    class="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                   <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
                 </div>

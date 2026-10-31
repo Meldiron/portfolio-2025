@@ -5,11 +5,7 @@ description: "Your ultimate Trackmania medal dashboard. Compare with friends and
 github: "Meldiron/tmstats"
 demo: "https://tmstats.almostapps.eu/"
 image: { url: "/projects/tm-stats.png", alt: "TMStats" }
-cover:
-  {
-    url: "/projects/tm-stats-thumbnail.png",
-    alt: "TMStats Thumbnail",
-  }
+cover: { url: "/projects/illustrations/tm-stats.webp", alt: "A polished gold medal with a 1 on its face, hanging from a dark twisted ribbon" }
 pageLayout: "showcase"
 labels:
   - { name: "Svelte", url: "https://svelte.dev/" }

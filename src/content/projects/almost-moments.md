@@ -5,11 +5,7 @@ description: "Collect moments that almost slipped away. No apps, no signups, and
 github: "Meldiron/almost-moments"
 demo: "moments.almostapps.eu"
 image: { url: "/projects/almost-moments.svg", alt: "Almost Moments logo" }
-cover:
-  {
-    url: "/projects/almost-moments-thumbnail.png",
-    alt: "Almost Moments Thumbnail",
-  }
+cover: { url: "/projects/illustrations/almost-moments.webp", alt: "A white instant camera with a party photo coming out of the top" }
 ---
 
 > Disclaimer: As a learning opportunity for skills and writing content with AI, this entire article has been written by AI. It's pretty clear, but I decided to keep it like this anyway, for this one project. All information has been verified and is accurate. All ideas and thoughts I wanted to capture were captured. It's just tone that makes this evident AI content.

@@ -1,10 +1,10 @@
 ---
 import { Icon } from "astro-icon/components";
-import { Image } from "astro:assets";
 import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 import { projectsPageContent } from "../../config";
 import YearHeaderC from "../../components/YearHeaderC.astro";
+import { bannerSize } from "../../lib/banner";
 
 const projects = await getCollection("projects");
 projects.sort((a, b) => {
@@ -92,13 +92,14 @@ projects.sort((a, b) => {
 
                 {project.data.cover && (
                   <div class="relative mt-4">
-                    <div class="absolute bottom-0 w-full left-0 h-[100px] bg-gradient-to-b from-transparent to-black/90 rounded-b-lg" />
-                    <Image
-                      src={project.data.cover.url}
+                    <img
+                      src={bannerSize(project.data.cover.url, "strip")}
                       alt={project.data.cover.alt}
-                      width={250}
-                      height={150}
-                      class="w-full h-[150px] object-cover object-top rounded-lg"
+                      width={592}
+                      height={210}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-auto aspect-[592/210] object-cover rounded-lg"
                     />
                   </div>
                 )}
