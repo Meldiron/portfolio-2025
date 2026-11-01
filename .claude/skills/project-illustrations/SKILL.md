@@ -120,6 +120,9 @@ Judge every banner in the context of the full list, not on its own.
   - stand the hero upright, without a sideways lean;
   - turn the hero's key face (the dot, the screen, the label) towards the camera. Rotate it by the camera yaw (25 degrees) minus the group's own turn.
 
+- **Wide objects come out small on the card** (Co na to AI). The engine caps an object at 62% of the card width, so a 3:1 object fills less than half the card's height. Keep the object near 3:2, or stack its parts, before tuning anything else.
+- **A large glowing plate washes to white** (Co na to AI). A `mat.glow` face the size of a quarter of the object blooms into a white block at the usual intensity, and anything printed on it disappears. Keep the intensity around 0.5 and set `bloom: 0.16` on the scene, or glow a small part instead.
+
 ## Lessons from the first 20 banners
 
 These cost time to find. Apply them from the start.

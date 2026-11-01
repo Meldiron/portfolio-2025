@@ -1,0 +1,17 @@
+{
+  "slug": "example-project",
+  "title": "Example Project",
+  "summary": [
+    "Replace this with three to five paragraphs of what you found: what the app does, flow by flow, the stack, the timeline from the commits with dates and counts, who it is for, and anything that looks broken. State what you believe where a fact could not be checked; the correction box catches it.",
+    "Every sentence here must come from the code, the history, the live app or a play-test. The author never confirms facts in the questions."
+  ],
+  "questions": [
+    { "id": "itch", "section": "Origin", "type": "text", "q": "What was the itch? Where did the idea come from, and why this shape?", "context": ["The first commit came three weeks after a similar app was archived.", "The README names a tool it replaces."], "hint": "The moment the idea clicked, what you had tried before, who it was for at the start." },
+    { "id": "brief", "section": "Origin", "type": "text", "q": "What did you decide yourself, and what did you leave to the agent?", "context": ["The second commit, 40 minutes after the scaffold, already held the whole app, so the brief carried a lot."], "hint": "What the brief said, which tools and skills it named, what surprised you in what came back." },
+    { "id": "hard", "section": "Building it", "type": "multi", "q": "What was hardest to get right?", "options": ["Option taken from the history", "Another one", "A third one", "A fourth one"], "context": ["The matcher was reworked three times on day one."], "hint": "Pick what applies and say why it was hard." },
+    { "id": "surprise", "section": "Building it", "type": "text", "q": "What surprised you, in the product or in the tooling?", "context": ["A fact from the play-test that looked odd."], "hint": "A result, a user, a moment the agent did something you did not expect." },
+    { "id": "learned", "section": "Looking back", "type": "text", "q": "What did you learn, and what would you do differently?", "context": ["One day of building, two days of fixes, nothing since."], "hint": "About agents, about the brief, about the product." },
+    { "id": "people", "section": "Looking back", "type": "text", "q": "Who uses it, and what did they say?", "context": ["Three names on the live leaderboard."], "hint": "Friends, colleagues, strangers; the feedback that stuck." },
+    { "id": "next", "section": "Looking back", "type": "text", "q": "What is next, and what does it cost to keep running?", "context": ["About $5 a month in API calls at the current rate."], "hint": "Plans, a budget cap, how long you mean to keep it up." }
+  ]
+}
