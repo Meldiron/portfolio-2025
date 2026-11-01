@@ -1,4 +1,5 @@
 // Every project with an illustration, in the order the portfolio lists them (used by the studio overview).
+import p_coNaToAi from './co-na-to-ai.js';
 import p_becauseLifeHappens from './because-life-happens.js';
 import p_carden from './carden.js';
 import p_meraline from './meraline.js';
@@ -20,4 +21,4 @@ import p_authUi from './auth-ui.js';
 import p_rewrite from './rewrite.js';
 import p_rsguessr from './rsguessr.js';
 
-export const PROJECTS = [p_becauseLifeHappens, p_carden, p_meraline, p_shoebox, p_authUi2, p_odycPlay, p_keyds, p_vibeFlags, p_universalPrompt, p_appwriteArena, p_rdo1337, p_almostMoments, p_infiniteMinesweeper, p_httpGames, p_almostVault, p_tmStats, p_formbin, p_authUi, p_rewrite, p_rsguessr];
+export const PROJECTS = [p_coNaToAi, p_becauseLifeHappens, p_carden, p_meraline, p_shoebox, p_authUi2, p_odycPlay, p_keyds, p_vibeFlags, p_universalPrompt, p_appwriteArena, p_rdo1337, p_almostMoments, p_infiniteMinesweeper, p_httpGames, p_almostVault, p_tmStats, p_formbin, p_authUi, p_rewrite, p_rsguessr];
